@@ -875,6 +875,9 @@
   "use strict";
   var SUPABASE_URL = "https://thiqwyltfgtluxizsaee.supabase.co";
   var KEY = "sb_publishable_5QySg5h9PeB_uROILAiSww_hfkEk12B";
+  // Edge functions still only accept the legacy anon JWT on this project, so
+  // the delivery-rate lookup signs with it instead of the publishable key.
+  var FN_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRoaXF3eWx0Zmd0bHV4aXpzYWVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4Mjk3NTQsImV4cCI6MjEwODQwNTc1NH0.jA-8Q1d43Nzd4K__CS7psGv8knIIHYOpA_zp7d3538g";
   var WA = "919563205299";
   var LANG = localStorage.getItem("gf_lang") || "en";
   var sb = window.supabase.createClient(SUPABASE_URL, KEY);
@@ -1347,7 +1350,7 @@
     try {
       var r = await fetch(SUPABASE_URL + "/functions/v1/shiprocket", {
         method: "POST",
-        headers: { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json" },
+        headers: { apikey: FN_KEY, Authorization: "Bearer " + FN_KEY, "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "rate",
           public: true,
