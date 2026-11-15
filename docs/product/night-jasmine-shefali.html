@@ -41,7 +41,9 @@ h1{font-size:23px;line-height:1.2;margin:0 0 4px;letter-spacing:-.4px}
 .price{font-size:24px;font-weight:900;color:var(--gold);margin:6px 0 2px}
 .price small{font-size:12px;color:var(--muted);font-weight:700}
 .sizes{list-style:none;display:grid;gap:6px;margin:10px 0 0;padding:0}
-.sizes li{display:flex;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:13.5px}
+.sizes li{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:13.5px;cursor:pointer;transition:border-color .15s,background .15s}
+.sizes li.on{border-color:#A9741C;background:#FFFBF2;box-shadow:0 0 0 1px #A9741C inset}
+.sizes li.on span{font-weight:800}
 .sizes b{color:var(--gold)}
 .btn{display:block;text-align:center;font-weight:900;font-size:15px;padding:14px;border-radius:14px;margin-top:10px}
 .solid{background:linear-gradient(135deg,#F5C766,#E3A62E);color:#2A2210;box-shadow:0 8px 20px rgba(200,145,35,.22)}
@@ -79,9 +81,9 @@ footer a{text-decoration:underline}
       <span class="cat">Flower plants</span>
       <h1>Night Jasmine (Shefali)</h1>
       <p class="bn">শেফালি / হরসিংগার — ফুলের গাছ</p>
-      <div class="price">₹129 – ₹399 <small>3 sizes</small></div>
-      <ul class="sizes"><li><span>1-1.5 feet</span><b>₹129</b></li><li><span>2-2.5 feet</span><b>₹229</b></li><li><span>3-4 feet</span><b>₹399</b></li></ul>
-      <a class="btn solid" href="../index.html?add=56ecda51-ad56-40b8-b43d-73abfcb2618f">Add to cart</a>
+      <div class="price"><span id="priceNow">₹129 – ₹399</span> <small>3 sizes</small></div>
+      <ul class="sizes"><li data-label="S" data-price="₹129"><span>S</span><b>₹129</b></li><li data-label="M" data-price="₹229"><span>M</span><b>₹229</b></li><li data-label="L" data-price="₹399"><span>L</span><b>₹399</b></li></ul>
+      <a class="btn solid" id="addBtn" href="../index.html?add=56ecda51-ad56-40b8-b43d-73abfcb2618f" data-add="56ecda51-ad56-40b8-b43d-73abfcb2618f">Add to cart</a>
       <a class="btn line" href="https://wa.me/919563205299?text=Hello%21%20I%20would%20like%20this%20plant%3A%20Night%20Jasmine%20%28Shefali%29">💬 Order on WhatsApp</a>
       <ul class="specs">
         <li><b>Height</b>Up to 8 ft</li>
@@ -100,11 +102,30 @@ footer a{text-decoration:underline}
   </section>
 </main>
 
-<section class="wrap rel"><h2>More flower plants</h2><div class="relgrid"><a class="relcard" href="dahlia.html"><img src="https://greenfriendnursery.github.io/products/thumbs/dahlia.jpg" alt="Dahlia" loading="lazy"><b>Dahlia</b><span>from ₹99</span></a><a class="relcard" href="gerbera.html"><img src="https://greenfriendnursery.github.io/products/thumbs/gerbera.jpg" alt="Gerbera" loading="lazy"><b>Gerbera</b><span>from ₹99</span></a><a class="relcard" href="kamini-murraya.html"><img src="https://greenfriendnursery.github.io/products/thumbs/kamini.jpg" alt="Kamini (Murraya)" loading="lazy"><b>Kamini (Murraya)</b><span>from ₹149</span></a></div></section>
+<section class="wrap rel"><h2>More flower plants</h2><div class="relgrid"><a class="relcard" href="bougainvillea-barbara-karst.html"><img src="https://greenfriendnursery.github.io/products/thumbs/bougainvillea-barbara-karst.jpg" alt="Bougainvillea Barbara Karst" loading="lazy"><b>Bougainvillea Barbara Karst</b><span>from ₹149</span></a><a class="relcard" href="bougainvillea-carsons-gold.html"><img src="https://greenfriendnursery.github.io/products/thumbs/bougainvillea-carsons-gold.jpg" alt="Bougainvillea Carsons Gold" loading="lazy"><b>Bougainvillea Carsons Gold</b><span>from ₹149</span></a><a class="relcard" href="bougainvillea-bengal-orange.html"><img src="https://greenfriendnursery.github.io/products/thumbs/bougainvillea-bengal-orange.jpg" alt="Bougainvillea Bengal Orange" loading="lazy"><b>Bougainvillea Bengal Orange</b><span>from ₹149</span></a></div></section>
 
 <footer>
   Green Friend · Malda &amp; Murshidabad, West Bengal · <a href="../index.html">Shop all plants</a> · <a href="../photo-credits.html">Photo credits</a><br>
   Prices include all taxes. Delivery is free on orders above ₹1000.
 </footer>
+<script>
+(function () {
+  var rows = document.querySelectorAll('.sizes li');
+  var btn = document.getElementById('addBtn');
+  var priceEl = document.getElementById('priceNow');
+  if (!rows.length || !btn) return;
+  function pick(li) {
+    for (var i = 0; i < rows.length; i++) rows[i].classList.remove('on');
+    li.classList.add('on');
+    var label = li.getAttribute('data-label') || '';
+    btn.setAttribute('href', '../index.html?add=' + btn.getAttribute('data-add') + '&size=' + encodeURIComponent(label));
+    if (priceEl) priceEl.textContent = li.getAttribute('data-price') || priceEl.textContent;
+  }
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].addEventListener('click', (function (li) { return function () { pick(li); }; })(rows[i]));
+  }
+  pick(rows[0]);
+})();
+</script>
 </body>
 </html>
