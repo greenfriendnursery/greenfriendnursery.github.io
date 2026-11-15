@@ -10,7 +10,10 @@
 <meta property="og:title" content="Green Friend — আমের গাছ, মালদা ও মুর্শিদাবাদ">
 <meta property="og:description" content="৮ ফুট হাইটের আমের গাছ — মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ, কম দামে, ১০০% গ্যারান্টি সহ।">
 <link rel="canonical" href="https://greenfriendnursery.github.io/">
-<link rel="preload" as="image" href="products/banner-1.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="products/sb-langra-mango-1.jpg" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -35,7 +38,7 @@
     { "@type": "Question", "name": "What are the delivery charges?", "acceptedAnswer": { "@type": "Answer", "text": "Delivery is completely free on orders of ₹1000 or more. Below that the charge is shown at checkout — no hidden costs." } },
     { "@type": "Question", "name": "Are the plants really 8 feet?", "acceptedAnswer": { "@type": "Answer", "text": "Mango plants grow up to 8 feet. Every product has 3 sizes (small / medium / large), with the price and height listed on the product page." } },
     { "@type": "Question", "name": "What if the plant arrives damaged or wrong?", "acceptedAnswer": { "@type": "Answer", "text": "Send a photo or video on WhatsApp within 24 hours of delivery. After checking, we replace it free of cost." } },
-    { "@type": "Question", "name": "How can I pay?", "acceptedAnswer": { "@type": "Answer", "text": "Cash on delivery, UPI (12-digit UTR) or bank transfer. Ordering in the app is even easier." } },
+    { "@type": "Question", "name": "How can I pay?", "acceptedAnswer": { "@type": "Answer", "text": "Cash on delivery, UPI (12-digit UTR) or bank transfer." } },
     { "@type": "Question", "name": "Where is the nursery?", "acceptedAnswer": { "@type": "Answer", "text": "Our own gardens are in Malda and Murshidabad. No middlemen, so prices stay low." } }
   ]
 }
@@ -44,52 +47,70 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
   :root{
-    --green:#232820; --green-2:#333A2E; --green-3:#F1F3ED;
-    --gold:#A9741C; --gold-2:#F0B64A; --cream:#FFFFFF;
-    --paper:#F7F8F4;
-    --ink:#1B1F1A; --muted:#6C7268; --line:#E5E7E0; --card:#FFFFFF;
-    --shadow:0 10px 30px rgba(24,28,20,.08);
-    --radius:14px;
+    --green:#1E7A3C; --green-2:#14532D; --green-3:#F0F7F1;
+    --gold:#C07A0E; --gold-2:#F2B33D; --cream:#FBF6EC;
+    --paper:#FBF6EC;
+    --ink:#151A14; --muted:#6B7267; --line:#E6EAE2; --card:#FFFFFF;
+    --shadow:0 10px 30px rgba(23,64,39,.10);
+    --radius:16px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0}
   body{
-    font-family:"Hind Siliguri","Noto Sans Bengali","Nirmala UI",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-family:"Hind Siliguri","Noto Sans Bengali","Nirmala UI","Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     color:var(--ink); background:var(--cream); line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
   img{max-width:100%;display:block}
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:1260px;margin:0 auto;padding:0 24px}
+  .wrap{width:100%;padding:0 32px}
 
   /* thin announcement strip — marketplace look, scrolls away */
-  .topbar{background:#232820;color:#F6E7C8;font-size:12px;font-weight:700;letter-spacing:.2px}
+  .topbar{background:#173D25;color:#F6E7C8;font-size:12px;font-weight:700;letter-spacing:.2px}
   .topbar .wrap{padding-top:7px;padding-bottom:7px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .topbarShort{display:none}
   @media(max-width:719px){.topbar{font-size:11px}.topbar .wrap{padding-top:6px;padding-bottom:6px}.topbarFull{display:none}.topbarShort{display:inline}}
 
-  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-  .bar{display:flex;align-items:center;gap:10px;height:150px}
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:12px;height:72px}
   .brand{display:flex;align-items:center;flex:none;line-height:1}
-  .brand .brand-logo{height:122px;width:auto;display:block;flex:none}
+  .brand .brand-logo{height:56px;width:auto;display:block;flex:none}
   .brand .leaf{font-size:22px}
   .nav{display:none}
   @media(min-width:900px){
-    .nav{display:flex;align-items:center;gap:24px;margin-left:38px}
+    .nav{display:flex;align-items:center;gap:22px;margin-left:28px}
     .nav a{font-size:13.5px;font-weight:800;color:#3C423A;padding:7px 1px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
-    .nav a:hover{color:var(--gold);border-color:var(--gold)}
+    .nav a:hover{color:var(--green);border-color:var(--green)}
   }
   .grow{flex:1}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:999px;padding:11px 18px;font-weight:800;font-size:14px;border:1px solid transparent;cursor:pointer;transition:.18s transform,.18s box-shadow;white-space:nowrap;font-family:inherit}
   .btn:active{transform:scale(.97)}
   .btn-solid{background:linear-gradient(135deg,#F5C766,#E3A62E);color:#2A2210;box-shadow:0 8px 18px rgba(200,145,35,.28)}
-  .btn-gold{background:#232820;color:#FFF6E2;box-shadow:0 6px 16px rgba(20,24,16,.22)}
+  .btn-gold{background:var(--green);color:#FFF6E2;box-shadow:0 6px 16px rgba(20,24,16,.22)}
   .btn-line{background:#fff;color:#2A2F27;border-color:#DCDED5}
   .btn-sm{padding:8px 13px;font-size:12.5px}
   .btn-danger{background:#FBEDEA;color:#9B463F;border-color:#F3CFC9}
   .lang{display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;overflow:hidden}
   .lang button{border:0;background:transparent;padding:7px 11px;font-size:12px;font-weight:800;color:var(--muted);cursor:pointer;font-family:inherit}
-  .lang button.on{background:#232820;color:#fff}
+  .lang button.on{background:var(--green);color:#fff}
+
+  /* ---- header search (PaudheWale-style) ---- */
+  .search{position:relative;flex:1;max-width:520px;margin-left:auto}
+  .search input{width:100%;height:42px;border:1.5px solid var(--line);border-radius:999px;padding:0 18px 0 42px;font-family:inherit;font-size:13.5px;background:#FFFFFF;outline:none;transition:border-color .15s,box-shadow .15s}
+  .search input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(30,122,60,.12);background:#fff}
+  .s-ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#8A9486;pointer-events:none;font-size:14px}
+  .qres{position:absolute;top:50px;left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;display:none;z-index:60;max-height:380px;overflow-y:auto}
+  .qres.on{display:block}
+  .qres a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid #F0F2EC}
+  .qres a:last-child{border-bottom:0}
+  .qres a:hover{background:var(--green-3)}
+  .qres img{width:40px;height:40px;border-radius:10px;object-fit:cover;flex:none;background:var(--green-3)}
+  .qres .qn{font-size:13px;font-weight:800;line-height:1.25;display:block;color:var(--ink)}
+  .qres .qp{font-size:12px;color:var(--green);font-weight:900}
+  .qres .qnone{padding:14px;font-size:12.5px;color:var(--muted)}
+  .qres .qimg{width:40px;height:40px;border-radius:10px;background:var(--green-3);display:flex;align-items:center;justify-content:center;flex:none;font-size:20px}
+  .search-note{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-top:10px}
+  .search-note button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;font-family:inherit;font-size:11.5px;font-weight:800;color:var(--green);cursor:pointer}
 
   /* ---- language gate shown right after the page opens ---- */
   .langGate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(20,22,17,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
@@ -106,11 +127,27 @@
   .langGateFoot{font-size:10.5px;color:var(--muted);opacity:.8;margin-top:6px}
 
   /* ---- homepage blocks: category tiles, stats, FAQ ---- */
-  .cats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0 4px}
-  .cat-tile{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;color:var(--ink);display:block;cursor:pointer}
-  .cat-tile img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--green-3)}
-  .cat-tile b{display:block;font-size:11.5px;padding:7px 6px;text-align:center;line-height:1.25}
-  .cat-tile small{display:block;font-size:10px;color:var(--muted);text-align:center;padding-bottom:7px}
+  .cats{display:flex;gap:16px;overflow-x:auto;padding:10px 2px 14px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .cats::-webkit-scrollbar{display:none}
+  .cat-tile{display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--ink);cursor:pointer;text-decoration:none;flex:none;width:96px}
+  .cat-tile .c-ring{width:96px;height:96px;border-radius:50%;overflow:hidden;border:3px solid #fff;box-shadow:0 4px 14px rgba(23,64,39,.14);background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:40px;transition:transform .18s,box-shadow .18s}
+  .cat-tile:hover .c-ring{transform:translateY(-3px);box-shadow:0 10px 22px rgba(23,64,39,.22)}
+  .cat-tile img{width:100%;height:100%;object-fit:cover;display:block}
+  .cat-tile b{display:block;font-size:12.5px;text-align:center;line-height:1.25;transition:color .15s}
+  .cat-tile:hover b{color:var(--green)}
+  .cat-tile small{display:block;font-size:10.5px;color:var(--muted);text-align:center;margin-top:-3px}
+  .promos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:6px 0 4px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px 22px;box-shadow:0 4px 16px rgba(23,64,39,.05);margin-bottom:36px}
+  @media(max-width:719px){.panel{padding:12px 10px 14px;border-radius:16px;margin-bottom:26px}}
+  @media(min-width:720px){.promos{grid-template-columns:repeat(4,1fr);gap:16px}}
+  .promo{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/10;display:block;background:linear-gradient(140deg,var(--green),#2F9E5B);box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s}
+  .promo:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(23,64,39,.2)}
+  .promo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .promo .p-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,16,0),rgba(10,26,16,.74))}
+  .promo .p-emo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px}
+  .promo .ptxt{position:absolute;left:12px;right:12px;bottom:10px;color:#fff}
+  .promo .ptxt b{display:block;font-size:14px;letter-spacing:-.2px}
+  .promo .ptxt span{font-size:11.5px;color:#D9F2D0;font-weight:800}
   .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0 4px}
   .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 10px;text-align:center}
   .stat b{display:block;font-size:18px;font-weight:900;color:var(--gold);letter-spacing:-.3px}
@@ -122,38 +159,59 @@
   .faq summary::after{content:'+';margin-left:auto;color:var(--green);font-weight:900;font-size:17px;line-height:1}
   .faq details[open] summary::after{content:'\2212'}
   .faq p{margin:9px 0 0;font-size:12.5px;color:var(--muted);line-height:1.65}
-  .p-ship{font-size:10.5px;color:#8A5E12;background:#FFF6E3;border-radius:7px;padding:3px 6px;display:inline-block;margin-top:6px;font-weight:700}
-  @media(min-width:720px){.cats{grid-template-columns:repeat(auto-fit,minmax(168px,1fr))}.stats{grid-template-columns:repeat(4,1fr)}}
+  .p-ship{font-size:11px;color:var(--green);background:var(--green-3);border:1px solid #CBE5D4;border-radius:999px;padding:4px 10px;display:inline-block;margin-top:6px;font-weight:800}
+  .p-seller{font-size:10.5px;font-weight:700;color:#5E6B5F;background:#F2F5EC;border:1px solid var(--line);border-radius:999px;padding:3px 10px;display:inline-block;align-self:flex-start;margin-top:2px}
+  @media(min-width:720px){.cats{flex-wrap:wrap;justify-content:flex-start;gap:22px;overflow:visible;padding:12px 2px 16px}.stats{grid-template-columns:repeat(4,1fr)}}
 
   /* ---- mobile (Chrome Android / iPhone) ---- */
   @media(max-width:719px){
     html{overflow-x:hidden}
-    .wrap{padding:0 14px}
-    .bar{height:auto;padding:8px 0 10px;gap:8px}
+    .wrap{padding:0 10px}
+    .bar{height:auto;padding:8px 0 10px;gap:8px;flex-wrap:wrap}
     .brand{flex:none}
-    .brand .brand-logo{height:74px}
+    .brand .brand-logo{height:66px}
     .lang button{padding:6px 9px;font-size:11px}
     .bar .btn-sm{padding:7px 10px;font-size:11.5px}
-    .band{padding:16px 18px;gap:12px;margin:0 auto 26px}
-    .band .grow{min-width:0;flex:1 1 100%}
-    .band > .btn{width:100%}
+    .search{order:9;flex-basis:100%;max-width:none;margin:0}
+    .search input{height:40px;font-size:13px}
+    .qres{top:46px}
     .sec-head{flex-wrap:wrap;gap:6px}
-    .grid{gap:10px}
-    .card-body{padding:9px 10px 11px}
-    .p-name{font-size:13.5px}
-    .p-actions{gap:6px}
-    .p-cart,.p-buy{padding:9px 6px;font-size:11.5px}
+    .grid{gap:8px}
+    .card-body{padding:8px 8px 10px;gap:4px}
+    .p-cat{font-size:8.5px;letter-spacing:.3px}
+    .p-name{font-size:12px}
+    .p-note{font-size:10px}
+    .p-seller{font-size:8.5px;padding:2px 7px}
+    .p-price{gap:4px}
+    .p-price b{font-size:13.5px}
+    .p-price s{font-size:10px}
+    .p-price em{font-size:9px;padding:1.5px 5px}
+    .p-ship{font-size:9px;padding:3px 7px}
+    .size-chips{gap:4px;margin-top:6px}
+    .size-chip{min-width:0;padding:4px 4px;border-radius:8px}
+    .size-chip span{font-size:9.5px}
+    .size-chip b{font-size:10px}
+    .p-actions{gap:4px}
+    .p-cart,.p-buy{padding:8px 3px;font-size:10px;border-radius:8px}
+    .p-wa{font-size:10.5px;margin-top:5px}
+    .badge{font-size:9px;padding:3px 7px;top:8px;left:8px}
+    .fav{width:27px;height:27px;font-size:14px;top:8px;right:8px}
+    .thumb{font-size:30px}
+    .p-dots i{width:4px;height:4px}
+    .p-dots i.on{width:10px}
   }
 
   /* ---- full-width hero banner (images only) + separate big headline below ---- */
-  .hero{position:relative;overflow:hidden;background:#171A14;border-bottom:1px solid var(--line);height:auto;aspect-ratio:1600/679;max-height:600px}
+  .hero{position:relative;overflow:hidden;background:#EDF2E4;border-bottom:1px solid var(--line);width:100%;max-width:none;margin:0;aspect-ratio:3168/1344;height:auto}
   .heroSlides{position:absolute;inset:0;z-index:0;background:#171A14}
   .heroSlide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease}
   .heroSlide.on{opacity:1;z-index:1}
-  .heroSlide img{width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1.01);transition:transform 7s linear}
-  .heroSlide.on img{transform:scale(1.07)}
-  .heroShade{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(0deg,rgba(14,15,12,.26),rgba(14,15,12,0) 45%)}
-  .heroTextSec{padding-top:40px;padding-bottom:14px}
+  .heroSlide img{width:100%;height:100%;object-fit:cover;object-position:center}
+  .heroSlide.on img{transform:none}
+  .heroShade{position:absolute;inset:0;z-index:2;pointer-events:none;background:none}
+  .heroTextSec{padding-top:40px;padding-bottom:14px;display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
+  .heroMain{min-width:0}
+  .heroSide img{width:100%;height:auto;display:block;border-radius:18px;box-shadow:var(--shadow)}
   .heroKicker{display:inline-flex;align-items:center;gap:7px;background:#FDF3DF;border:1px solid #F0DDB2;color:#8A5E12;border-radius:999px;padding:8px 16px;font-size:12.5px;font-weight:900;letter-spacing:.45px;text-transform:uppercase;margin-bottom:18px}
   .heroTextSec h1{font-size:clamp(34px,5.6vw,64px);line-height:1.05;margin:0 0 18px;letter-spacing:-1.8px;color:#1B1F1A}
   .heroTextSec h1 span{color:var(--gold)}
@@ -177,9 +235,8 @@
 
   /* mobile hero overrides (kept after the desktop rules so they win) */
   @media(max-width:719px){
-    .hero{height:240px;aspect-ratio:auto;max-height:none}
-    .heroSlide img{object-position:88% center}
-    .heroShade{background:linear-gradient(0deg,rgba(14,15,12,.2),rgba(14,15,12,0) 40%)}
+    .hero{width:100vw;max-width:100vw;height:auto;aspect-ratio:3168/1344;margin:0}
+    .heroShade{background:none}
     .heroCap,.heroNav{display:none}
     .heroDots{bottom:12px}
     .heroTextSec{padding-top:24px;padding-bottom:6px}
@@ -193,29 +250,27 @@
     #waHero{display:none}
   }
 
-  .band{background:linear-gradient(100deg,#FFF8EA,#FDEFD3);color:#3A2C12;border-radius:18px;padding:22px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:0 auto 34px;position:relative;z-index:5;box-shadow:var(--shadow);border:1px solid #EFD9AE}
-  .band .ico{width:52px;height:52px;border-radius:14px;background:#232820;color:#F5C965;display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
-  .band b{display:block;font-size:16px;letter-spacing:-.2px;color:#2A2416}
-  .band small{display:block;color:#8A7440;font-size:12.5px;margin-top:3px}
-  .band .grow{min-width:180px}
-
   section{padding:8px 0 34px}
   .sec-head{display:flex;align-items:flex-end;gap:12px;margin:6px 0 16px}
-  .sec-head h2{font-size:clamp(20px,4.6vw,26px);margin:0;letter-spacing:-.5px}
+  .sec-head h2{font-size:clamp(20px,4.6vw,26px);margin:0;letter-spacing:-.5px;position:relative;padding-left:14px}
+  .sec-head h2::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:6px;border-radius:4px;background:linear-gradient(180deg,var(--gold-2),var(--gold))}
   .sec-head p{margin:0;color:var(--muted);font-size:13px}
   .sec-head .grow{flex:1}
+  .viewall{margin-left:auto;color:var(--green);font-weight:900;font-size:13px;text-decoration:none;white-space:nowrap}
+  .viewall:hover{text-decoration:underline}
 
   .chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none}
   .chips::-webkit-scrollbar{display:none}
   .chip{border:1px solid var(--line);background:#fff;color:#3C423A;border-radius:999px;padding:8px 15px;font-size:13px;font-weight:800;white-space:nowrap;cursor:pointer;font-family:inherit}
   .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:14px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   .more-wrap{display:flex;justify-content:center;margin:20px 0 4px}
-  @media(min-width:720px){.grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 14px rgba(31,95,62,.06);display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow}
+  @media(min-width:720px){.grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 14px rgba(23,64,39,.07);display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow}
+  .card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(23,64,39,.14)}
   .card:active{transform:scale(.99)}
-  .thumb{position:relative;aspect-ratio:1/1;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:44px;overflow:hidden}
+  .thumb{position:relative;aspect-ratio:3/3.5;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:56px;overflow:hidden}
   .thumb img{width:100%;height:100%;object-fit:cover}
   .slides{position:absolute;inset:0}
   .slides .slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
@@ -223,17 +278,21 @@
   .p-dots{position:absolute;bottom:8px;left:0;right:0;display:flex;gap:4px;justify-content:center;z-index:3;pointer-events:none}
   .p-dots i{width:5px;height:5px;border-radius:999px;background:rgba(255,255,255,.6);box-shadow:0 0 0 1px rgba(31,95,62,.25);transition:width .3s ease}
   .p-dots i.on{width:15px;background:#fff}
-  .badge{position:absolute;top:9px;left:9px;background:#fff;color:#8A5A00;font-size:10.5px;font-weight:900;border-radius:999px;padding:4px 9px;box-shadow:0 2px 8px rgba(0,0,0,.10)}
-  .badge.out{background:#FBEDEA;color:#9B463F}
-  .badge.low{background:#FFF6E0;color:#8A5A00}
-  .card-body{padding:11px 12px 13px;display:flex;flex-direction:column;gap:6px;flex:1}
-  .p-cat{font-size:10.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;color:#9A8A6A}
-  .p-name{font-size:14.5px;font-weight:900;line-height:1.3;letter-spacing:-.2px}
+  .badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#FF8A00,#F25C05);color:#fff;font-size:11.5px;font-weight:900;border-radius:999px;padding:5px 12px;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+  .badge.out{background:#EDF1EA;color:#5E6B5F}
+  .badge.low{background:#D64545;color:#fff}
+  .fav{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#9AA39A;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.12);transition:transform .15s,color .15s;padding:0}
+  .fav.on{color:#E0245E}
+  .fav:active{transform:scale(.9)}
+  .card-body{padding:14px 15px 15px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .p-cat{font-size:11px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;color:#9A8A6A}
+  .p-name{font-size:15.5px;font-weight:900;line-height:1.3;letter-spacing:-.2px}
   a.p-name,a.thumb{color:inherit;text-decoration:none}
-  .p-note{font-size:11px;color:#6C7A66;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .p-price{display:flex;align-items:baseline;gap:7px;margin-top:auto;padding-top:2px}
-  .p-price b{font-size:16px;color:var(--gold);font-weight:900}
-  .p-price s{font-size:12px;color:#9AA793}
+  .p-note{font-size:12px;color:#6C7A66;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .p-price{display:flex;align-items:center;gap:7px;margin-top:auto;padding-top:2px;flex-wrap:wrap}
+  .p-price b{font-size:18px;color:var(--ink);font-weight:900}
+  .p-price s{font-size:13px;color:#D64545}
+  .p-price em{font-style:normal;font-size:11px;font-weight:900;color:var(--green);background:var(--green-3);border-radius:6px;padding:2px 7px}
   .size-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
   .size-chip{flex:1;min-width:70px;display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 5px;border-radius:10px;border:1.5px solid #E2E4DC;background:#FAFAF7;cursor:pointer;font-family:inherit;line-height:1.15}
   .size-chip span{font-size:11px;font-weight:800;color:#5A6054}
@@ -243,7 +302,8 @@
   .p-actions{display:flex;gap:7px;margin-top:9px}
   .p-order,.p-cart,.p-buy{flex:1;border-radius:12px;font-weight:900;font-size:12.5px;padding:9px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:5px;border:0}
   .p-order{border:1px solid #E4D6B8;background:#FFFBF2;color:#8A5E12}
-  .p-cart{background:#232820;color:#fff}
+  .p-cart{background:var(--green);color:#fff;transition:filter .15s}
+  .p-cart:hover:not(:disabled){filter:brightness(.9)}
   .p-buy{background:var(--gold-2);color:#243018}
   .p-wa{display:block;text-align:center;margin-top:7px;font-size:12px;font-weight:800;color:var(--green)}
   .p-cart:disabled,.p-order:disabled,.p-buy:disabled{opacity:.45;cursor:not-allowed}
@@ -252,12 +312,17 @@
 
   .offers{display:grid;grid-template-columns:1fr;gap:14px}
   @media(min-width:720px){.offers{grid-template-columns:1fr 1fr}}
-  .offer{position:relative;border-radius:18px;overflow:hidden;min-height:150px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;box-shadow:var(--shadow);background:#6E5620}
-  .offer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .offer .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,30,20,.05),rgba(10,30,20,.78))}
-  .offer .txt{position:relative;padding:16px 18px}
-  .offer b{font-size:17px;display:block;letter-spacing:-.3px}
-  .offer span{font-size:12.5px;color:#E4F0DA;display:block;margin-top:3px}
+  .offer{position:relative;display:flex;align-items:stretch;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);text-decoration:none;transition:transform .15s,box-shadow .15s}
+  .offer:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(23,64,39,.14)}
+  .offer::before,.offer::after{content:"";position:absolute;left:103px;width:18px;height:18px;border-radius:50%;background:var(--paper);z-index:2}
+  .offer::before{top:-9px}
+  .offer::after{bottom:-9px}
+  .offer .o-ic{position:relative;flex:none;width:112px;background:linear-gradient(155deg,var(--green),#2F9E5B);border-right:2px dashed rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-size:34px}
+  .offer .o-ic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .offer .o-txt{flex:1;padding:16px 18px;position:relative}
+  .offer b{font-size:16.5px;color:var(--ink);display:block;letter-spacing:-.3px}
+  .offer .o-msg{font-size:12.5px;color:var(--muted);display:block;margin-top:4px}
+  .offer .o-cta{margin-top:10px;display:inline-flex;align-items:center;gap:5px;background:var(--green-3);color:var(--green);font-size:12px;font-weight:900;padding:6px 12px;border-radius:999px}
 
   .trust{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 4px 14px rgba(31,95,62,.05)}
   .trust .seal{flex:none;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--gold-2),var(--gold));display:flex;align-items:center;justify-content:center;font-size:26px;color:#243018}
@@ -274,15 +339,7 @@
   .stars{color:var(--gold);font-size:12px;letter-spacing:1px}
   .rev p{margin:0;font-size:13px;color:#4E544A}
 
-  .steps{display:grid;grid-template-columns:1fr;gap:12px}
-  @media(min-width:720px){.steps{grid-template-columns:repeat(3,1fr)}}
-  .step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}
-  .step .n{width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
-  .step b{font-size:13.5px;display:block;margin-bottom:3px}
-  .step small{color:var(--muted);font-size:12.5px}
-  .note{background:#FFF9E9;border:1px solid #F0E0B4;color:#6E5620;border-radius:14px;padding:13px 15px;font-size:12.5px;margin-top:14px}
-
-  footer{background:#1A1D17;color:#C9CFC0;padding:34px 0 100px;margin-top:20px}
+  footer{background:#132A1B;color:#C9CFC0;padding:34px 0 100px;margin-top:20px}
   footer h3{color:#FFF8E8;font-size:16px;margin:0 0 10px}
   footer a{color:#F5EFE0}
   .frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px}
@@ -292,7 +349,7 @@
 
   .fab{position:fixed;right:16px;bottom:16px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(37,211,102,.42);font-size:27px}
   .cartfab{position:fixed;left:16px;bottom:16px;z-index:60;background:linear-gradient(135deg,#F5C766,#E3A62E);color:#2A2210;border:0;border-radius:999px;padding:12px 16px;font-weight:900;font-size:13px;box-shadow:0 10px 26px rgba(200,145,35,.35);display:flex;align-items:center;gap:8px;cursor:pointer;font-family:inherit}
-  .cartfab .badge{position:static;background:#232820;color:#FFF6E2;border-radius:999px;padding:2px 8px;font-size:11px}
+  .cartfab .badge{position:static;background:var(--green-2);color:#FFF6E2;border-radius:999px;padding:2px 8px;font-size:11px}
 
   .empty{background:#fff;border:1px dashed #D9D2C2;border-radius:16px;padding:28px 18px;text-align:center;color:var(--muted);font-size:13.5px}
   .empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:6px}
@@ -305,16 +362,109 @@
     .sec-head{margin:8px 0 20px}
     .grid{gap:20px}
     .cats{gap:14px}
-    .cat-tile img{aspect-ratio:16/11}
-    .cat-tile b{font-size:13px;padding:9px 8px}
-    .cat-tile small{font-size:11px;padding-bottom:9px}
+    .cat-tile{width:104px}
+    .cat-tile .c-ring{width:104px;height:104px}
+    .cat-tile b{font-size:13px}
+    .cat-tile small{font-size:11px}
     .stat{padding:18px 14px}
     .stat b{font-size:22px}
     .stat span{font-size:12px}
-    .band{padding:26px 30px}
     .trust{padding:22px 26px}
     .rev{padding:18px}
   }
+
+  /* ---------- PaudheWale-style additions ---------- */
+  .pinbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin:0 0 24px;box-shadow:0 4px 14px rgba(23,64,39,.06)}
+  .pinbar .pinlab{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:900;color:#3C423A;white-space:nowrap}
+  .pinbar .pinlab small{display:block;font-size:11px;color:var(--muted);font-weight:700}
+  .pinbar input{flex:1;min-width:150px;height:42px;border:1.5px solid var(--line);border-radius:999px;padding:0 16px;font-family:inherit;font-size:14px;outline:none}
+  .pinbar input:focus{border-color:var(--green)}
+  .pinbar .btn{padding:12px 20px}
+  @media(max-width:719px){.pinbar{gap:8px;padding:10px}.pinbar input{flex-basis:100%;order:3}.pinbar .btn{flex:1;order:4}}
+
+  .fruitgrid{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:720px){.fruitgrid{grid-template-columns:1fr 1fr;gap:16px}}
+  .fc{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;text-decoration:none}
+  .fc:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(23,64,39,.12)}
+  .fc .fc-thumb{flex:0 0 92px;width:92px;height:92px;border-radius:12px;overflow:hidden;background:#EDF2E4;display:flex;align-items:center;justify-content:center}
+  .fc .fc-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .fc .fcemoji{font-size:44px}
+  .fc .fc-body{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
+  .fc .fc-tag{background:linear-gradient(135deg,#FFD35C,#F2B33D);color:#2A2210;font-size:9.5px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;border-radius:999px;padding:3px 9px}
+  .fc .fc-t{font-size:16px;font-weight:900;color:var(--ink);letter-spacing:-.3px;line-height:1.2}
+  .fc .fc-s{font-size:12px;color:var(--muted);font-weight:700}
+  .fc .fc-cta{margin-top:6px;display:inline-flex;align-items:center;gap:5px;background:var(--green);color:#fff;font-size:11px;font-weight:900;padding:6px 13px;border-radius:999px}
+  @media(min-width:720px){.fc{padding:16px;gap:16px}.fc .fc-thumb{flex-basis:122px;width:122px;height:122px}.fc .fc-t{font-size:19px}}
+
+  .mstrip{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .mstrip::-webkit-scrollbar{display:none}
+  .mcard{flex:none;width:190px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(23,64,39,.07);display:flex;flex-direction:column;transition:transform .15s}
+  .mcard:hover{transform:translateY(-3px)}
+  .mcard .mimg{aspect-ratio:4/3.4;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden}
+  .mcard .mimg img{width:100%;height:100%;object-fit:cover}
+  .mcard .mbody{padding:10px 11px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+  .mcard .mname{font-size:13px;font-weight:900;line-height:1.3;letter-spacing:-.2px}
+  .mcard .mprice{font-size:15px;font-weight:900;color:var(--green)}
+  .mcard .mbtn{background:var(--green);color:#fff;border-radius:10px;padding:8px;font-weight:900;font-size:11.5px;font-family:inherit;cursor:pointer;text-decoration:none}
+  .mcard a{text-decoration:none;color:inherit}
+  @media(min-width:720px){.mcard{width:230px}}
+
+  .medband{position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(120deg,#123B22,#1E7A3C 55%,#2F9E5B);color:#fff;display:flex;align-items:center;gap:16px;padding:22px;margin-bottom:36px;box-shadow:var(--shadow)}
+  .medband .mimg{position:absolute;inset:0;opacity:.22;background-size:cover;background-position:center}
+  .medband > *{position:relative}
+  .medband .grow{flex:1;min-width:0}
+  .medband b{display:block;font-size:clamp(16px,2.6vw,21px);letter-spacing:-.3px;color:#FFF6D9}
+  .medband small{display:block;font-size:12.5px;color:#D9F2D0;margin-top:4px}
+  .medband .mbtn{background:linear-gradient(135deg,#FFD35C,#F2B33D);color:#2A2210;border-radius:999px;padding:11px 18px;font-weight:900;font-size:13px;white-space:nowrap;text-decoration:none}
+  @media(max-width:719px){.medband{flex-wrap:wrap;padding:18px 14px}.medband .mbtn{width:100%;text-align:center}}
+
+  .askgrid{display:grid;grid-template-columns:1fr;gap:10px}
+  @media(min-width:720px){.askgrid{grid-template-columns:repeat(3,1fr);gap:14px}}
+  .asktile{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 4px 12px rgba(23,64,39,.05);text-decoration:none;transition:transform .15s}
+  .asktile:hover{transform:translateY(-2px)}
+  .asktile .a-ico{width:44px;height:44px;border-radius:12px;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:21px;flex:none}
+  .asktile b{font-size:13.5px;display:block}
+  .asktile small{font-size:11.5px;color:var(--muted)}
+  .asktile .a-go{margin-left:auto;color:var(--green);font-weight:900;font-size:12px;white-space:nowrap}
+
+  .spot{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(150deg,#123B22,#1E7A3C);color:#EAF6EA;border-radius:20px;padding:22px;box-shadow:var(--shadow);margin-bottom:36px}
+  .spot .s-ico{flex:none;width:58px;height:58px;border-radius:16px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:28px}
+  .spot .grow{flex:1;min-width:0}
+  .spot b{font-size:17px;color:#FFF6D9;display:block;letter-spacing:-.2px}
+  .spot p{margin:5px 0 0;font-size:12.5px;color:#CBE5D4}
+  .spot ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:5px}
+  .spot li{font-size:12.5px;display:flex;gap:7px;align-items:flex-start}
+  .spot li::before{content:"✓";color:#F2B33D;font-weight:900;flex:none}
+  .spot .mbtn{background:linear-gradient(135deg,#FFD35C,#F2B33D);color:#2A2210;border-radius:999px;padding:11px 18px;font-weight:900;font-size:13px;white-space:nowrap;align-self:center;text-decoration:none}
+  @media(max-width:719px){.spot{flex-wrap:wrap;padding:18px 14px}.spot .mbtn{width:100%;text-align:center}}
+
+  .nls{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 4px 16px rgba(23,64,39,.05);margin-bottom:36px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .nls .n-ico{flex:none;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--gold-2),var(--gold));display:flex;align-items:center;justify-content:center;font-size:24px}
+  .nls .grow{flex:1;min-width:180px}
+  .nls b{font-size:16px;display:block;letter-spacing:-.2px}
+  .nls small{font-size:12.5px;color:var(--muted)}
+  .nls form{display:flex;gap:8px;flex:1;min-width:260px}
+  .nls input{flex:1;height:42px;border:1.5px solid var(--line);border-radius:999px;padding:0 16px;font-family:inherit;font-size:13.5px;outline:none}
+  .nls input:focus{border-color:var(--green)}
+  @media(max-width:719px){.nls form{flex-basis:100%}.nls .btn{width:100%}}
+
+  .topbtn{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:59;display:none;align-items:center;gap:6px;background:#173D25;color:#F6E7C8;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:9px 16px;font-size:12px;font-weight:900;cursor:pointer;font-family:inherit;box-shadow:0 8px 22px rgba(0,0,0,.25)}
+  .topbtn.on{display:flex}
+  @media(max-width:719px){.topbtn{bottom:84px}}
+
+  .coupop{position:fixed;inset:0;z-index:150;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(16,26,16,.55);backdrop-filter:blur(3px)}
+  .coupop.on{display:flex}
+  .coupopCard{position:relative;width:100%;max-width:380px;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 26px 60px rgba(10,30,20,.35);animation:cup .35s ease}
+  @keyframes cup{from{transform:translateY(14px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+  .coupopHead{background:linear-gradient(135deg,#123B22,#2F9E5B);color:#FFF6D9;padding:20px 20px 16px;text-align:center}
+  .coupopHead b{display:block;font-size:19px;letter-spacing:-.3px}
+  .coupopHead span{font-size:12.5px;color:#D9F2D0;display:block;margin-top:3px}
+  .coupopBody{padding:16px 18px 18px;text-align:center}
+  .coupopBody .c-t{font-size:14.5px;font-weight:900;color:var(--ink)}
+  .coupopBody .c-m{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.55}
+  .coupopBody .btn{width:100%;margin-top:13px}
+  .coupopSkip{display:block;margin:11px auto 0;background:none;border:0;color:var(--muted);font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;text-decoration:underline}
+  .coupopX{position:absolute;top:10px;right:10px;z-index:2;width:30px;height:30px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
   /* ---------- modal / drawer ---------- */
   .overlay{position:fixed;inset:0;background:rgba(16,30,18,.55);z-index:80;display:none;align-items:flex-end;justify-content:center;padding:0}
@@ -381,11 +531,10 @@
       <a href="#catSec" data-t="navCats">Categories</a>
       <a href="#offerSec" data-t="navOffers">Offers</a>
       <a href="#faqSec" data-t="navFaq">FAQ</a>
-      <a href="#install" data-t="navInstall">Install app</a>
     </nav>
     <div class="grow"></div>
+    <div class="search"><span class="s-ico">🔍</span><input id="q" type="search" autocomplete="off" placeholder="গাছ খুঁজুন…" aria-label="Search"><div class="qres" id="qres"></div></div>
     <div class="lang" id="lang"><button data-l="en" class="on">EN</button><button data-l="bn">বাংলা</button><button data-l="hi">हिन्दी</button></div>
-    <a class="btn btn-gold btn-sm" id="apkTop" href="#">⬇ <span data-t="app">অ্যাপ</span></a>
   </div>
 </header>
 
@@ -393,16 +542,16 @@
   <div class="hero" id="hero">
     <div class="heroSlides" id="heroSlides">
       <div class="heroSlide on">
-        <img src="products/banner-1.jpg" alt="Green Friend Nursery — premium mango plants, delivery all over India" width="1600" height="679" fetchpriority="high">
+        <img src="hero-1.jpg" alt="Green Friend flowering plants — bring colour to your home" width="2400" height="1018" fetchpriority="high">
       </div>
       <div class="heroSlide">
-        <img src="products/banner-2.jpg" alt="Flowering plants — bring colour to your home" width="1600" height="679" decoding="async">
+        <img src="hero-2.jpg" alt="Welcome to the Green Friend plant family" width="2400" height="1018" decoding="async">
       </div>
       <div class="heroSlide">
-        <img src="products/banner-3.jpg" alt="Welcome to the Green Friend family" width="1600" height="679" decoding="async">
+        <img src="hero-3.jpg" alt="Premium grafted mango and fruit plants from Malda" width="2400" height="1018" decoding="async">
       </div>
       <div class="heroSlide">
-        <img src="products/banner-4.jpg" alt="Indoor and outdoor plants — delivery all over India" width="1600" height="679" decoding="async">
+        <img src="hero-4.jpg" alt="Indoor plants delivered all over India by Green Friend" width="2400" height="1018" decoding="async">
       </div>
       <div class="heroShade"></div>
     </div>
@@ -412,21 +561,30 @@
   </div>
 
   <section class="wrap heroTextSec">
-    <span class="heroKicker" data-t="heroKicker">🌿 Malda &amp; Murshidabad nursery</span>
-    <h1 data-t="h1">8 ft <span>mango plants</span></h1>
-    <p data-t="sub">Famous mango plants — available in <b>Malda and Murshidabad</b>. Trees are <b>8 feet tall</b>, at a <b>lower price</b>, with a <b>100% guarantee</b>. Indoor plants, flowers, fruit plants and pots too — home delivery, cash on delivery or UPI.</p>
-    <div class="hero-cta">
-      <a class="btn btn-solid" href="#plants" data-t="cta1">🌱 See plants</a>
-      <a class="btn btn-line" id="apkHero" href="#" data-t="install">⬇ Install the app</a>
-      <a class="btn btn-line" id="waHero" href="#">💬 WhatsApp</a>
+    <div class="heroMain">
+      <span class="heroKicker" data-t="heroKicker">🌿 Malda &amp; Murshidabad nursery</span>
+      <h1 data-t="h1">8 ft <span>mango plants</span></h1>
+      <p data-t="sub">Famous mango plants — available in <b>Malda and Murshidabad</b>. Trees are <b>8 feet tall</b>, at a <b>lower price</b>, with a <b>100% guarantee</b>. Indoor plants, flowers, fruit plants and pots too — home delivery, cash on delivery or UPI.</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#plants" data-t="cta1">🌱 See plants</a>
+        <a class="btn btn-line" id="waHero" href="#">💬 WhatsApp</a>
+      </div>
+      <div class="hero-badges">
+        <span class="pill" data-t="b0">🥭 8 ft mango plants</span>
+        <span class="pill" data-t="b1">✅ 100% guarantee</span>
+        <span class="pill" data-t="b2">🚚 Free delivery above ₹1000</span>
+        <span class="pill" data-t="b3">💵 Cash on delivery</span>
+        <span class="pill" data-t="b4">🎁 Share &amp; earn coupons</span>
+      </div>
+      <form class="pinbar" id="pinForm">
+        <span class="pinlab">📍<span><b data-t="pinT">ডেলিভারি চেক করুন</b><small data-t="pinS">আপনার PIN কোডে ডেলিভারি হয় কিনা</small></span></span>
+        <input id="pinIn" type="text" inputmode="numeric" maxlength="6" placeholder="PIN কোড (৬ সংখ্যা)" aria-label="PIN code">
+        <button class="btn btn-solid" type="submit" data-t="pinBtn">চেক করুন</button>
+      </form>
     </div>
-    <div class="hero-badges">
-      <span class="pill" data-t="b0">🥭 8 ft mango plants</span>
-      <span class="pill" data-t="b1">✅ 100% guarantee</span>
-      <span class="pill" data-t="b2">🚚 Free delivery above ₹1000</span>
-      <span class="pill" data-t="b3">💵 Cash on delivery</span>
-      <span class="pill" data-t="b4">🎁 Share &amp; earn coupons</span>
-    </div>
+    <aside class="heroSide">
+      <img src="guarantee-banner.jpg" alt="100% Money-Back if the mango variety does not match upon fruiting — Green Friend guarantee" width="3168" height="1344" loading="lazy" decoding="async">
+    </aside>
   </section>
 
   <section class="wrap" id="catSec">
@@ -436,7 +594,23 @@
         <p data-t="catSub">যা খুঁজছেন, সেখান থেকেই শুরু করুন</p>
       </div>
     </div>
-    <div class="cats" id="cats"></div>
+    <div class="panel">
+      <div class="cats" id="cats"></div>
+      <div class="promos" id="promos"></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="fruitSec">
+    <div class="sec-head">
+      <div>
+        <h2 data-t="fruitT">জনপ্রিয় ফল গাছ</h2>
+        <p data-t="fruitSub">গ্রাফটেড, ফল-ধরা গাছ</p>
+      </div>
+      <a class="viewall" href="#plants" data-c="" id="fruitAll" data-t="viewAll">সব দেখুন →</a>
+    </div>
+    <div class="panel">
+      <div class="fruitgrid" id="fruitgrid"></div>
+    </div>
   </section>
 
   <div class="wrap">
@@ -448,16 +622,18 @@
     </div>
   </div>
 
-  <div class="wrap">
-    <div class="band">
-      <div class="ico">↑</div>
-      <div class="grow">
-        <b data-t="bandTitle">অ্যাপে অর্ডার করলে বাড়তি সুবিধা</b>
-        <small data-t="bandSub">বন্ধুকে পাঠিয়ে কুপন, রিভিউ দিলে কুপন, আর অর্ডার ট্র্যাকিং — সব এক অ্যাপে।</small>
+  <section class="wrap" id="mangoSec">
+    <div class="sec-head">
+      <div>
+        <h2 data-t="mangoT">হটসেলিং আম গাছ</h2>
+        <p data-t="mangoSub">মালদার বিখ্যাত আম — সেরা দামে</p>
       </div>
-      <a class="btn btn-gold" id="apkBand" href="#" data-t="download">⬇ APK ডাউনলোড</a>
+      <a class="viewall" href="#plants" data-c="" id="mangoAll" data-t="viewAll">সব দেখুন →</a>
     </div>
-  </div>
+    <div class="panel">
+      <div class="mstrip" id="mstrip"></div>
+    </div>
+  </section>
 
   <section class="wrap" id="plants">
     <div class="sec-head">
@@ -465,12 +641,15 @@
         <h2 data-t="plants">আমাদের গাছ</h2>
         <p data-t="plantsSub">দাম, ছবি ও স্টক — সব লাইভ</p>
       </div>
+      <a class="viewall" id="viewAll" href="#plants" data-t="viewAll">সব দেখুন →</a>
     </div>
-    <div class="chips" id="chips"></div>
-    <div class="grid" id="grid">
-      <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    <div class="panel">
+      <div class="chips" id="chips"></div>
+      <div class="grid" id="grid">
+        <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
+      </div>
+      <div id="plantsNote"></div>
     </div>
-    <div id="plantsNote"></div>
   </section>
 
   <section class="wrap" id="offerSec" hidden>
@@ -480,7 +659,30 @@
         <p data-t="offersSub">সীমিত সময়ের জন্য</p>
       </div>
     </div>
-    <div class="offers" id="offers"></div>
+    <div class="panel">
+      <div class="offers" id="offers"></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="medband" id="medband">
+      <div class="mimg" id="medImg"></div>
+      <div class="grow">
+        <b data-t="medT">ঔষধি গাছ</b>
+        <small data-t="medS">তুলসী, নিম, অ্যালোভেরা — প্রতিটি বাড়িতে দরকার। সস্তায়, গ্যারান্টি সহ।</small>
+      </div>
+      <a class="mbtn" href="#plants" id="medGo" data-t="medCta">দেখুন →</a>
+    </div>
+  </div>
+
+  <section class="wrap" id="askSec">
+    <div class="sec-head">
+      <div>
+        <h2 data-t="askT">আরও যা চাই</h2>
+        <p data-t="askS">নিচের জিনিস চাইলে WhatsApp করুন — দাম ও ছবি পাঠিয়ে দেব</p>
+      </div>
+    </div>
+    <div class="askgrid" id="askgrid"></div>
   </section>
 
   <section class="wrap">
@@ -503,6 +705,37 @@
     <div class="reviews" id="reviews"></div>
   </section>
 
+  <section class="wrap" id="spotSec">
+    <div class="spot">
+      <div class="s-ico">🌿</div>
+      <div class="grow">
+        <b data-t="spotT">আমাদের নার্সারি</b>
+        <p data-t="spotS">নিজের বাগান, নিজের হাতে গ্রাফটিং — তাই দাম কম, গাছ আসল।</p>
+        <ul>
+          <li data-t="spotB1">মালদা ও মুর্শিদাবাদে নিজস্ব নার্সারি — কোনো মধ্যস্বত্বভোগী নেই</li>
+          <li data-t="spotB2">৮ ফুট পর্যন্ত গ্রাফটেড আম, লিচু, পেয়ারা ও ফুলের গাছ</li>
+          <li data-t="spotB3">১০০% অরিজিনাল গ্যারান্টি — নষ্ট এলে বিনা খরচে রিপ্লেসমেন্ট</li>
+          <li data-t="spotB4">ক্যাশ অন ডেলিভারি, UPI — আপনার সুবিধামতো</li>
+        </ul>
+      </div>
+      <a class="mbtn" id="spotWa" href="#">💬 <span data-t="spotCta">WhatsApp-এ কথা বলুন</span></a>
+    </div>
+  </section>
+
+  <section class="wrap" id="nlSec">
+    <div class="nls">
+      <div class="n-ico">📩</div>
+      <div class="grow">
+        <b data-t="nlT">প্রতি সপ্তাহে গাছের টিপস</b>
+        <small data-t="nlS">নতুন স্টক, অফার আর গাছের যত্নের টিপস — সরাসরি WhatsApp-এ</small>
+      </div>
+      <form id="nlForm">
+        <input id="nlName" type="text" placeholder="আপনার নাম" aria-label="Name">
+        <button class="btn btn-solid" type="submit" data-t="nlBtn">টিপস নিন</button>
+      </form>
+    </div>
+  </section>
+
   <section class="wrap" id="faqSec">
     <div class="sec-head">
       <div>
@@ -512,21 +745,6 @@
     </div>
     <div class="faq" id="faq"></div>
   </section>
-
-  <section class="wrap" id="install">
-    <div class="sec-head">
-      <div>
-        <h2 data-t="howTitle">অ্যাপটি কীভাবে ইনস্টল করবেন</h2>
-        <p data-t="howSub">একবারেই হবে, ৩০ সেকেন্ড</p>
-      </div>
-    </div>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><b data-t="s1t">APK ডাউনলোড করুন</b><small data-t="s1s">উপরের সবুজ বাটনে চাপুন — Green-Friend.apk নামবে।</small></div>
-      <div class="step"><div class="n">2</div><b data-t="s2t">ফাইলটি খুলুন</b><small data-t="s2s">ডাউনলোড শেষে ফাইলটিতে চাপ দিয়ে Install করুন।</small></div>
-      <div class="step"><div class="n">3</div><b data-t="s3t">অনুমতি দিন</b><small data-t="s3s">"Allow from this source" চালু করুন — শুধু এই একবারই লাগবে।</small></div>
-    </div>
-    <div class="note" data-t="note">Play Protect "Unsafe app blocked" দেখালে More details → Install anyway চাপুন। অ্যাপে কোনো বিজ্ঞাপন নেই, টাকা কাটে না।</div>
-  </section>
 </main>
 
 <footer>
@@ -535,16 +753,23 @@
       <div class="fcol">
         <h3>🌿 Green Friend</h3>
         <p data-t="fTag">মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ — ৮ ফুট, কম দামে, গ্যারান্টি সহ।</p>
+        <p data-t="fAddr">📍 মালদা ও মুর্শিদাবাদ, পশ্চিমবঙ্গ</p>
+      </div>
+      <div class="fcol">
+        <h3 data-t="fCats">ক্যাটাগরি</h3>
+        <div id="fCats"></div>
+      </div>
+      <div class="fcol">
+        <h3 data-t="fQuick">কুইক লিংক</h3>
+        <p><a href="#plants" data-t="navPlants">গাছ</a></p>
+        <p><a href="#offerSec" data-t="navOffers">অফার</a></p>
+        <p><a href="#faqSec" data-t="navFaq">প্রশ্ন</a></p>
       </div>
       <div class="fcol">
         <h3 data-t="fContact">যোগাযোগ</h3>
-        <p>💬 WhatsApp: <a href="https://wa.me/919563205299">WhatsApp</a></p>
+        <p>💬 <a href="https://wa.me/919563205299">WhatsApp</a></p>
         <p>✉️ <a href="mailto:mobasserhoque@gmail.com">mobasserhoque@gmail.com</a></p>
         <p data-t="fHours">🕘 সকাল ৯টা – রাত ৯টা</p>
-      </div>
-      <div class="fcol">
-        <h3 data-t="fApp">অ্যাপ</h3>
-        <p><a id="apkFoot" href="#" data-t="download">⬇ APK ডাউনলোড</a></p>
         <p><a href="admin.html" rel="nofollow">🔐 Admin panel</a></p>
       </div>
     </div>
@@ -555,6 +780,20 @@
 
 <a class="fab" id="fab" href="#" aria-label="WhatsApp">💬</a>
 <button class="cartfab" id="cartFab" onclick="openCart()">🛒 <span data-t="cart">কার্ট</span> <span class="badge" id="cartCount">0</span></button>
+<button class="topbtn" id="topBtn" type="button" aria-label="Back to top"><span data-t="backTop">↑ উপরে</span></button>
+
+<div class="coupop" id="coupop" role="dialog" aria-modal="true" aria-label="Offer">
+  <div class="coupopCard">
+    <button class="coupopX" id="coupopX" type="button" aria-label="Close">✕</button>
+    <div class="coupopHead"><b data-t="popT">স্বাগতম অফার!</b><span data-t="popS">শুধু আজকের জন্য</span></div>
+    <div class="coupopBody">
+      <div class="c-t" id="popTitle" data-t="popTitle">গাছ কিনুন, অফার নিন</div>
+      <div class="c-m" id="popMsg" data-t="popMsg">অর্ডারের আগে WhatsApp করুন — আজকের সেরা অফারটা নিয়ে নিন।</div>
+      <a class="btn btn-solid" id="popCta" href="#offerSec"><span data-t="popCta">অফার দেখুন</span></a>
+      <button class="coupopSkip" id="coupopSkip" type="button" data-t="popSkip">পরে দেখব</button>
+    </div>
+  </div>
+</div>
 
 <!-- ---------- CART DRAWER ---------- -->
 <div class="overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
@@ -625,16 +864,16 @@
   "use strict";
   var SUPABASE_URL = "https://thiqwyltfgtluxizsaee.supabase.co";
   var KEY = "sb_publishable_5QySg5h9PeB_uROILAiSww_hfkEk12B";
-  var APK = "https://github.com/greenfriendnursery/greenfriendnursery.github.io/releases/latest/download/Green-Friend.apk";
   var WA = "919563205299";
   var LANG = localStorage.getItem("gf_lang") || "en";
   var sb = window.supabase.createClient(SUPABASE_URL, KEY);
 
   var TXT = {
     bn: {
-      app: "অ্যাপ", h1: '৮ ফুট <span>আমের গাছ</span>',
+      h1: '৮ ফুট <span>আমের গাছ</span>',
+      searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →", viewAll: "সব দেখুন →", explore: "দেখুন →", seller: "বিক্রেতা : গ্রিন ফ্রেন্ড", colTerrace: "টেরেস গার্ডেন", colLow: "কম যত্নের গাছ", colExotic: "এক্সোটিক ফল", colTropical: "ট্রপিক্যাল ফল",
       heroKicker: "🌿 মালদা ও মুর্শিদাবাদের নার্সারি",
-      navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন", navInstall: "অ্যাপ",
+      navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন",
       topbar: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি · ✅ ১০০% অরিজিনাল গ্যারান্টি · 💵 ক্যাশ অন ডেলিভারি",
       topbarShort: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি",
       hs1t: "🥭 ল্যাংড়া আম", hs1s: "৮ ফুট গাছ · মালদা",
@@ -642,35 +881,27 @@
       hs3t: "🌸 বাগানবিলাস", hs3s: "ফুলের গাছ · সব রঙ",
       hs4t: "🌿 ঘৃতকুমারী", hs4s: "ইনডোর গাছ · সহজ যত্ন",
       docTitle: "Green Friend — আমের গাছ | মালদা ও মুর্শিদাবাদ | ৮ ফুট, কম দামে",
-      install: "⬇ অ্যাপ ইনস্টল করুন", download: "⬇ APK ডাউনলোড",
       sub: "আমের গাছ — <b>মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ</b> পাওয়া যাবে। গাছের হাইট <b>৮ ফুট</b>, <b>কম দামে</b>, <b>১০০% গ্যারান্টি</b> সহ। ইনডোর গাছ, ফুল, ফল ও টবও আছে — ঘরে ডেলিভারি, ক্যাশ অন ডেলিভারি / UPI।",
       cta1: "🌱 গাছ দেখুন", b0: "🥭 ৮ ফুট আমের গাছ", b1: "✅ ১০০% গ্যারান্টি", b2: "🚚 ₹১০০০+ অর্ডারে ফ্রি ডেলিভারি", b3: "💵 ক্যাশ অন ডেলিভারি", b4: "🎁 বন্ধুকে পাঠিয়ে কুপন",
-      bandTitle: "অ্যাপে অর্ডার করলে বাড়তি সুবিধা",
-      bandSub: "বন্ধুকে পাঠিয়ে কুপন, রিভিউ দিলে কুপন, আর অর্ডার ট্র্যাকিং — সব এক অ্যাপে।",
       plants: "আমাদের গাছ", plantsSub: "দাম, ছবি ও স্টক — সব লাইভ",
       offers: "এখনকার অফার", offersSub: "সীমিত সময়ের জন্য",
       trustTitle: "১০০% অরিজিনাল গ্যারান্টি",
       trustMsg: "নকল জিনিস কিনে প্রতারিত হবেন না — আমাদের থেকে নিন ১০০% অরিজিনাল গাছ।",
       reviews: "কাস্টমারের কথা", reviewsSub: "সত্যিকারের রিভিউ",
-      howTitle: "অ্যাপটি কীভাবে ইনস্টল করবেন", howSub: "একবারেই হবে, ৩০ সেকেন্ড",
-      s1t: "APK ডাউনলোড করুন", s1s: "উপরের সবুজ বাটনে চাপুন — Green-Friend.apk নামবে।",
-      s2t: "ফাইলটি খুলুন", s2s: "ডাউনলোড শেষে ফাইলটিতে চাপ দিয়ে Install করুন।",
-      s3t: "অনুমতি দিন", s3s: '"Allow from this source" চালু করুন — শুধু এই একবারই লাগবে।',
-      note: 'Play Protect "Unsafe app blocked" দেখালে More details → Install anyway চাপুন। অ্যাপে কোনো বিজ্ঞাপন নেই, টাকা কাটে না।',
       fTag: "মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ — ৮ ফুট, কম দামে, গ্যারান্টি সহ।",
-      fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা", fApp: "অ্যাপ",
+      fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা",
       catTitle: "ক্যাটাগরি", catSub: "যা খুঁজছেন, সেখান থেকেই শুরু করুন", catItems: "পণ্য",
       st1n: "৮ ফুট", st1: "গাছের উচ্চতা", st2n: "১০০%", st2: "অরিজিনাল গ্যারান্টি",
       st3n: "২ জেলা", st3: "মালদা ও মুর্শিদাবাদ", st4: "গাছের রকম",
       faqTitle: "সাধারণ প্রশ্ন", faqSub: "ডেলিভারি, গ্যারান্টি, পেমেন্ট — ছোট ছোট উত্তর",
-      shipBadge: "{0}+ অর্ডারে ডেলিভারি ফ্রি",
+      shipBadge: "🚚 {0}+ অর্ডারে ডেলিভারি ফ্রি",
       order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন", fromPrice: "{0} থেকে", size: "সাইজ",
       cart: "কার্ট", cartTitle: "আপনার কার্ট", total: "মোট", checkout: "চেকআউট",
       delivery: "ডেলিভারি", free: "ফ্রি", freeAbove: "{0} টাকার উপরে ডেলিভারি ফ্রি", freeAboveHint: "আর {0} যোগ করলেই ডেলিভারি ফ্রি",
       cartEmptyT: "কার্ট খালি", cartEmptyS: "একটা গাছ যোগ করুন।",
       checkoutTitle: "অর্ডার সম্পন্ন করুন", signin: "সাইন ইন", signup: "অ্যাকাউন্ট তৈরি",
       phone: "মোবাইল নম্বর", password: "পাসওয়ার্ড", name: "আপনার নাম", continue: "চালিয়ে যান",
-      authNote: "একই ফোন ও পাসওয়ার্ড দিয়ে অ্যাপেও লগইন করতে পারবেন।",
+      authNote: "ফোন ও পাসওয়ার্ড মনে রাখুন — পরের অর্ডারে আবার কাজে লাগবে।",
       address: "ডেলিভারি অ্যাড্রেস", pincode: "PIN কোড (৬ সংখ্যা)", payMethod: "পেমেন্ট পদ্ধতি",
       cod: "ক্যাশ অন ডেলিভারি", upi: "UPI", bank: "ব্যাংক ট্রান্সফার",
       upiRef: "১২-সংখ্যার UTR", bankRef: "ব্যাংক রেফারেন্স (৬–২২ অক্ষর/সংখ্যা)",
@@ -680,12 +911,32 @@
       emptyT: "গাছের তালিকা এইমাত্র সাজানো হচ্ছে",
       emptyS: "তালিকা দেখতে না পেলে সরাসরি WhatsApp করুন — আমরা ছবি ও দাম পাঠিয়ে দেব।",
       waMsg: "নমস্কার! আমি Green Friend-এ অর্ডার করতে চাই",
-      waProduct: "নমস্কার! আমি এই গাছটি নিতে চাই: {0} — দাম {1}"
+      waProduct: "নমস্কার! আমি এই গাছটি নিতে চাই: {0} — দাম {1}",
+      pinT: "ডেলিভারি চেক করুন", pinS: "আপনার PIN কোডে ডেলিভারি হয় কিনা", pinPh: "PIN কোড (৬ সংখ্যা)", pinBtn: "চেক করুন",
+      fruitT: "জনপ্রিয় ফল গাছ", fruitSub: "গ্রাফটেড, ফল-ধরা গাছ", fruitCta: "দেখুন →",
+      mangoT: "হটসেলিং আম গাছ", mangoSub: "মালদার বিখ্যাত আম — সেরা দামে",
+      medT: "ঔষধি গাছ", medS: "তুলসী, নিম, অ্যালোভেরা — প্রতিটি বাড়িতে দরকার। সস্তায়, গ্যারান্টি সহ।", medCta: "দেখুন →",
+      askT: "আরও যা চাই", askS: "নিচের জিনিস চাইলে WhatsApp করুন — দাম ও ছবি পাঠিয়ে দেব",
+      askSeed: "বীজ", askSeedS: "ফুল, সবজি ও ফলের বীজ", askFert: "সার ও মাটি", askFertS: "ভার্মিকম্পোস্ট, কোকোপিট", askSucc: "সাকুলেন্ট ও ক্যাকটাস", askSuccS: "ছোট, সুন্দর, কম যত্ন", askGo: "চাই →",
+      spotT: "আমাদের নার্সারি", spotS: "নিজের বাগান, নিজের হাতে গ্রাফটিং — তাই দাম কম, গাছ আসল।",
+      spotB1: "মালদা ও মুর্শিদাবাদে নিজস্ব নার্সারি — কোনো মধ্যস্বত্বভোগী নেই",
+      spotB2: "৮ ফুট পর্যন্ত গ্রাফটেড আম, লিচু, পেয়ারা ও ফুলের গাছ",
+      spotB3: "১০০% অরিজিনাল গ্যারান্টি — নষ্ট এলে বিনা খরচে রিপ্লেসমেন্ট",
+      spotB4: "ক্যাশ অন ডেলিভারি, UPI — আপনার সুবিধামতো",
+      spotCta: "WhatsApp-এ কথা বলুন",
+      nlT: "প্রতি সপ্তাহে গাছের টিপস", nlS: "নতুন স্টক, অফার আর গাছের যত্নের টিপস — সরাসরি WhatsApp-এ", nlPh: "আপনার নাম", nlBtn: "টিপস নিন",
+      backTop: "↑ উপরে", popT: "স্বাগতম অফার!", popS: "শুধু আজকের জন্য",
+      popTitle: "গাছ কিনুন, অফার নিন", popMsg: "অর্ডারের আগে WhatsApp করুন — আজকের সেরা অফারটা নিয়ে নিন।",
+      popCta: "অফার দেখুন", popSkip: "পরে দেখব",
+      fCats: "ক্যাটাগরি", fQuick: "কুইক লিংক", fAddr: "📍 মালদা ও মুর্শিদাবাদ, পশ্চিমবঙ্গ",
+      askMsg: "নমস্কার! আমি Green Friend থেকে {0} চাই — দাম ও ছবি পাঠান",
+      nlMsg: "নমস্কার! আমি প্রতি সপ্তাহে গাছের টিপস পেতে চাই। আমার নাম: "
     },
     en: {
-      app: "App", h1: '8 ft <span>mango plants</span>',
+      h1: '8 ft <span>mango plants</span>',
+      searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →", viewAll: "View All →", explore: "Explore Now →", seller: "Sold By : Green Friend", colTerrace: "Terrace Garden", colLow: "Low Maintenance", colExotic: "Exotic Fruits", colTropical: "Tropical Fruits",
       heroKicker: "🌿 Malda & Murshidabad nursery",
-      navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ", navInstall: "Install app",
+      navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ",
       topbar: "🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery",
       topbarShort: "🚚 Free delivery above ₹1000",
       hs1t: "🥭 Langra mango", hs1s: "8 ft plants · Malda",
@@ -693,35 +944,27 @@
       hs3t: "🌸 Bougainvillea", hs3s: "Flowering plants · all colours",
       hs4t: "🌿 Aloe vera", hs4s: "Indoor plants · easy care",
       docTitle: "Green Friend — Mango plants | Malda & Murshidabad | 8 ft, low price",
-      install: "⬇ Install the app", download: "⬇ Download APK",
       sub: "Famous mango plants — available in <b>Malda and Murshidabad</b>. Trees are <b>8 feet tall</b>, at a <b>lower price</b>, with a <b>100% guarantee</b>. Indoor plants, flowers, fruit plants and pots too — home delivery, cash on delivery or UPI.",
       cta1: "🌱 See plants", b0: "🥭 8 ft mango plants", b1: "✅ 100% guarantee", b2: "🚚 Free delivery above ₹1000", b3: "💵 Cash on delivery", b4: "🎁 Share & earn coupons",
-      bandTitle: "Get more from the app",
-      bandSub: "Invite friends for coupons, review for coupons, and track every order — all in one app.",
       plants: "Our plants", plantsSub: "Live prices, photos and stock",
       offers: "Offers right now", offersSub: "For a limited time",
       trustTitle: "100% original guarantee",
       trustMsg: "No fakes, no surprises — every plant is 100% original.",
       reviews: "What customers say", reviewsSub: "Real reviews",
-      howTitle: "How to install the app", howSub: "Once only, about 30 seconds",
-      s1t: "Download the APK", s1s: "Tap the green button above — Green-Friend.apk will download.",
-      s2t: "Open the file", s2s: "After the download, tap the file and press Install.",
-      s3t: "Allow the install", s3s: 'Turn on "Allow from this source" — you only need this once.',
-      note: 'If Play Protect says "Unsafe app blocked", tap More details → Install anyway. No ads, no charges.',
       fTag: "Mango plants across Malda & Murshidabad — 8 ft, lower price, guaranteed.",
-      fContact: "Contact", fHours: "🕘 9 AM – 9 PM", fApp: "App",
+      fContact: "Contact", fHours: "🕘 9 AM – 9 PM",
       catTitle: "Categories", catSub: "Start from what you are looking for", catItems: "items",
       st1n: "8 ft", st1: "plant height", st2n: "100%", st2: "original guarantee",
       st3n: "2 districts", st3: "Malda & Murshidabad", st4: "plant varieties",
       faqTitle: "Frequently asked questions", faqSub: "Delivery, guarantee and payment — short answers",
-      shipBadge: "Free delivery above {0}",
+      shipBadge: "🚚 Free delivery above {0}",
       order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more", fromPrice: "from {0}", size: "Size",
       cart: "Cart", cartTitle: "Your cart", total: "Total", checkout: "Checkout",
       delivery: "Delivery", free: "FREE", freeAbove: "Free delivery above {0}", freeAboveHint: "Add {0} more for free delivery",
       cartEmptyT: "Cart is empty", cartEmptyS: "Add a plant to get started.",
       checkoutTitle: "Complete your order", signin: "Sign in", signup: "Create account",
       phone: "Mobile number", password: "Password", name: "Your name", continue: "Continue",
-      authNote: "Use the same phone & password to log in to the app.",
+      authNote: "Keep this phone & password — you will need it for your next order.",
       address: "Delivery address", pincode: "PIN code (6 digits)", payMethod: "Payment method",
       cod: "Cash on delivery", upi: "UPI", bank: "Bank transfer",
       upiRef: "12-digit UTR", bankRef: "Bank reference (6–22 chars)",
@@ -731,12 +974,32 @@
       emptyT: "The plant list is being arranged",
       emptyS: "If you cannot see the list, message us on WhatsApp — we will send photos and prices.",
       waMsg: "Hello! I would like to order from Green Friend",
-      waProduct: "Hello! I would like this plant: {0} — {1}"
+      waProduct: "Hello! I would like this plant: {0} — {1}",
+      pinT: "Check delivery", pinS: "Is delivery available at your PIN?", pinPh: "PIN code (6 digits)", pinBtn: "Check",
+      fruitT: "Popular fruit plants", fruitSub: "Grafted, fruit-bearing plants", fruitCta: "See more →",
+      mangoT: "Hotselling mango plants", mangoSub: "Malda's famous mangoes — best price",
+      medT: "Medicinal plants", medS: "Tulsi, neem, aloe vera — every home needs them. Cheap, with guarantee.", medCta: "See more →",
+      askT: "Want more?", askS: "If you need these, message us on WhatsApp — we will send price and photos",
+      askSeed: "Seeds", askSeedS: "Flower, vegetable & fruit seeds", askFert: "Soil & fertilizer", askFertS: "Vermicompost, cocopeat", askSucc: "Succulents & cactus", askSuccS: "Small, pretty, low care", askGo: "Want →",
+      spotT: "Our nursery", spotS: "Our own gardens, our own grafting — so prices stay low, plants stay real.",
+      spotB1: "Our own nursery in Malda & Murshidabad — no middlemen",
+      spotB2: "Grafted mango, lychee, guava & flowering plants up to 8 ft",
+      spotB3: "100% original guarantee — free replacement if damaged",
+      spotB4: "Cash on delivery, UPI — whatever suits you",
+      spotCta: "Chat on WhatsApp",
+      nlT: "Plant tips every week", nlS: "New stock, offers and care tips — straight on WhatsApp", nlPh: "Your name", nlBtn: "Get tips",
+      backTop: "↑ Back to top", popT: "Welcome offer!", popS: "Today only",
+      popTitle: "Buy plants, grab the offer", popMsg: "Message us on WhatsApp before ordering — take today's best offer.",
+      popCta: "See offers", popSkip: "Later",
+      fCats: "Categories", fQuick: "Quick links", fAddr: "📍 Malda & Murshidabad, West Bengal",
+      askMsg: "Hello! I want {0} from Green Friend — please send price and photos",
+      nlMsg: "Hello! I want weekly plant care tips. My name: "
     },
     hi: {
-      app: "ऐप", h1: '8 फीट <span>आम के पौधे</span>',
+      h1: '8 फीट <span>आम के पौधे</span>',
+      searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →", viewAll: "सभी देखें →", explore: "अभी देखें →", seller: "विक्रेता : ग्रीन फ्रेंड", colTerrace: "टेरेस गार्डन", colLow: "कम देखभाल वाले पौधे", colExotic: "एक्सोटिक फल", colTropical: "ट्रॉपिकल फल",
       heroKicker: "🌿 मालदा और मुर्शिदाबाद की नर्सरी",
-      navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल", navInstall: "ऐप",
+      navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल",
       topbar: "🚚 ₹1000+ पर डिलीवरी फ्री · ✅ 100% असली की गारंटी · 💵 कैश ऑन डिलीवरी",
       topbarShort: "🚚 ₹1000+ पर डिलीवरी फ्री",
       hs1t: "🥭 लंगड़ा आम", hs1s: "8 फीट पौधे · मालदा",
@@ -744,35 +1007,27 @@
       hs3t: "🌸 बोगनवेलिया", hs3s: "फूलों के पौधे · सभी रंग",
       hs4t: "🌿 एलोवेरा", hs4s: "इनडोर पौधे · आसान देखभाल",
       docTitle: "Green Friend — आम के पौधे | मालदा और मुर्शिदाबाद | 8 फीट, कम दाम",
-      install: "⬇ ऐप इंस्टॉल करें", download: "⬇ APK डाउनलोड",
       sub: "आम के पौधे — <b>मालदा और मुर्शिदाबाद के मशहूर आम के पौधे</b> मिलते हैं। पौधे की ऊँचाई <b>8 फीट</b>, <b>कम दाम</b> में, <b>100% गारंटी</b> के साथ। इनडोर पौधे, फूल, फल और गमले भी हैं — घर डिलीवरी, कैश ऑन डिलीवरी / UPI।",
       cta1: "🌱 पौधे देखें", b0: "🥭 8 फीट आम के पौधे", b1: "✅ 100% गारंटी", b2: "🚚 ₹1000+ ऑर्डर पर फ्री डिलीवरी", b3: "💵 कैश ऑन डिलीवरी", b4: "🎁 दोस्त को भेजें, कूपन पाएँ",
-      bandTitle: "ऐप में ऑर्डर करने पर ज़्यादा फायदा",
-      bandSub: "दोस्त को भेजकर कूपन, रिव्यू देकर कूपन, और ऑर्डर ट्रैकिंग — सब एक ऐप में।",
       plants: "हमारे पौधे", plantsSub: "दाम, फोटो और स्टॉक — सब लाइव",
       offers: "अभी के ऑफर", offersSub: "सीमित समय के लिए",
       trustTitle: "100% असली की गारंटी",
       trustMsg: "नकली सामान खरीदकर ठगे न जाएँ — हमसे लें 100% असली पौधे।",
       reviews: "ग्राहकों की बात", reviewsSub: "सच्चे रिव्यू",
-      howTitle: "ऐप कैसे इंस्टॉल करें", howSub: "सिर्फ़ एक बार, 30 सेकंड",
-      s1t: "APK डाउनलोड करें", s1s: "ऊपर के हरे बटन पर दबाएँ — Green-Friend.apk डाउनलोड होगा।",
-      s2t: "फाइल खोलें", s2s: "डाउनलोड पूरा होने पर फाइल पर दबाकर Install करें।",
-      s3t: "अनुमति दें", s3s: '"Allow from this source" चालू करें — यह सिर्फ़ एक बार चाहिए।',
-      note: 'Play Protect "Unsafe app blocked" दिखाए तो More details → Install anyway दबाएँ। ऐप में कोई विज्ञापन नहीं, पैसे नहीं कटते।',
       fTag: "मालदा और मुर्शिदाबाद के मशहूर आम के पौधे — 8 फीट, कम दाम, गारंटी के साथ।",
-      fContact: "संपर्क", fHours: "🕘 सुबह 9 – रात 9", fApp: "ऐप",
+      fContact: "संपर्क", fHours: "🕘 सुबह 9 – रात 9",
       catTitle: "श्रेणियाँ", catSub: "जो चाहिए वहीं से शुरू करें", catItems: "आइटम",
       st1n: "8 फीट", st1: "पौधे की ऊँचाई", st2n: "100%", st2: "असली की गारंटी",
       st3n: "2 जिले", st3: "मालदा और मुर्शिदाबाद", st4: "पौधों की किस्में",
       faqTitle: "अक्सर पूछे जाने वाले सवाल", faqSub: "डिलीवरी, गारंटी और पेमेंट — छोटे जवाब",
-      shipBadge: "{0}+ पर डिलीवरी फ्री",
+      shipBadge: "🚚 {0}+ पर डिलीवरी फ्री",
       order: "WhatsApp पर ऑर्डर", add: "कार्ट में डालें", buyNow: "अभी खरीदें", all: "सभी", out: "स्टॉक खत्म", low: "सिर्फ़ {0} बाकी", off: "{0}% छूट", more: "और देखें", fromPrice: "{0} से", size: "साइज़",
       cart: "कार्ट", cartTitle: "आपका कार्ट", total: "कुल", checkout: "चेकआउट",
       delivery: "डिलीवरी", free: "फ्री", freeAbove: "{0} से ऊपर डिलीवरी फ्री", freeAboveHint: "और {0} जोड़ें तो डिलीवरी फ्री",
       cartEmptyT: "कार्ट खाली है", cartEmptyS: "एक पौधा जोड़ें।",
       checkoutTitle: "ऑर्डर पूरा करें", signin: "साइन इन", signup: "अकाउंट बनाएँ",
       phone: "मोबाइल नंबर", password: "पासवर्ड", name: "आपका नाम", continue: "आगे बढ़ें",
-      authNote: "वही फोन और पासवर्ड ऐप में भी लॉगिन के लिए काम करेगा।",
+      authNote: "फोन और पासवर्ड याद रखें — अगले ऑर्डर में फिर काम आएगा।",
       address: "डिलीवरी पता", pincode: "PIN कोड (6 अंक)", payMethod: "पेमेंट तरीका",
       cod: "कैश ऑन डिलीवरी", upi: "UPI", bank: "बैंक ट्रांसफर",
       upiRef: "12 अंकों का UTR", bankRef: "बैंक रेफरेंस (6–22 अक्षर/अंक)",
@@ -783,6 +1038,25 @@
       emptyS: "सूची न दिखे तो सीधे WhatsApp करें — हम फोटो और दाम भेज देंगे।",
       waMsg: "नमस्ते! मैं Green Friend से ऑर्डर करना चाहता हूँ",
       waProduct: "नमस्ते! मुझे यह पौधा चाहिए: {0} — {1}",
+      pinT: "डिलीवरी चेक करें", pinS: "आपके PIN कोड पर डिलीवरी होगी?", pinPh: "PIN कोड (6 अंक)", pinBtn: "चेक करें",
+      fruitT: "लोकप्रिय फल के पौधे", fruitSub: "ग्राफ्टेड, फल देने वाले पौधे", fruitCta: "और देखें →",
+      mangoT: "हॉटसेलिंग आम के पौधे", mangoSub: "मालदा के मशहूर आम — सबसे अच्छे दाम",
+      medT: "औषधीय पौधे", medS: "तुलसी, नीम, एलोवेरा — हर घर की ज़रूरत। सस्ते में, गारंटी के साथ।", medCta: "और देखें →",
+      askT: "और क्या चाहिए?", askS: "ये चाहिए तो WhatsApp करें — दाम और फोटो भेज देंगे",
+      askSeed: "बीज", askSeedS: "फूल, सब्ज़ी और फल के बीज", askFert: "मिट्टी और खाद", askFertS: "वर्मीकम्पोस्ट, कोकोपीट", askSucc: "सक्यूलेंट और कैक्टस", askSuccS: "छोटे, सुंदर, कम देखभाल", askGo: "चाहिए →",
+      spotT: "हमारी नर्सरी", spotS: "अपना बाग़, अपनी ग्राफ्टिंग — इसलिए दाम कम, पौधे असली।",
+      spotB1: "मालदा और मुर्शिदाबाद में अपनी नर्सरी — कोई बिचौलिया नहीं",
+      spotB2: "8 फीट तक ग्राफ्टेड आम, लीची, अमरूद और फूलों के पौधे",
+      spotB3: "100% असली की गारंटी — खराब मिले तो बिना खर्च बदलाव",
+      spotB4: "कैश ऑन डिलीवरी, UPI — जैसा आपको सुविधा हो",
+      spotCta: "WhatsApp पर बात करें",
+      nlT: "हर हफ्ते पौधों की टिप्स", nlS: "नया स्टॉक, ऑफर और देखभाल की टिप्स — सीधे WhatsApp पर", nlPh: "आपका नाम", nlBtn: "टिप्स लें",
+      backTop: "↑ ऊपर जाएँ", popT: "स्वागत ऑफर!", popS: "सिर्फ़ आज के लिए",
+      popTitle: "पौधे खरीदें, ऑफर लें", popMsg: "ऑर्डर से पहले WhatsApp करें — आज का सबसे अच्छा ऑफर लें।",
+      popCta: "ऑफर देखें", popSkip: "बाद में",
+      fCats: "श्रेणियाँ", fQuick: "क्विक लिंक", fAddr: "📍 मालदा और मुर्शिदाबाद, पश्चिम बंगाल",
+      askMsg: "नमस्ते! मुझे Green Friend से {0} चाहिए — दाम और फोटो भेजें",
+      nlMsg: "नमस्ते! मुझे हर हफ्ते पौधों की टिप्स चाहिए। मेरा नाम: ",
       number: "नंबर", plant: "पौधा"
     }
   };
@@ -794,27 +1068,27 @@
       { q: "ডেলিভারি চার্জ কত?", a: "₹১০০০ বা তার বেশি অর্ডারে ডেলিভারি সম্পূর্ণ ফ্রি। কম হলে চেকআউটে চার্জ দেখানো হয় — কোনো লুকানো খরচ নেই।" },
       { q: "গাছ কি সত্যিই ৮ ফুট?", a: "আমের চারা ৮ ফুট পর্যন্ত হয়। প্রতিটি পণ্যে ৩টি সাইজ (ছোট / মাঝারি / বড়) আছে — দাম ও উচ্চতা পণ্যের পেজে লেখা থাকে।" },
       { q: "গাছ নষ্ট বা ভুল এলে কী করব?", a: "ডেলিভারির ২৪ ঘণ্টার মধ্যে WhatsApp-এ গাছের ছবি বা ভিডিও পাঠান। যাচাই করে বিনা খরচে রিপ্লেসমেন্ট দেওয়া হয়।" },
-      { q: "পেমেন্ট কীভাবে করব?", a: "ক্যাশ অন ডেলিভারি, UPI (১২ সংখ্যার UTR) অথবা ব্যাংক ট্রান্সফার। অ্যাপে অর্ডার করলে আরও সহজ।" },
+      { q: "পেমেন্ট কীভাবে করব?", a: "ক্যাশ অন ডেলিভারি, UPI (১২ সংখ্যার UTR) অথবা ব্যাংক ট্রান্সফার।" },
       { q: "নার্সারি কোথায়?", a: "আমাদের নিজের বাগান মালদা ও মুর্শিদাবাদে। কোনো মধ্যস্বত্বভোগী নেই — তাই দাম কম রাখা যায়।" },
-      { q: "অর্ডার ট্র্যাক করব কীভাবে?", a: "অ্যাপে My Orders-এ দেখুন, অথবা WhatsApp-এ অর্ডার নম্বর পাঠান — সাথে সাথে আপডেট পাবেন।" }
+      { q: "অর্ডার ট্র্যাক করব কীভাবে?", a: "WhatsApp-এ অর্ডার নম্বর পাঠান — সাথে সাথে আপডেট পাবেন।" }
     ],
     en: [
       { q: "How long does delivery take?", a: "2–3 days in Malda and Murshidabad, 4–5 days elsewhere in West Bengal, and 5–7 days to other states. Tracking is sent on WhatsApp." },
       { q: "What are the delivery charges?", a: "Delivery is completely free on orders of ₹1000 or more. Below that the charge is shown at checkout — no hidden costs." },
       { q: "Are the plants really 8 feet?", a: "Mango plants grow up to 8 feet. Every product has 3 sizes (small / medium / large), with the price and height listed on the product page." },
       { q: "What if the plant arrives damaged or wrong?", a: "Send a photo or video on WhatsApp within 24 hours of delivery. After checking, we replace it free of cost." },
-      { q: "How can I pay?", a: "Cash on delivery, UPI (12-digit UTR) or bank transfer. Ordering in the app is even easier." },
+      { q: "How can I pay?", a: "Cash on delivery, UPI (12-digit UTR) or bank transfer." },
       { q: "Where is the nursery?", a: "Our own gardens are in Malda and Murshidabad. No middlemen, so prices stay low." },
-      { q: "How do I track my order?", a: "Open My Orders in the app, or send your order number on WhatsApp for an instant update." }
+      { q: "How do I track my order?", a: "Send your order number on WhatsApp for an instant update." }
     ],
     hi: [
       { q: "डिलीवरी में कितने दिन लगते हैं?", a: "मालदा और मुर्शिदाबाद में 2–3 दिन, पश्चिम बंगाल के बाकी जिलों में 4–5 दिन, दूसरे राज्यों में 5–7 दिन। ट्रैकिंग WhatsApp पर भेजी जाती है।" },
       { q: "डिलीवरी चार्ज कितना है?", a: "₹1000 या उससे ज़्यादा के ऑर्डर पर डिलीवरी पूरी तरह फ्री। कम होने पर चेकआउट में चार्ज दिखता है — कोई छिपा खर्च नहीं।" },
       { q: "क्या पौधे सच में 8 फीट के हैं?", a: "आम के पौधे 8 फीट तक होते हैं। हर उत्पाद में 3 साइज़ (छोटा / मध्यम / बड़ा) हैं — दाम और ऊँचाई उत्पाद पेज पर लिखी है।" },
       { q: "पौधा खराब या गलत मिले तो क्या करें?", a: "डिलीवरी के 24 घंटे के भीतर WhatsApp पर पौधे की फोटो या वीडियो भेजें। जाँच के बाद बिना खर्च बदल दिया जाता है।" },
-      { q: "पेमेंट कैसे करें?", a: "कैश ऑन डिलीवरी, UPI (12 अंकों का UTR) या बैंक ट्रांसफर। ऐप में ऑर्डर करना और आसान है।" },
+      { q: "पेमेंट कैसे करें?", a: "कैश ऑन डिलीवरी, UPI (12 अंकों का UTR) या बैंक ट्रांसफर।" },
       { q: "नर्सरी कहाँ है?", a: "हमारे अपने बाग़ मालदा और मुर्शिदाबाद में हैं। कोई बिचौलिया नहीं — इसलिए दाम कम हैं।" },
-      { q: "ऑर्डर ट्रैक कैसे करें?", a: "ऐप में My Orders में देखें, या WhatsApp पर ऑर्डर नंबर भेजें — तुरंत अपडेट मिलेगा।" }
+      { q: "ऑर्डर ट्रैक कैसे करें?", a: "WhatsApp पर ऑर्डर नंबर भेजें — तुरंत अपडेट मिलेगा।" }
     ]
   };
 
@@ -866,9 +1140,10 @@
   function phoneEmailLegacy(phone) { return "gf" + String(phone || "").replace(/\D/g, "") + "@phone.greenfriend.invalid"; }
 
   document.getElementById("yr").textContent = new Date().getFullYear();
-  ["apkTop", "apkHero", "apkBand", "apkFoot"].forEach(function (id) { var el = document.getElementById(id); if (el) el.href = APK; });
   document.getElementById("waHero").href = wa(t("waMsg"));
   document.getElementById("fab").href = wa(t("waMsg"));
+  var spotWaEl = document.getElementById("spotWa");
+  if (spotWaEl) spotWaEl.href = wa(t("waMsg"));
   loadPaySettings();
 
   // ---------- cart ----------
@@ -1192,7 +1467,10 @@
     return map ? (map[LANG] || key) : key;
   }
   function productName(p) { if (LANG === "bn" && p.bn) return p.bn; return p.name || p.bn || "Plant"; }
-  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {} };
+  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {}, q: "", favOn: false };
+  var fav = {};
+  try { fav = JSON.parse(localStorage.getItem("gf_fav") || "{}"); } catch (e) { fav = {}; }
+  function saveFav() { try { localStorage.setItem("gf_fav", JSON.stringify(fav)); } catch (e) {} }
   function applyLang() {
     document.documentElement.lang = LANG;
     if (TXT[LANG].docTitle) document.title = TXT[LANG].docTitle;
@@ -1202,8 +1480,17 @@
     });
     document.getElementById("waHero").href = wa(t("waMsg"));
     document.getElementById("fab").href = wa(t("waMsg"));
+    var qbox = document.getElementById("q");
+    if (qbox) qbox.placeholder = t("searchPh");
     document.querySelectorAll("#lang button").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-l") === LANG); });
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCart(); renderCats(); renderFaq();
+    renderFruit(); renderMango(); renderMed(); renderAsk(); renderFooterCats();
+    var sw = document.getElementById("spotWa");
+    if (sw) sw.href = wa(t("waMsg"));
+    var pi = document.getElementById("pinIn");
+    if (pi) pi.placeholder = t("pinPh");
+    var ni = document.getElementById("nlName");
+    if (ni) ni.placeholder = t("nlPh");
     try { localStorage.setItem("gf_lang", LANG); } catch (e) {}
   }
   function renderFaq() {
@@ -1228,35 +1515,97 @@
     });
     box.innerHTML = tiles.map(function (tl) {
       return '<a class="cat-tile" href="#plants" data-c="' + esc(tl.cat) + '">' +
-        (tl.img ? '<img loading="lazy" decoding="async" src="' + esc(tl.img) + '" alt="' + esc(catLabel(tl.cat)) + '" onerror="this.style.display=\'none\'">' : "") +
+        '<span class="c-ring">' + (tl.img ? '<img loading="lazy" decoding="async" src="' + esc(tl.img) + '" alt="' + esc(catLabel(tl.cat)) + '" onerror="this.style.display=\'none\'">' : "🌱") + "</span>" +
         "<b>" + esc(catLabel(tl.cat)) + "</b><small>" + tl.count + " " + esc(t("catItems")) + "</small></a>";
     }).join("");
-    box.querySelectorAll(".cat-tile").forEach(function (a) {
-      a.onclick = function (ev) {
-        ev.preventDefault();
-        state.cat = a.getAttribute("data-c") || null;
-        state.shown = 40;
-        renderChips(); renderProducts();
-        var sec = document.getElementById("plants");
-        if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
+    var promos = document.getElementById("promos");
+    if (promos) {
+      var CAT_FRUIT = ["Fruit plants", "ফল"];
+      var CAT_FLOWERS = ["Flowers", "ফুল"];
+      var CAT_INDOOR = ["Indoor plants", "ইনডোর গাছ"];
+      var CAT_MED = ["Medicinal plants", "ঔষধি গাছ", "ঔষধি"];
+      var imgsOf = function (cats) {
+        var out = [];
+        state.products.forEach(function (p) {
+          if (cats.indexOf((p.category || "").trim()) < 0) return;
+          var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+          if (photos.length) out.push(thumbUrl(photos[0]));
+        });
+        return out;
       };
-    });
+      var anyImg = imgsOf(CAT_FRUIT).concat(imgsOf(CAT_FLOWERS), imgsOf(CAT_INDOOR), imgsOf(CAT_MED))[0] || "";
+      var used = {};
+      var pickImg = function (list) {
+        for (var i = 0; i < list.length; i++) {
+          var pool = imgsOf(list[i]);
+          for (var j = 0; j < pool.length; j++) {
+            if (pool[j] && !used[pool[j]]) { used[pool[j]] = 1; return pool[j]; }
+          }
+        }
+        return "";
+      };
+      var collections = [
+        { t: "colTerrace", cat: "ইনডোর গাছ", img: pickImg([CAT_INDOOR]) },
+        { t: "colLow", cat: "ইনডোর গাছ", img: pickImg([CAT_INDOOR, CAT_MED, CAT_FLOWERS]) },
+        { t: "colExotic", cat: "ফল", img: pickImg([CAT_FRUIT]) },
+        { t: "colTropical", cat: "ফল", img: pickImg([CAT_FRUIT, CAT_FLOWERS]) }
+      ];
+      promos.innerHTML = collections.map(function (c) {
+        var hasCat = tiles.some(function (tl) { return tl.cat === c.cat; });
+        var img = c.img || anyImg;
+        return '<a class="promo" href="#plants" data-c="' + esc(hasCat ? c.cat : "") + '">' +
+          (img ? '<img loading="lazy" decoding="async" src="' + esc(img) + '" alt="' + esc(t(c.t)) + '" onerror="this.remove()">' : '<span class="p-emo">🌱</span>') +
+          '<div class="p-veil"></div>' +
+          '<div class="ptxt"><b>' + esc(t(c.t)) + "</b><span>" + esc(t("explore")) + "</span></div></a>";
+      }).join("");
+      promos.querySelectorAll(".promo").forEach(function (a) { a.onclick = goCat; });
+    }
+    box.querySelectorAll(".cat-tile").forEach(function (a) { a.onclick = goCat; });
+  }
+  function goCat(ev) {
+    ev.preventDefault();
+    state.cat = (ev.currentTarget || this).getAttribute("data-c") || null;
+    state.favOn = false;
+    state.shown = 40;
+    renderChips(); renderProducts();
+    var sec = document.getElementById("plants");
+    if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
   }
   function renderChips() {
     var box = document.getElementById("chips");
     var cats = [];
     state.products.forEach(function (p) { var c = (p.category || "").trim(); if (c && cats.indexOf(c) < 0) cats.push(c); });
     if (!cats.length) { box.innerHTML = ""; return; }
-    var html = '<button class="chip' + (state.cat ? "" : " on") + '" data-c="">' + esc(t("all")) + "</button>";
-    cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(catLabel(c)) + "</button>"; });
+    var html = '<button class="chip favchip' + (state.favOn ? " on" : "") + '" data-fav="1">' + esc(t("favChip")) + "</button>";
+    html += '<button class="chip' + (!state.cat && !state.favOn ? " on" : "") + '" data-c="">' + esc(t("all")) + "</button>";
+    cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c && !state.favOn ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(catLabel(c)) + "</button>"; });
     box.innerHTML = html;
-    box.querySelectorAll(".chip").forEach(function (b) { b.onclick = function () { state.cat = b.getAttribute("data-c") || null; state.shown = 40; renderChips(); renderProducts(); }; });
+    box.querySelectorAll(".chip").forEach(function (b) {
+      b.onclick = function () {
+        if (b.hasAttribute("data-fav")) { state.favOn = !state.favOn; state.cat = null; }
+        else { state.cat = b.getAttribute("data-c") || null; state.favOn = false; }
+        state.shown = 40;
+        renderChips(); renderProducts();
+      };
+    });
   }
   function renderProducts() {
     var grid = document.getElementById("grid");
     var note = document.getElementById("plantsNote");
     note.innerHTML = "";
     var list = state.products.filter(function (p) { return !state.cat || p.category === state.cat; });
+    if (state.q) {
+      var ql = state.q.toLowerCase();
+      list = list.filter(function (p) {
+        var hay = ((p.bn || "") + " " + (p.name || "") + " " + (p.category || "") + " " + (p.note || "") + " " + (p.note_bn || "")).toLowerCase();
+        return hay.indexOf(ql) >= 0;
+      });
+    }
+    if (state.favOn) list = list.filter(function (p) { return !!fav[p.id]; });
+    if (state.q) {
+      note.innerHTML = '<div class="search-note">' + esc(fmt(t("searchRes"), list.length)) +
+        ' <button type="button" class="s-clear" onclick="clearSearch()">' + esc(t("searchClear")) + "</button></div>";
+    }
     if (!list.length) {
       grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><b>' + esc(t("emptyT")) + "</b>" + esc(t("emptyS")) +
         '<div style="margin-top:14px"><a class="btn btn-solid" href="' + wa(t("waMsg")) + '">💬 WhatsApp</a></div></div>';
@@ -1299,9 +1648,11 @@
           '<span>' + esc(s.label) + '</span><b>' + money(s.price) + '</b></button>';
       }).join("") + "</div>" : "";
       var minPrice = sizes.length ? Math.min.apply(null, sizes.map(function (s) { return Number(s.price); })) : price;
+      var isFav = !!fav[p.id];
+      var favBtn = '<button class="fav' + (isFav ? " on" : "") + '" type="button" aria-label="' + esc(t("fav")) + '" title="' + esc(t("fav")) + '" onclick="toggleFav(\'' + esc(p.id) + '\', this)">&#10084;</button>';
       var priceHtml = sizes.length
         ? '<b>' + esc(fmt(t("fromPrice"), money(minPrice))) + '</b>'
-        : '<b>' + money(price) + '</b>' + (hasOffer ? "<s>" + money(listPrice) + "</s>" : "");
+        : '<b>' + money(price) + '</b>' + (hasOffer ? "<s>" + money(listPrice) + "</s><em>" + esc(fmt(t("off"), Math.round((1 - price / listPrice) * 100))) + "</em>" : "");
       var shipAbove = paySettings && paySettings.free_delivery_above != null ? Number(paySettings.free_delivery_above) : 1000;
       var shipHtml = shipAbove > 0 ? '<span class="p-ship">' + esc(fmt(t("shipBadge"), money(shipAbove))) + "</span>" : "";
       var slug = state.slugs && state.slugs[p.id];
@@ -1314,10 +1665,11 @@
         ? '<a class="p-name" href="' + esc(href) + '">' + esc(productName(p)) + "</a>"
         : '<div class="p-name">' + esc(productName(p)) + "</div>";
       return '<article class="card">' +
-        thumbOpen + badge + thumb + thumbClose +
+        thumbOpen + badge + favBtn + thumb + thumbClose +
         '<div class="card-body">' +
           '<div class="p-cat">' + esc(catLabel(p.category)) + "</div>" +
           nameHtml +
+          '<div class="p-seller">' + esc(t("seller")) + "</div>" +
           (noteText ? '<div class="p-note">' + esc(noteText) + "</div>" : "") +
           '<div class="p-price">' + priceHtml + "</div>" +
           shipHtml +
@@ -1330,7 +1682,7 @@
         "</div></article>";
     }).join("");
     if (list.length > shown) {
-      note.innerHTML = '<div class="more-wrap"><button class="btn btn-solid" id="loadMore">' +
+      note.innerHTML += '<div class="more-wrap"><button class="btn btn-solid" id="loadMore">' +
         esc(t("more")) + " (" + (list.length - shown) + ")</button></div>";
       var more = document.getElementById("loadMore");
       if (more) more.onclick = function () { state.shown += 40; renderProducts(); };
@@ -1359,15 +1711,203 @@
   }
   setInterval(slideTickAll, 3000);
 
+  function toggleFav(id, btn) {
+    if (fav[id]) delete fav[id]; else fav[id] = 1;
+    saveFav();
+    if (btn) btn.classList.toggle("on", !!fav[id]);
+    if (state.favOn) renderProducts();
+  }
+  function clearSearch() {
+    state.q = "";
+    var box = document.getElementById("q");
+    if (box) box.value = "";
+    var qres = document.getElementById("qres");
+    if (qres) qres.classList.remove("on");
+    renderProducts();
+  }
+  function renderQ() {
+    var box = document.getElementById("q");
+    var qres = document.getElementById("qres");
+    if (!box || !qres) return;
+    state.q = box.value.trim();
+    if (!state.q) { qres.classList.remove("on"); renderProducts(); return; }
+    var ql = state.q.toLowerCase();
+    var hits = state.products.filter(function (p) {
+      var hay = ((p.bn || "") + " " + (p.name || "") + " " + (p.category || "")).toLowerCase();
+      return hay.indexOf(ql) >= 0;
+    }).slice(0, 6);
+    qres.innerHTML = hits.length
+      ? hits.map(function (p) {
+          var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+          var img = photos.length ? '<img loading="lazy" src="' + esc(thumbUrl(photos[0])) + '" alt="">' : '<span class="qimg">' + esc(p.emoji || "🌱") + "</span>";
+          var price = Number(p.offer_price || p.price) || 0;
+          return '<a href="#plants" class="qhit" data-q="' + esc(productName(p)) + '">' + img +
+            '<span class="qn">' + esc(productName(p)) + '</span><span class="qp">' + money(price) + "</span></a>";
+        }).join("")
+      : '<div class="qnone">' + esc(t("emptyT")) + "</div>";
+    qres.classList.add("on");
+    qres.querySelectorAll(".qhit").forEach(function (a) {
+      a.onclick = function () {
+        state.q = a.getAttribute("data-q") || state.q;
+        box.value = state.q;
+        qres.classList.remove("on");
+        state.shown = 40;
+        renderProducts();
+        var sec = document.getElementById("plants");
+        if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
+      };
+    });
+  }
+  (function () {
+    var box = document.getElementById("q");
+    var qres = document.getElementById("qres");
+    if (!box) return;
+    box.addEventListener("input", renderQ);
+    box.addEventListener("focus", renderQ);
+    box.addEventListener("keydown", function (ev) {
+      if (ev.key !== "Enter") return;
+      ev.preventDefault();
+      if (qres) qres.classList.remove("on");
+      state.shown = 40;
+      renderProducts();
+      var sec = document.getElementById("plants");
+      if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
+    });
+    document.addEventListener("click", function (ev) {
+      if (qres && !box.contains(ev.target) && !qres.contains(ev.target)) qres.classList.remove("on");
+    });
+    var viewAll = document.getElementById("viewAll");
+    if (viewAll) viewAll.onclick = function (ev) {
+      ev.preventDefault();
+      state.cat = null; state.favOn = false; state.q = "";
+      box.value = "";
+      state.shown = 40;
+      renderChips(); renderProducts();
+      var sec = document.getElementById("plants");
+      if (sec) { try { sec.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { sec.scrollIntoView(); } }
+    };
+  })();
+
+  function renderFruit() {
+    var sec = document.getElementById("fruitSec");
+    var box = document.getElementById("fruitgrid");
+    if (!sec || !box) return;
+    var list = state.products.filter(function (p) {
+      var c = (p.category || "").trim();
+      return c === "Fruit plants" || c === "ফল";
+    }).slice(0, 4);
+    if (!list.length) { sec.hidden = true; return; }
+    sec.hidden = false;
+    box.innerHTML = list.map(function (p) {
+      var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+      var slug = state.slugs && state.slugs[p.id];
+      var href = slug ? "product/" + slug + ".html" : "#plants";
+      var price = Number(p.offer_price || p.price) || 0;
+      var img = photos.length ? '<img loading="lazy" decoding="async" src="' + esc(thumbUrl(photos[0])) + '" alt="' + esc(productName(p)) + '">' : "";
+      return '<a class="fc" href="' + esc(href) + '" data-c="' + esc(slug ? "" : (p.category || "")) + '">' +
+        '<span class="fc-thumb">' + (img || '<span class="fcemoji">' + esc(p.emoji || "🥭") + "</span>") + "</span>" +
+        '<span class="fc-body">' +
+        '<span class="fc-tag">' + esc(catLabel(p.category).toUpperCase()) + "</span>" +
+        '<span class="fc-t">' + esc(productName(p)) + "</span>" +
+        '<span class="fc-s">' + money(price) + " · " + esc(t("b1")) + "</span>" +
+        '<span class="fc-cta">' + esc(t("fruitCta")) + "</span>" +
+        "</span></a>";
+    }).join("");
+    box.querySelectorAll(".fc").forEach(function (a) {
+      if (a.getAttribute("data-c")) a.addEventListener("click", goCat);
+    });
+  }
+
+  function renderMango() {
+    var sec = document.getElementById("mangoSec");
+    var box = document.getElementById("mstrip");
+    if (!sec || !box) return;
+    var list = state.products.filter(function (p) {
+      var hay = ((p.bn || "") + " " + (p.name || "")).toLowerCase();
+      if (hay.indexOf("আম") < 0 && hay.indexOf("mango") < 0) return false;
+      return !/(আমলকী|আমড়া|amla|jamun|জাম)/.test(hay);
+    }).slice(0, 12);
+    if (!list.length) { sec.hidden = true; return; }
+    sec.hidden = false;
+    box.innerHTML = list.map(function (p) {
+      var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+      var img = photos.length ? '<img loading="lazy" decoding="async" src="' + esc(thumbUrl(photos[0])) + '" alt="' + esc(productName(p)) + '">' : esc(p.emoji || "🥭");
+      var price = Number(p.offer_price || p.price) || 0;
+      var slug = state.slugs && state.slugs[p.id];
+      var href = slug ? "product/" + slug + ".html" : "";
+      var nameHtml = href ? '<a class="mname" href="' + esc(href) + '">' + esc(productName(p)) + "</a>" : '<div class="mname">' + esc(productName(p)) + "</div>";
+      var btn = href
+        ? '<a class="mbtn" style="display:block;text-align:center" href="' + esc(href) + '">' + esc(t("fruitCta")) + "</a>"
+        : '<a class="mbtn" style="display:block;text-align:center" href="' + wa(fmt(t("waProduct"), productName(p), money(price))) + '">💬 ' + esc(t("order")) + "</a>";
+      return '<div class="mcard">' +
+        (href ? '<a class="mimg" href="' + esc(href) + '" style="background:' + esc(p.tint || "#F1F3ED") + '">' + img + "</a>" : '<div class="mimg" style="background:' + esc(p.tint || "#F1F3ED") + '">' + img + "</div>") +
+        '<div class="mbody">' + nameHtml + '<div class="mprice">' + money(price) + "</div>" + btn + "</div></div>";
+    }).join("");
+  }
+
+  function renderMed() {
+    var box = document.getElementById("medband");
+    if (!box) return;
+    var list = state.products.filter(function (p) {
+      var c = (p.category || "").trim();
+      return c === "Medicinal plants" || c === "ঔষধি";
+    });
+    var img = "";
+    list.concat(state.products).forEach(function (p) {
+      if (img) return;
+      var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
+      if (photos.length) img = thumbUrl(photos[0]);
+    });
+    var medImg = document.getElementById("medImg");
+    if (medImg && img) medImg.style.backgroundImage = 'url("' + img.replace(/"/g, "%22") + '")';
+    var go = document.getElementById("medGo");
+    if (go) {
+      if (list.length) go.setAttribute("data-c", list[0].category || "");
+      else go.removeAttribute("data-c");
+      go.onclick = goCat;
+    }
+  }
+
+  function renderAsk() {
+    var box = document.getElementById("askgrid");
+    if (!box) return;
+    var items = [
+      { t: t("askSeed"), s: t("askSeedS"), e: "🌰" },
+      { t: t("askFert"), s: t("askFertS"), e: "🪴" },
+      { t: t("askSucc"), s: t("askSuccS"), e: "🌵" }
+    ];
+    box.innerHTML = items.map(function (it) {
+      return '<a class="asktile" href="' + wa(fmt(t("askMsg"), it.t)) + '">' +
+        '<span class="a-ico">' + it.e + "</span>" +
+        '<span style="flex:1;min-width:0"><b>' + esc(it.t) + "</b><small>" + esc(it.s) + "</small></span>" +
+        '<span class="a-go">' + esc(t("askGo")) + "</span></a>";
+    }).join("");
+  }
+
+  function renderFooterCats() {
+    var box = document.getElementById("fCats");
+    if (!box) return;
+    var seen = [];
+    state.products.forEach(function (p) { var c = (p.category || "").trim(); if (c && seen.indexOf(c) < 0) seen.push(c); });
+    box.innerHTML = seen.slice(0, 6).map(function (c) {
+      return '<p><a href="#plants" data-c="' + esc(c) + '">' + esc(catLabel(c)) + "</a></p>";
+    }).join("");
+    box.querySelectorAll("a").forEach(function (a) { a.onclick = goCat; });
+  }
+
   function renderOffers() {
     var sec = document.getElementById("offerSec");
     var box = document.getElementById("offers");
     if (!state.offers.length) { sec.hidden = true; return; }
     sec.hidden = false;
     box.innerHTML = state.offers.map(function (o) {
+      var ic = o.image_url
+        ? '<img loading="lazy" src="' + esc(img(o.image_url)) + '" alt="">'
+        : esc(o.emoji || "🎁");
       return '<a class="offer" href="' + wa(t("waMsg") + " — " + (o.title || "")) + '">' +
-        (o.image_url ? '<img loading="lazy" src="' + esc(img(o.image_url)) + '" alt="">' : "") +
-        '<div class="veil"></div><div class="txt"><b>' + esc(o.title || "") + "</b><span>" + esc(o.message || "") + "</span></div></a>";
+        '<div class="o-ic">' + ic + "</div>" +
+        '<div class="o-txt"><b>' + esc(o.title || "") + '</b><span class="o-msg">' + esc(o.message || "") + "</span>" +
+        '<span class="o-cta">' + esc(t("offerCta")) + "</span></div></a>";
     }).join("");
   }
   function renderReviews() {
@@ -1412,21 +1952,43 @@
     } catch (e) {}
   }
   async function boot() {
+    var cached = null;
+    try { cached = JSON.parse(localStorage.getItem("gf_products") || "null"); } catch (e) {}
+    var useCache = function () {
+      return cached && Array.isArray(cached.d) && cached.d.length ? cached.d : [];
+    };
     try {
       var res = await Promise.all([
         fetchProducts(),
         fetch(SUPABASE_URL + "/rest/v1/shop_offers?select=id,title,message,image_url&is_active=eq.true&order=sort_order.asc&limit=4", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
         fetch(SUPABASE_URL + "/rest/v1/review_wall?select=id,rating,comment,image_url,customer_name,created_at&order=created_at.desc&limit=6", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); })
       ]);
-      state.products = Array.isArray(res[0]) ? res[0] : [];
+      state.products = Array.isArray(res[0]) && res[0].length ? res[0] : useCache();
+      if (state.products.length) { try { localStorage.setItem("gf_products", JSON.stringify({ t: Date.now(), d: state.products })); } catch (e) {} }
       state.offers = Array.isArray(res[1]) ? res[1] : [];
       state.reviews = Array.isArray(res[2]) ? res[2] : [];
-    } catch (e) { state.products = []; state.offers = []; state.reviews = []; console.warn("Green Friend website:", e.message); }
+    } catch (e) { state.products = useCache(); state.offers = []; state.reviews = []; console.warn("Green Friend website:", e.message); }
     try {
       var mapRes = await fetch("product-map.json", { cache: "no-store" });
       state.slugs = mapRes.ok ? await mapRes.json() : {};
     } catch (e) { state.slugs = {}; }
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCats(); renderFaq();
+    renderFruit(); renderMango(); renderMed(); renderAsk(); renderFooterCats();
+    var pop = document.getElementById("coupop");
+    if (pop) {
+      if (state.offers.length) {
+        var o = state.offers[0];
+        var pt = document.getElementById("popTitle");
+        if (pt) pt.textContent = o.title || pt.textContent;
+        var pm = document.getElementById("popMsg");
+        if (pm) pm.textContent = o.message || pm.textContent;
+        var pc = document.getElementById("popCta");
+        if (pc) pc.href = "#offerSec";
+      } else {
+        var pc2 = document.getElementById("popCta");
+        if (pc2) pc2.href = wa(t("waMsg"));
+      }
+    }
     var sc = document.getElementById("statCount");
     if (sc) sc.textContent = (state.products.length ? state.products.length + "+" : "—");
     deepLinkAdd();
@@ -1460,6 +2022,54 @@
     });
   })();
 
+  // back-to-top button
+  (function () {
+    var b = document.getElementById("topBtn");
+    if (!b) return;
+    function onScroll() { b.classList.toggle("on", (window.scrollY || document.documentElement.scrollTop) > 600); }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    b.onclick = function () { try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) { window.scrollTo(0, 0); } };
+  })();
+
+  // pincode strip, weekly-tips form, view-all links, welcome coupon popup
+  (function () {
+    var pin = document.getElementById("pinForm");
+    if (pin) pin.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var v = (document.getElementById("pinIn").value || "").trim();
+      if (!/^\d{6}$/.test(v)) { toast("PIN কোড ৬ সংখ্যার লিখুন"); return; }
+      window.open(wa("নমস্কার! আমার এলাকার PIN কোড " + v + " — এখানে ডেলিভারি হয়?"), "_blank");
+    });
+    var nl = document.getElementById("nlForm");
+    if (nl) nl.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var nm = (document.getElementById("nlName").value || "").trim() || "—";
+      window.open(wa(t("nlMsg") + nm), "_blank");
+    });
+    ["fruitAll", "mangoAll"].forEach(function (id) {
+      var a = document.getElementById(id);
+      if (a) a.onclick = goCat;
+    });
+    var pop = document.getElementById("coupop");
+    if (pop) {
+      function dismiss() { pop.classList.remove("on"); try { localStorage.setItem("gf_popup", new Date().toDateString()); } catch (e) {} }
+      var x = document.getElementById("coupopX"), skip = document.getElementById("coupopSkip");
+      if (x) x.onclick = dismiss;
+      if (skip) skip.onclick = dismiss;
+      pop.addEventListener("click", function (ev) { if (ev.target === pop) dismiss(); });
+      var shown;
+      try { shown = localStorage.getItem("gf_popup"); } catch (e) {}
+      if (shown !== new Date().toDateString()) {
+        setTimeout(function () {
+          var gate = document.getElementById("langGate");
+          if (gate && !gate.classList.contains("off")) return;
+          pop.classList.add("on");
+        }, 1600);
+      }
+    }
+  })();
+
   // toast
   function toast(msg) {
     var el = document.createElement("div");
@@ -1484,6 +2094,8 @@
   window.signOutWeb = signOutWeb;
   window.selectPay = selectPay;
   window.submitOrder = submitOrder;
+  window.toggleFav = toggleFav;
+  window.clearSearch = clearSearch;
 
   // One visit per browser session. The row is written through a Supabase RPC
   // (the website has no login) and the admin app shows the totals.
