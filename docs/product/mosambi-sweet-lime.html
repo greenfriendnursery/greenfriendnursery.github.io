@@ -48,6 +48,7 @@ h1{font-size:23px;line-height:1.2;margin:0 0 4px;letter-spacing:-.4px}
 .btn{display:block;text-align:center;font-weight:900;font-size:15px;padding:14px;border-radius:14px;margin-top:10px}
 .solid{background:linear-gradient(135deg,#F5C766,#E3A62E);color:#2A2210;box-shadow:0 8px 20px rgba(200,145,35,.22)}
 .line{background:#fff;border:1.5px solid #232820;color:#232820}
+.dark{background:#232820;color:#FFF6E2;box-shadow:0 8px 20px rgba(20,24,16,.18)}
 .specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 0;padding:0;list-style:none}
 .specs li{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px;line-height:1.4}
 .specs b{display:block;color:var(--gold);font-size:12.5px;margin-bottom:1px}
@@ -84,6 +85,7 @@ footer a{text-decoration:underline}
       <div class="price"><span id="priceNow">₹249 – ₹749</span> <small>3 sizes</small></div>
       <ul class="sizes"><li data-label="S" data-price="₹249"><span>S</span><b>₹249</b></li><li data-label="M" data-price="₹449"><span>M</span><b>₹449</b></li><li data-label="L" data-price="₹749"><span>L</span><b>₹749</b></li></ul>
       <a class="btn solid" id="addBtn" href="../index.html?add=8b3cbe16-e926-42ac-a159-454dac93467d" data-add="8b3cbe16-e926-42ac-a159-454dac93467d">Add to cart</a>
+      <a class="btn dark" id="buyBtn" href="../index.html?add=8b3cbe16-e926-42ac-a159-454dac93467d&amp;buy=1" data-add="8b3cbe16-e926-42ac-a159-454dac93467d">Buy now · pay on delivery</a>
       <a class="btn line" href="https://wa.me/919563205299?text=Hello%21%20I%20would%20like%20this%20plant%3A%20Mosambi%20%28Sweet%20Lime%29">💬 Order on WhatsApp</a>
       <ul class="specs">
         <li><b>Height</b>Up to 8 ft</li>
@@ -112,13 +114,16 @@ footer a{text-decoration:underline}
 (function () {
   var rows = document.querySelectorAll('.sizes li');
   var btn = document.getElementById('addBtn');
+  var buy = document.getElementById('buyBtn');
   var priceEl = document.getElementById('priceNow');
   if (!rows.length || !btn) return;
   function pick(li) {
     for (var i = 0; i < rows.length; i++) rows[i].classList.remove('on');
     li.classList.add('on');
     var label = li.getAttribute('data-label') || '';
-    btn.setAttribute('href', '../index.html?add=' + btn.getAttribute('data-add') + '&size=' + encodeURIComponent(label));
+    var base = '../index.html?add=' + btn.getAttribute('data-add') + '&size=' + encodeURIComponent(label);
+    btn.setAttribute('href', base);
+    if (buy) buy.setAttribute('href', base + '&buy=1');
     if (priceEl) priceEl.textContent = li.getAttribute('data-price') || priceEl.textContent;
   }
   for (var i = 0; i < rows.length; i++) {
