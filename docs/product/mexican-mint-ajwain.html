@@ -48,6 +48,7 @@ h1{font-size:23px;line-height:1.2;margin:0 0 4px;letter-spacing:-.4px}
 .btn{display:block;text-align:center;font-weight:900;font-size:15px;padding:14px;border-radius:14px;margin-top:10px}
 .solid{background:linear-gradient(135deg,#F5C766,#E3A62E);color:#2A2210;box-shadow:0 8px 20px rgba(200,145,35,.22)}
 .line{background:#fff;border:1.5px solid #232820;color:#232820}
+.dark{background:#232820;color:#FFF6E2;box-shadow:0 8px 20px rgba(20,24,16,.18)}
 .specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 0;padding:0;list-style:none}
 .specs li{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px;line-height:1.4}
 .specs b{display:block;color:var(--gold);font-size:12.5px;margin-bottom:1px}
@@ -84,6 +85,7 @@ footer a{text-decoration:underline}
       <div class="price"><span id="priceNow">₹79 – ₹199</span> <small>3 sizes</small></div>
       <ul class="sizes"><li data-label="S" data-price="₹79"><span>S</span><b>₹79</b></li><li data-label="M" data-price="₹129"><span>M</span><b>₹129</b></li><li data-label="L" data-price="₹199"><span>L</span><b>₹199</b></li></ul>
       <a class="btn solid" id="addBtn" href="../index.html?add=8d92ca2e-aab1-4860-8881-72ec5139845a" data-add="8d92ca2e-aab1-4860-8881-72ec5139845a">Add to cart</a>
+      <a class="btn dark" id="buyBtn" href="../index.html?add=8d92ca2e-aab1-4860-8881-72ec5139845a&amp;buy=1" data-add="8d92ca2e-aab1-4860-8881-72ec5139845a">Buy now · pay on delivery</a>
       <a class="btn line" href="https://wa.me/919563205299?text=Hello%21%20I%20would%20like%20this%20plant%3A%20Mexican%20mint/Ajwain">💬 Order on WhatsApp</a>
       <ul class="specs">
         <li><b>Height</b>Up to 8 ft</li>
@@ -102,7 +104,7 @@ footer a{text-decoration:underline}
   </section>
 </main>
 
-
+<section class="wrap rel"><h2>More medicinal plants</h2><div class="relgrid"><a class="relcard" href="tulsi-plant.html"><img src="https://thiqwyltfgtluxizsaee.supabase.co/storage/v1/object/public/product-images/products/1792859829590-1792859829590-inspq.png" alt="Tulsi Plant" loading="lazy"><b>Tulsi Plant</b><span>from ₹99</span></a></div></section>
 
 <footer>
   Green Friend · Malda &amp; Murshidabad, West Bengal · <a href="../index.html">Shop all plants</a> · <a href="../photo-credits.html">Photo credits</a><br>
@@ -112,13 +114,16 @@ footer a{text-decoration:underline}
 (function () {
   var rows = document.querySelectorAll('.sizes li');
   var btn = document.getElementById('addBtn');
+  var buy = document.getElementById('buyBtn');
   var priceEl = document.getElementById('priceNow');
   if (!rows.length || !btn) return;
   function pick(li) {
     for (var i = 0; i < rows.length; i++) rows[i].classList.remove('on');
     li.classList.add('on');
     var label = li.getAttribute('data-label') || '';
-    btn.setAttribute('href', '../index.html?add=' + btn.getAttribute('data-add') + '&size=' + encodeURIComponent(label));
+    var base = '../index.html?add=' + btn.getAttribute('data-add') + '&size=' + encodeURIComponent(label);
+    btn.setAttribute('href', base);
+    if (buy) buy.setAttribute('href', base + '&buy=1');
     if (priceEl) priceEl.textContent = li.getAttribute('data-price') || priceEl.textContent;
   }
   for (var i = 0; i < rows.length; i++) {
