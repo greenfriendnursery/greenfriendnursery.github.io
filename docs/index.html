@@ -212,6 +212,11 @@
   .heroTextSec{padding-top:40px;padding-bottom:14px;display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
   .heroMain{min-width:0}
   .heroSide img{width:100%;height:auto;display:block;border-radius:18px;box-shadow:var(--shadow)}
+  @media(min-width:900px){
+    .heroTextSec{grid-template-columns:minmax(0,1.12fr) minmax(0,0.88fr);gap:36px;align-items:center}
+    .heroSide{align-self:center}
+    .heroSide img{border-radius:20px}
+  }
   .heroKicker{display:inline-flex;align-items:center;gap:7px;background:#FDF3DF;border:1px solid #F0DDB2;color:#8A5E12;border-radius:999px;padding:8px 16px;font-size:12.5px;font-weight:900;letter-spacing:.45px;text-transform:uppercase;margin-bottom:18px}
   .heroTextSec h1{font-size:clamp(34px,5.6vw,64px);line-height:1.05;margin:0 0 18px;letter-spacing:-1.8px;color:#1B1F1A}
   .heroTextSec h1 span{color:var(--gold)}
@@ -302,6 +307,7 @@
   .p-actions{display:flex;gap:7px;margin-top:9px}
   .p-order,.p-cart,.p-buy{flex:1;border-radius:12px;font-weight:900;font-size:12.5px;padding:9px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:5px;border:0}
   .p-order{border:1px solid #E4D6B8;background:#FFFBF2;color:#8A5E12}
+  a.p-sizego{text-decoration:none;background:#232820;color:#FFF6E2}
   .p-cart{background:var(--green);color:#fff;transition:filter .15s}
   .p-cart:hover:not(:disabled){filter:brightness(.9)}
   .p-buy{background:var(--gold-2);color:#243018}
@@ -895,7 +901,7 @@
       st3n: "২ জেলা", st3: "মালদা ও মুর্শিদাবাদ", st4: "গাছের রকম",
       faqTitle: "সাধারণ প্রশ্ন", faqSub: "ডেলিভারি, গ্যারান্টি, পেমেন্ট — ছোট ছোট উত্তর",
       shipBadge: "🚚 {0}+ অর্ডারে ডেলিভারি ফ্রি",
-      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন", fromPrice: "{0} থেকে", size: "সাইজ",
+      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", chooseSize: "সাইজ বেছে নিন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন", fromPrice: "{0} থেকে", size: "সাইজ",
       cart: "কার্ট", cartTitle: "আপনার কার্ট", total: "মোট", checkout: "চেকআউট",
       delivery: "ডেলিভারি", free: "ফ্রি", freeAbove: "{0} টাকার উপরে ডেলিভারি ফ্রি", freeAboveHint: "আর {0} যোগ করলেই ডেলিভারি ফ্রি",
       cartEmptyT: "কার্ট খালি", cartEmptyS: "একটা গাছ যোগ করুন।",
@@ -958,7 +964,7 @@
       st3n: "2 districts", st3: "Malda & Murshidabad", st4: "plant varieties",
       faqTitle: "Frequently asked questions", faqSub: "Delivery, guarantee and payment — short answers",
       shipBadge: "🚚 Free delivery above {0}",
-      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more", fromPrice: "from {0}", size: "Size",
+      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", chooseSize: "Choose size", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more", fromPrice: "from {0}", size: "Size",
       cart: "Cart", cartTitle: "Your cart", total: "Total", checkout: "Checkout",
       delivery: "Delivery", free: "FREE", freeAbove: "Free delivery above {0}", freeAboveHint: "Add {0} more for free delivery",
       cartEmptyT: "Cart is empty", cartEmptyS: "Add a plant to get started.",
@@ -1021,7 +1027,7 @@
       st3n: "2 जिले", st3: "मालदा और मुर्शिदाबाद", st4: "पौधों की किस्में",
       faqTitle: "अक्सर पूछे जाने वाले सवाल", faqSub: "डिलीवरी, गारंटी और पेमेंट — छोटे जवाब",
       shipBadge: "🚚 {0}+ पर डिलीवरी फ्री",
-      order: "WhatsApp पर ऑर्डर", add: "कार्ट में डालें", buyNow: "अभी खरीदें", all: "सभी", out: "स्टॉक खत्म", low: "सिर्फ़ {0} बाकी", off: "{0}% छूट", more: "और देखें", fromPrice: "{0} से", size: "साइज़",
+      order: "WhatsApp पर ऑर्डर", add: "कार्ट में डालें", buyNow: "अभी खरीदें", chooseSize: "साइज़ चुनें", all: "सभी", out: "स्टॉक खत्म", low: "सिर्फ़ {0} बाकी", off: "{0}% छूट", more: "और देखें", fromPrice: "{0} से", size: "साइज़",
       cart: "कार्ट", cartTitle: "आपका कार्ट", total: "कुल", checkout: "चेकआउट",
       delivery: "डिलीवरी", free: "फ्री", freeAbove: "{0} से ऊपर डिलीवरी फ्री", freeAboveHint: "और {0} जोड़ें तो डिलीवरी फ्री",
       cartEmptyT: "कार्ट खाली है", cartEmptyS: "एक पौधा जोड़ें।",
@@ -1642,11 +1648,7 @@
       }
       var msg = fmt(t("waProduct"), productName(p), money(price));
       var noteText = (LANG === "bn" ? (p.note_bn || p.note) : (p.note || p.note_bn)) || "";
-      var sizeHtml = sizes.length ? '<div class="size-chips">' + sizes.map(function (s) {
-        var on = selSize && selSize.label === s.label;
-        return '<button type="button" class="size-chip' + (on ? " on" : "") + '" onclick="pickSize(\'' + esc(p.id) + '\',\'' + esc(String(s.label).replace(/'/g, "\\'")) + '\')">' +
-          '<span>' + esc(s.label) + '</span><b>' + money(s.price) + '</b></button>';
-      }).join("") + "</div>" : "";
+      var sizeHtml = "";
       var minPrice = sizes.length ? Math.min.apply(null, sizes.map(function (s) { return Number(s.price); })) : price;
       var isFav = !!fav[p.id];
       var favBtn = '<button class="fav' + (isFav ? " on" : "") + '" type="button" aria-label="' + esc(t("fav")) + '" title="' + esc(t("fav")) + '" onclick="toggleFav(\'' + esc(p.id) + '\', this)">&#10084;</button>';
@@ -1664,6 +1666,12 @@
       var nameHtml = href
         ? '<a class="p-name" href="' + esc(href) + '">' + esc(productName(p)) + "</a>"
         : '<div class="p-name">' + esc(productName(p)) + "</div>";
+      var actionsHtml = (sizes.length && href)
+        ? '<div class="p-actions"><a class="p-buy p-sizego" href="' + esc(href) + '">📏 ' + esc(t("chooseSize")) + "</a></div>"
+        : '<div class="p-actions">' +
+            '<button class="p-cart" ' + (out ? "disabled" : "") + ' onclick="addToCart(\'' + esc(p.id) + '\')">+ ' + esc(t("add")) + "</button>" +
+            '<button class="p-buy" ' + (out ? "disabled" : "") + ' onclick="buyNow(\'' + esc(p.id) + '\')">⚡ ' + esc(t("buyNow")) + "</button>" +
+          "</div>";
       return '<article class="card">' +
         thumbOpen + badge + favBtn + thumb + thumbClose +
         '<div class="card-body">' +
@@ -1674,10 +1682,7 @@
           '<div class="p-price">' + priceHtml + "</div>" +
           shipHtml +
           sizeHtml +
-          '<div class="p-actions">' +
-            '<button class="p-cart" ' + (out ? "disabled" : "") + ' onclick="addToCart(\'' + esc(p.id) + '\')">+ ' + esc(t("add")) + "</button>" +
-            '<button class="p-buy" ' + (out ? "disabled" : "") + ' onclick="buyNow(\'' + esc(p.id) + '\')">⚡ ' + esc(t("buyNow")) + "</button>" +
-          "</div>" +
+          actionsHtml +
           '<a class="p-wa" href="' + wa(msg) + '">💬 ' + esc(t("order")) + "</a>" +
         "</div></article>";
     }).join("");
@@ -1936,16 +1941,19 @@
     r = await fetch(base + cols.replace(",sizes", "") + tail, { headers: headers });
     return r.json();
   }
-  // Product pages link here as ?add=<id> — put the plant straight in the cart.
+  // Product pages link here as ?add=<id>&size=<label> — put the plant straight in the cart.
   function deepLinkAdd() {
     try {
-      var m = (location.search || "").match(/[?&]add=([^&]+)/);
+      var q = location.search || "";
+      var m = q.match(/[?&]add=([^&]+)/);
       if (!m) return;
       var id = decodeURIComponent(m[1]);
+      var sm = q.match(/[?&]size=([^&]+)/);
+      var sizeLabel = sm ? decodeURIComponent(sm[1].replace(/\+/g, " ")) : null;
       try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
       var p = findProduct(id);
       if (!p) return;
-      addToCart(p);
+      addToCart(p, sizeLabel);
       window.__gfOpenCart = true;
       var gate = document.getElementById("langGate");
       if (!gate || gate.classList.contains("off")) { window.__gfOpenCart = false; openCart(); }
