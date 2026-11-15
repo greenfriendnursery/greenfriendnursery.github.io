@@ -388,6 +388,10 @@
   .pinbar input:focus{border-color:var(--green)}
   .pinbar .btn{padding:12px 20px}
   @media(max-width:719px){.pinbar{gap:8px;padding:10px}.pinbar input{flex-basis:100%;order:3}.pinbar .btn{flex:1;order:4}}
+  .pinOut{display:none;margin-top:10px;font-size:12.5px;font-weight:800;border-radius:12px;padding:9px 12px;line-height:1.4}
+  .pinOut.show{display:block}
+  .pinOut.ok{background:#EDF7E8;color:#1F5F3E;border:1px solid #CFE2C6}
+  .pinOut.bad{background:#FBEDEA;color:#9B463F;border:1px solid #F0D3CD}
 
   .fruitgrid{display:grid;grid-template-columns:1fr;gap:12px}
   @media(min-width:720px){.fruitgrid{grid-template-columns:1fr 1fr;gap:16px}}
@@ -919,7 +923,7 @@
       emptyS: "তালিকা দেখতে না পেলে সরাসরি WhatsApp করুন — আমরা ছবি ও দাম পাঠিয়ে দেব।",
       waMsg: "নমস্কার! আমি Green Friend-এ অর্ডার করতে চাই",
       waProduct: "নমস্কার! আমি এই গাছটি নিতে চাই: {0} — দাম {1}",
-      pinT: "ডেলিভারি চেক করুন", pinS: "আপনার PIN কোডে ডেলিভারি হয় কিনা", pinPh: "PIN কোড (৬ সংখ্যা)", pinBtn: "চেক করুন",
+      pinT: "ডেলিভারি চেক করুন", pinS: "আপনার PIN কোডে ডেলিভারি হয় কিনা", pinPh: "PIN কোড (৬ সংখ্যা)", pinBtn: "চেক করুন", pinChecking: "ডেলিভারি চেক হচ্ছে…", pinFail: "এই PIN কোডে এখন ডেলিভারি পাওয়া যাচ্ছে না — WhatsApp-এ জিজ্ঞাসা করুন", pinOk: "{0} — ডেলিভারি হবে", pinCharge: "চার্জ",
       fruitT: "জনপ্রিয় ফল গাছ", fruitSub: "গ্রাফটেড, ফল-ধরা গাছ", fruitCta: "দেখুন →",
       mangoT: "হটসেলিং আম গাছ", mangoSub: "মালদার বিখ্যাত আম — সেরা দামে",
       medT: "ঔষধি গাছ", medS: "তুলসী, নিম, অ্যালোভেরা — প্রতিটি বাড়িতে দরকার। সস্তায়, গ্যারান্টি সহ।", medCta: "দেখুন →",
@@ -982,7 +986,7 @@
       emptyS: "If you cannot see the list, message us on WhatsApp — we will send photos and prices.",
       waMsg: "Hello! I would like to order from Green Friend",
       waProduct: "Hello! I would like this plant: {0} — {1}",
-      pinT: "Check delivery", pinS: "Is delivery available at your PIN?", pinPh: "PIN code (6 digits)", pinBtn: "Check",
+      pinT: "Check delivery", pinS: "Is delivery available at your PIN?", pinPh: "PIN code (6 digits)", pinBtn: "Check", pinChecking: "Checking delivery…", pinFail: "Delivery is not available at this PIN right now — please ask on WhatsApp", pinOk: "Delivered by {0}", pinCharge: "Charge",
       fruitT: "Popular fruit plants", fruitSub: "Grafted, fruit-bearing plants", fruitCta: "See more →",
       mangoT: "Hotselling mango plants", mangoSub: "Malda's famous mangoes — best price",
       medT: "Medicinal plants", medS: "Tulsi, neem, aloe vera — every home needs them. Cheap, with guarantee.", medCta: "See more →",
@@ -1045,7 +1049,7 @@
       emptyS: "सूची न दिखे तो सीधे WhatsApp करें — हम फोटो और दाम भेज देंगे।",
       waMsg: "नमस्ते! मैं Green Friend से ऑर्डर करना चाहता हूँ",
       waProduct: "नमस्ते! मुझे यह पौधा चाहिए: {0} — {1}",
-      pinT: "डिलीवरी चेक करें", pinS: "आपके PIN कोड पर डिलीवरी होगी?", pinPh: "PIN कोड (6 अंक)", pinBtn: "चेक करें",
+      pinT: "डिलीवरी चेक करें", pinS: "आपके PIN कोड पर डिलीवरी होगी?", pinPh: "PIN कोड (6 अंक)", pinBtn: "चेक करें", pinChecking: "डिलीवरी जाँची जा रही है…", pinFail: "इस PIN कोड पर अभी डिलीवरी नहीं हो सकती — WhatsApp पर पूछें", pinOk: "{0} से डिलीवरी", pinCharge: "चार्ज",
       fruitT: "लोकप्रिय फल के पौधे", fruitSub: "ग्राफ्टेड, फल देने वाले पौधे", fruitCta: "और देखें →",
       mangoT: "हॉटसेलिंग आम के पौधे", mangoSub: "मालदा के मशहूर आम — सबसे अच्छे दाम",
       medT: "औषधीय पौधे", medS: "तुलसी, नीम, एलोवेरा — हर घर की ज़रूरत। सस्ते में, गारंटी के साथ।", medCta: "और देखें →",
@@ -1176,7 +1180,7 @@
   function cartSubtotal() { return cart.reduce(function (a, c) { return a + unitPrice(c) * c.qty; }, 0); }
   function deliveryRule() {
     var ps = paySettings || {};
-    var charge = Number(ps.delivery_charge || 0) || 0;
+    var charge = pinRate != null ? pinRate : (Number(ps.delivery_charge || 0) || 0);
     var freeAbove = ps.free_delivery_above == null ? 1000 : (Number(ps.free_delivery_above) || 0);
     return { charge: charge, freeAbove: freeAbove };
   }
@@ -1332,7 +1336,44 @@
 
   // ---------- checkout ----------
   var paySettings = null;
+  var pinRate = null;
+  var pinRateMeta = null;
   var selectedMethod = "cod";
+
+  // Cheapest Shiprocket courier charge for a delivery PIN code (via the
+  // `shiprocket` Supabase function). Returns null when the lookup fails, so the
+  // shop's own delivery charge stays as the fallback.
+  async function shiprocketRate(pin, weightKg) {
+    try {
+      var r = await fetch(SUPABASE_URL + "/functions/v1/shiprocket", {
+        method: "POST",
+        headers: { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "rate",
+          public: true,
+          delivery_postcode: pin,
+          cod: selectedMethod === "cod" ? 1 : 0,
+          weight: Math.min(20, Math.max(0.5, weightKg || 1.5))
+        })
+      });
+      var d = await r.json().catch(function () { return {}; });
+      if (!r.ok || d.rate == null) return null;
+      return { rate: Math.max(0, Number(d.rate) || 0), courier: d.courier_name || "", etd: d.etd || null };
+    } catch (e) { return null; }
+  }
+  function cartWeightKg() {
+    var n = cart.reduce(function (a, c) { return a + c.qty; }, 0);
+    return Math.min(20, Math.max(0.5, n * 1.5));
+  }
+  function refreshPinRate(pin) {
+    pinRate = null; pinRateMeta = null;
+    if (!/^\d{6}$/.test(String(pin || ""))) { renderOrderSummary(); return Promise.resolve(null); }
+    return shiprocketRate(pin, cartWeightKg()).then(function (r) {
+      if (r) { pinRate = r.rate; pinRateMeta = r; }
+      renderOrderSummary();
+      return r;
+    });
+  }
   async function loadPaySettings() {
     try {
       var r = await fetch(SUPABASE_URL + "/rest/v1/public_shop_profile?select=*&limit=1", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } });
@@ -2055,12 +2096,40 @@
   // pincode strip, weekly-tips form, view-all links, welcome coupon popup
   (function () {
     var pin = document.getElementById("pinForm");
-    if (pin) pin.addEventListener("submit", function (ev) {
+    if (pin) pin.addEventListener("submit", async function (ev) {
       ev.preventDefault();
-      var v = (document.getElementById("pinIn").value || "").trim();
+      var v = (document.getElementById("pinIn").value || "").replace(/\D/g, "").slice(0, 6);
       if (!/^\d{6}$/.test(v)) { toast("PIN কোড ৬ সংখ্যার লিখুন"); return; }
-      window.open(wa("নমস্কার! আমার এলাকার PIN কোড " + v + " — এখানে ডেলিভারি হয়?"), "_blank");
+      var out = document.getElementById("pinOut");
+      if (!out) {
+        out = document.createElement("div");
+        out.id = "pinOut";
+        out.className = "pinOut";
+        pin.parentNode.appendChild(out);
+      }
+      out.className = "pinOut show";
+      out.innerHTML = '<span class="spin"></span> ' + esc(t("pinChecking"));
+      var r = await shiprocketRate(v, cartWeightKg());
+      if (!r) {
+        out.className = "pinOut show bad";
+        out.innerHTML = "⚠️ " + esc(t("pinFail")) + ' · <a href="' + wa("নমস্কার! আমার এলাকার PIN কোড " + v + " — এখানে ডেলিভারি হয়?") + '" target="_blank" rel="noopener" style="color:#9B463F;text-decoration:underline">WhatsApp</a>';
+        return;
+      }
+      var fee = r.rate;
+      out.className = "pinOut show ok";
+      out.innerHTML = "✅ " + esc(fmt(t("pinOk"), r.courier || "Courier")) +
+        (r.etd ? " · " + esc(String(r.etd)) : "") +
+        " · " + esc(t("pinCharge")) + " " + money(fee);
     });
+    var opin = document.getElementById("orderPin");
+    if (opin) {
+      var pinTimer = null;
+      opin.addEventListener("input", function () {
+        clearTimeout(pinTimer);
+        var pv = (opin.value || "").replace(/\D/g, "").slice(0, 6);
+        pinTimer = setTimeout(function () { refreshPinRate(pv); }, 550);
+      });
+    }
     var nl = document.getElementById("nlForm");
     if (nl) nl.addEventListener("submit", function (ev) {
       ev.preventDefault();
