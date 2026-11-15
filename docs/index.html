@@ -1949,13 +1949,15 @@
       var id = decodeURIComponent(m[1]);
       var sm = q.match(/[?&]size=([^&]+)/);
       var sizeLabel = sm ? decodeURIComponent(sm[1].replace(/\+/g, " ")) : null;
+      var wantBuy = /[?&]buy=1/.test(q);
       try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
       var p = findProduct(id);
       if (!p) return;
       addToCart(p, sizeLabel);
       window.__gfOpenCart = true;
+      window.__gfOpenBuy = wantBuy;
       var gate = document.getElementById("langGate");
-      if (!gate || gate.classList.contains("off")) { window.__gfOpenCart = false; openCart(); }
+      if (!gate || gate.classList.contains("off")) { window.__gfOpenCart = false; wantBuy ? openCheckout() : openCart(); }
     } catch (e) {}
   }
   // Whole product card opens its own page (buttons and links keep working).
@@ -2035,7 +2037,7 @@
         gate.classList.add("off");
         try { document.body.style.overflow = ""; } catch (e) {}
         window.scrollTo(0, 0);
-        if (window.__gfOpenCart) { window.__gfOpenCart = false; setTimeout(openCart, 220); }
+        if (window.__gfOpenCart) { window.__gfOpenCart = false; var ob = window.__gfOpenBuy; window.__gfOpenBuy = false; setTimeout(ob ? openCheckout : openCart, 220); }
       };
     });
   })();
