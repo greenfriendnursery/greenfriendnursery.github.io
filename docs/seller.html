@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Green Friend · সেলার প্যানেল</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --ink:#232820; --muted:#6C7A66; --line:#E4E2D8; --bg:#FBFAF6;
+    --gold:#A9741C; --gold2:#F0B64A; --goldbg:#FDF6E7;
+    --green:#1F5F3E; --red:#9B463F; --white:#fff;
+    --shadow:0 10px 30px rgba(35,40,32,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:"Segoe UI",system-ui,-apple-system,"Noto Sans Bengali",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:var(--gold);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+  header.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topin{display:flex;align-items:center;gap:12px;height:62px}
+  .brand{display:flex;align-items:baseline;gap:8px;font-weight:900;letter-spacing:.2px}
+  .brand b{font-size:19px;color:var(--ink)}
+  .brand span{font-size:12px;font-weight:800;color:var(--gold);background:var(--goldbg);border:1px solid #F1DFB6;padding:3px 9px;border-radius:999px}
+  .grow{flex:1}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font-family:inherit;font-weight:800;border-radius:12px;padding:11px 18px;font-size:14px;background:var(--ink);color:#fff;transition:transform .12s ease,opacity .12s}
+  .btn:active{transform:scale(.98)}
+  .btn.gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#2A1C05}
+  .btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .btn.sm{padding:8px 12px;font-size:12.5px;border-radius:10px}
+  .btn.danger{background:#FBEDEA;color:var(--red);border:1px solid #F0D3CD}
+  .btn[disabled]{opacity:.5;cursor:not-allowed}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+  .card + .card{margin-top:14px}
+  h2{font-size:18px;margin:0 0 12px}
+  h3{font-size:15px;margin:0 0 8px}
+  label{display:block;font-size:12px;font-weight:800;color:var(--muted);margin:10px 0 5px;letter-spacing:.2px}
+  input,select,textarea{width:100%;font-family:inherit;font-size:14px;padding:11px 13px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+  input:focus,select:focus,textarea:focus{outline:0;border-color:var(--gold)}
+  textarea{min-height:80px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  @media(max-width:640px){.row,.row3{grid-template-columns:1fr}}
+  .hint{font-size:12px;color:var(--muted);margin-top:6px}
+  .err{display:none;background:#FBEDEA;color:var(--red);border:1px solid #F0D3CD;border-radius:12px;padding:10px 12px;font-size:13px;font-weight:700;margin-top:12px}
+  .err.on{display:block}
+  .ok{display:none;background:#EDF7E8;color:#1F5F3E;border:1px solid #CFE2C6;border-radius:12px;padding:10px 12px;font-size:13px;font-weight:700;margin-top:12px}
+  .ok.on{display:block}
+  .pill{display:inline-block;font-size:11px;font-weight:900;padding:3px 9px;border-radius:999px;background:var(--goldbg);color:var(--gold);border:1px solid #F1DFB6}
+  .pill.green{background:#EDF7E8;color:var(--green);border-color:#CFE2C6}
+  .pill.red{background:#FBEDEA;color:var(--red);border-color:#F0D3CD}
+  .pill.grey{background:#F3F3EF;color:var(--muted);border-color:var(--line)}
+  .tabs{display:flex;gap:8px;overflow:auto;padding:4px 0 12px}
+  .tab{border:1.5px solid var(--line);background:#fff;color:var(--muted);font-weight:800;font-size:13px;padding:9px 15px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .tab.on{background:var(--ink);border-color:var(--ink);color:#fff}
+  .item{display:flex;gap:12px;align-items:flex-start;border-top:1px dashed var(--line);padding:12px 0}
+  .item:first-child{border-top:0}
+  .thumb{width:56px;height:56px;border-radius:12px;object-fit:cover;background:#F3F3EF;flex:none}
+  .item .t{font-weight:800;font-size:14px}
+  .item .s{font-size:12px;color:var(--muted)}
+  .money{font-weight:900;color:var(--gold)}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:720px){.grid4{grid-template-columns:1fr 1fr}}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+  .stat b{display:block;font-size:19px;letter-spacing:.2px}
+  .stat span{font-size:11.5px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+  .modal{position:fixed;inset:0;background:rgba(20,24,18,.55);display:none;align-items:flex-end;justify-content:center;z-index:60;padding:0}
+  .modal.on{display:flex}
+  .modal .sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:640px;max-height:92vh;overflow:auto;padding:18px}
+  @media(min-width:700px){.modal{align-items:center}.modal .sheet{border-radius:20px}}
+  .sheethead{display:flex;align-items:center;justify-content:space-between;position:sticky;top:-18px;background:#fff;padding:6px 0 10px;z-index:2}
+  .x{border:0;background:#F3F3EF;width:34px;height:34px;border-radius:50%;font-size:17px;cursor:pointer;color:var(--ink)}
+  .authwrap{max-width:430px;margin:26px auto}
+  .logo{font-size:34px;text-align:center;margin-bottom:2px}
+  .sub{text-align:center;color:var(--muted);font-size:13.5px;margin-bottom:16px}
+  .tabs2{display:flex;background:#F3F3EF;border-radius:12px;padding:4px;margin-bottom:8px}
+  .tabs2 button{flex:1;border:0;background:transparent;font-family:inherit;font-weight:800;font-size:13.5px;padding:9px;border-radius:9px;color:var(--muted);cursor:pointer}
+  .tabs2 button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.06)}
+  footer.ft{text-align:center;color:var(--muted);font-size:12px;padding:30px 16px}
+  .empty{text-align:center;color:var(--muted);font-size:13.5px;padding:26px 10px}
+  .badge-note{background:var(--goldbg);border:1px solid #F1DFB6;border-radius:14px;padding:12px 14px;font-size:13px;color:#6B4A10;margin-top:12px}
+  img.pv{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;background:#F3F3EF}
+  .thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+  .thumbs .ph{position:relative}
+  .thumbs button{position:absolute;top:-6px;right:-6px;border:0;background:#232820;color:#fff;width:22px;height:22px;border-radius:50%;font-size:12px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap topin">
+    <div class="brand"><b>🌱 Green Friend</b><span>সেলার প্যানেল</span></div>
+    <div class="grow"></div>
+    <button class="btn ghost sm" id="btnLogout" style="display:none" onclick="logout()">লগআউট</button>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+
+  <!-- ============ auth ============ -->
+  <section id="authView" class="authwrap" style="display:none">
+    <div class="logo">🌱</div>
+    <div class="sub">সেলার হিসেবে লগইন করুন · নিজের গাছ নিজে বিক্রি করুন</div>
+    <div class="card">
+      <div class="tabs2">
+        <button id="tabLogin" class="on" onclick="setMode('login')">লগইন</button>
+        <button id="tabSignup" onclick="setMode('signup')">নতুন অ্যাকাউন্ট</button>
+      </div>
+      <div id="signupExtra" style="display:none">
+        <label>আপনার নাম</label>
+        <input id="auName" type="text" autocomplete="name" placeholder="যেমন: মোঃ রফিকুল ইসলাম">
+      </div>
+      <label>মোবাইল নম্বর</label>
+      <input id="auPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10 সংখ্যার মোবাইল নম্বর">
+      <label>পাসওয়ার্ড</label>
+      <input id="auPass" type="password" autocomplete="current-password" placeholder="কমপক্ষে ৬ অক্ষর">
+      <div class="err" id="authErr"></div>
+      <button class="btn gold" style="width:100%;margin-top:14px" id="authGo" onclick="doAuth()">লগইন</button>
+      <div class="hint" style="text-align:center">অ্যাপে যে নম্বর ও পাসওয়ার্ড দিয়ে লগইন করেন, সেটাই ব্যবহার করুন।</div>
+    </div>
+    <div class="hint" style="text-align:center;margin-top:14px"><a href="./">← দোকানে ফিরুন</a></div>
+  </section>
+
+  <!-- ============ apply ============ -->
+  <section id="applyView" style="display:none;max-width:640px;margin:24px auto">
+    <div class="card">
+      <h2>সেলার হিসেবে যোগ দিন</h2>
+      <div class="hint" style="margin-bottom:6px">ফর্মটি পূরণ করুন। অ্যাডমিন অনুমোদন করলেই আপনার প্রোডাক্ট সাইটে দেখাবে।</div>
+      <div class="row">
+        <div><label>দোকান / নার্সারির নাম *</label><input id="apShop" placeholder="যেমন: রফিক নার্সারি"></div>
+        <div><label>মালিকের নাম *</label><input id="apOwner" placeholder="আপনার নাম"></div>
+      </div>
+      <div class="row">
+        <div><label>মোবাইল *</label><input id="apPhone" type="tel" inputmode="numeric" placeholder="10 সংখ্যা"></div>
+        <div><label>PIN কোড *</label><input id="apPin" type="text" inputmode="numeric" maxlength="6" placeholder="6 সংখ্যা"></div>
+      </div>
+      <label>সম্পূর্ণ ঠিকানা (কুরিয়ার এখান থেকে নেবে) *</label>
+      <textarea id="apAddr" placeholder="বাড়ি/গ্রাম, P.O, P.S, জেলা"></textarea>
+      <div class="row">
+        <div><label>শহর / ব্লক</label><input id="apCity" placeholder="যেমন: সামসেরগঞ্জ"></div>
+        <div><label>রাজ্য</label><input id="apState" value="West Bengal"></div>
+      </div>
+      <div class="row">
+        <div><label>UPI আইডি (টাকা পেতে)</label><input id="apUpi" placeholder="yourname@upi"></div>
+        <div><label>ব্যাংক অ্যাকাউন্ট</label><input id="apAcc" placeholder="অ্যাকাউন্ট নম্বর"></div>
+      </div>
+      <label>IFSC</label>
+      <input id="apIfsc" placeholder="যেমন: SBIN0001234">
+      <div class="err" id="apErr"></div>
+      <button class="btn gold" style="width:100%;margin-top:16px" onclick="applySeller()">আবেদন পাঠান</button>
+      <div class="badge-note">✅ যোগ দেওয়া সম্পূর্ণ ফ্রি। গ্রিন ফ্রেন্ড শুধু বিক্রির <b>১%</b> কমিশন নেয় — বাকি পুরো টাকা আপনার।</div>
+    </div>
+  </section>
+
+  <!-- ============ status (pending / blocked) ============ -->
+  <section id="statusView" style="display:none;max-width:560px;margin:30px auto">
+    <div class="card" style="text-align:center">
+      <div style="font-size:40px" id="stIcon">⏳</div>
+      <h2 id="stTitle" style="margin-top:8px">অনুমোদনের অপেক্ষায়</h2>
+      <div class="hint" id="stText" style="font-size:13.5px"></div>
+      <div id="stBox" style="margin-top:14px;text-align:left"></div>
+      <button class="btn ghost sm" style="margin-top:16px" onclick="loadSeller()">🔄 আবার দেখুন</button>
+    </div>
+  </section>
+
+  <!-- ============ dashboard ============ -->
+  <section id="dashView" style="display:none;padding:18px 0 10px">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:19px;font-weight:900" id="dashShop">—</div>
+        <div class="hint" id="dashMeta"></div>
+      </div>
+      <div class="grow"></div>
+      <span class="pill green" id="dashPill">সক্রিয়</span>
+    </div>
+
+    <div class="grid4" style="margin-top:14px">
+      <div class="stat"><span>মোট অর্ডার</span><b id="kOrders">0</b></div>
+      <div class="stat"><span>বিক্রি</span><b id="kSales">₹0</b></div>
+      <div class="stat"><span>কমিশন</span><b id="kComm">₹0</b></div>
+      <div class="stat"><span>আপনি পাবেন</span><b id="kPayout">₹0</b></div>
+    </div>
+
+    <div class="tabs" style="margin-top:18px">
+      <button class="tab on" data-tab="orders" onclick="setTab('orders')">📦 অর্ডার</button>
+      <button class="tab" data-tab="products" onclick="setTab('products')">🌱 আমার গাছ</button>
+      <button class="tab" data-tab="earnings" onclick="setTab('earnings')">💰 আয়</button>
+      <button class="tab" data-tab="profile" onclick="setTab('profile')">⚙️ প্রোফাইল</button>
+    </div>
+
+    <div id="tab-orders"></div>
+    <div id="tab-products" style="display:none"></div>
+    <div id="tab-earnings" style="display:none"></div>
+    <div id="tab-profile" style="display:none"></div>
+  </section>
+
+  <footer class="ft">🌱 Green Friend · সেলার প্যানেল · <a href="./">দোকান</a></footer>
+</main>
+
+<!-- product editor -->
+<div class="modal" id="prodModal">
+  <div class="sheet">
+    <div class="sheethead">
+      <h2 id="pmTitle" style="margin:0">নতুন গাছ</h2>
+      <button class="x" onclick="closeProd()">✕</button>
+    </div>
+    <label>নাম (English) *</label>
+    <input id="pmName" placeholder="যেমন: Langra Mango">
+    <label>বাংলা নাম</label>
+    <input id="pmBn" placeholder="যেমন: ল্যাংড়া আম">
+    <div class="row">
+      <div><label>ক্যাটাগরি *</label><input id="pmCat" list="catList" placeholder="যেমন: আম"></div>
+      <div><label>স্টক (খালি = সীমা নেই)</label><input id="pmStock" type="number" min="0" placeholder="0"></div>
+    </div>
+    <datalist id="catList">
+      <option>আম</option><option>লিচু</option><option>ফুল</option><option>ফল</option><option>ঔষধি</option><option>সবজি</option>
+    </datalist>
+    <div class="row">
+      <div><label>দাম ₹ *</label><input id="pmPrice" type="number" min="0" step="1" placeholder="399"></div>
+      <div><label>অফার দাম ₹ (ঐচ্ছিক)</label><input id="pmOffer" type="number" min="0" step="1" placeholder=""></div>
+    </div>
+
+    <label style="margin-top:14px">গাছের সাইজ ও দাম (সর্বোচ্চ ৩টি)</label>
+    <div class="row3">
+      <div><input id="pmS1l" placeholder="S"><input id="pmS1p" type="number" min="0" placeholder="দাম ₹" style="margin-top:6px"></div>
+      <div><input id="pmS2l" placeholder="M"><input id="pmS2p" type="number" min="0" placeholder="দাম ₹" style="margin-top:6px"></div>
+      <div><input id="pmS3l" placeholder="L"><input id="pmS3p" type="number" min="0" placeholder="দাম ₹" style="margin-top:6px"></div>
+    </div>
+    <div class="hint">সাইজ দিলে কাস্টমার প্রোডাক্ট পেজে সাইজ বেছে দাম দেখবে। না দিলে উপরের "দাম" ধরা হবে।</div>
+
+    <label style="margin-top:14px">বর্ণনা</label>
+    <textarea id="pmNote" placeholder="গাছের বৈশিষ্ট্য, কত ফুট, কত বছরে ফল…"></textarea>
+
+    <label style="margin-top:14px">ছবি (সর্বোচ্চ ৫টি)</label>
+    <input id="pmPhoto" type="file" accept="image/*" multiple onchange="uploadPhotos(this)">
+    <div class="hint" id="pmPhotoStatus"></div>
+    <div class="thumbs" id="pmThumbs"></div>
+
+    <div class="err" id="pmErr"></div>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="btn gold" style="flex:1" onclick="saveProduct()" id="pmSave">সেভ করুন</button>
+      <button class="btn ghost" onclick="closeProd()">বাতিল</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="shipModal">
+  <div class="sheet" style="max-width:460px">
+    <div class="sheethead">
+      <h2 style="margin:0">পার্সেল পাঠানো হয়েছে</h2>
+      <button class="x" onclick="closeShip()">✕</button>
+    </div>
+    <div class="hint" id="shipWho" style="margin-bottom:8px"></div>
+    <label>কুরিয়ার</label>
+    <input id="shCourier" placeholder="যেমন: India Post / DTDC / Delhivery">
+    <label>AWB / ট্র্যাকিং নম্বর *</label>
+    <input id="shAwb" placeholder="ট্র্যাকিং নম্বর লিখুন">
+    <label>ট্র্যাকিং লিংক (ঐচ্ছিক)</label>
+    <input id="shUrl" placeholder="https://…">
+    <div class="err" id="shErr"></div>
+    <button class="btn gold" style="width:100%;margin-top:16px" onclick="saveShipment()">সেভ করুন</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var URL = "https://thiqwyltfgtluxizsaee.supabase.co";
+  var KEY = "sb_publishable_5QySg5h9PeB_uROILAiSww_hfkEk12B";
+  var sb = window.supabase.createClient(URL, KEY);
+
+  var S = { session: null, user: null, seller: null, products: [], orders: [], items: [], ships: [], earnings: null, tab: "orders", editing: null, photos: [], shipTarget: null };
+  var authMode = "login";
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]; }); }
+  function money(n) { return "₹" + (Math.round(Number(n) || 0)).toLocaleString("en-IN"); }
+  function show(id, on) { var e = $(id); if (e) e.classList.toggle("on", !!on); }
+  function setMsg(id, text) { var e = $(id); if (!e) return; e.textContent = text || ""; e.classList.toggle("on", !!text); }
+  function view(name) {
+    ["authView", "applyView", "statusView", "dashView"].forEach(function (v) { $(v).style.display = (v === name) ? "block" : "none"; });
+    $("btnLogout").style.display = (name === "authView") ? "none" : "inline-flex";
+  }
+
+  // ---------------- auth ----------------
+  function loginEmails(v) {
+    var raw = String(v || "").trim();
+    if (raw.indexOf("@") >= 0) return [raw];
+    var digits = raw.replace(/\D/g, "");
+    var appDigits = digits;
+    if (raw.charAt(0) !== "+") {
+      if (digits.length === 10) appDigits = "91" + digits;
+      else if (digits.length === 11 && digits.charAt(0) === "0") appDigits = "91" + digits.slice(1);
+    }
+    var list = ["gf" + appDigits + "@phone.greenfriend.invalid"];
+    var legacy = "gf" + digits + "@phone.greenfriend.invalid";
+    if (list.indexOf(legacy) < 0) list.push(legacy);
+    return list;
+  }
+
+  window.setMode = function (m) {
+    authMode = m;
+    $("tabLogin").classList.toggle("on", m === "login");
+    $("tabSignup").classList.toggle("on", m === "signup");
+    $("signupExtra").style.display = (m === "signup") ? "block" : "none";
+    $("authGo").textContent = (m === "signup") ? "অ্যাকাউন্ট খুলুন" : "লগইন";
+    setMsg("authErr", "");
+  };
+
+  window.doAuth = async function () {
+    var phone = $("auPhone").value.trim();
+    var pass = $("auPass").value;
+    var name = $("auName").value.trim();
+    if (phone.replace(/\D/g, "").length < 10) { setMsg("authErr", "সঠিক মোবাইল নম্বর লিখুন।"); return; }
+    if (pass.length < 6) { setMsg("authErr", "পাসওয়ার্ড কমপক্ষে ৬ অক্ষর।"); return; }
+    if (authMode === "signup" && name.length < 2) { setMsg("authErr", "আপনার নাম লিখুন।"); return; }
+    var btn = $("authGo"); btn.disabled = true; btn.textContent = "একটু অপেক্ষা করুন…";
+    setMsg("authErr", "");
+    try {
+      if (authMode === "signup") {
+        var up = await sb.auth.signUp({ email: loginEmails(phone)[0], password: pass, options: { data: { full_name: name, phone: phone } } });
+        if (up.error) throw up.error;
+      }
+      var res = null;
+      var emails = loginEmails(phone);
+      for (var i = 0; i < emails.length; i++) {
+        res = await sb.auth.signInWithPassword({ email: emails[i], password: pass });
+        if (!res.error) break;
+      }
+      if (!res || res.error) throw res.error || new Error("লগইন হয়নি।");
+      S.session = res.data.session; S.user = res.data.user;
+      await afterLogin();
+    } catch (e) {
+      setMsg("authErr", (e && e.message) ? e.message : "লগইন হয়নি।");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = (authMode === "signup") ? "অ্যাকাউন্ট খুলুন" : "লগইন";
+    }
+  };
+
+  window.logout = async function () {
+    await sb.auth.signOut();
+    S.session = null; S.user = null; S.seller = null;
+    view("authView");
+  };
+
+  async function afterLogin() {
+    var has = await loadSeller();
+    if (has) { $("apPhone").value = S.user.phone || ""; }
+    else {
+      $("apPhone").value = (S.user.phone || "").replace(/^\+?91/, "");
+      view("applyView");
+    }
+  }
+
+  function token() { return S.session && S.session.access_token ? S.session.access_token : null; }
+
+  async function api(path, opts) {
+    opts = opts || {};
+    var t = token();
+    if (!t) throw new Error("আবার লগইন করুন।");
+    var headers = { apikey: KEY, Authorization: "Bearer " + t, "Content-Type": "application/json" };
+    if (opts.prefer) headers.Prefer = opts.prefer;
+    var r = await fetch(URL + "/rest/v1/" + path, {
+      method: opts.method || "GET",
+      headers: headers,
+      body: opts.body != null ? JSON.stringify(opts.body) : undefined
+    });
+    if (!r.ok) {
+      var txt = await r.text(), msg = txt;
+      try { var j = JSON.parse(txt); msg = j.message || j.hint || txt; } catch (e) {}
+      throw new Error(msg);
+    }
+    if (r.status === 204) return [];
+    var txt2 = await r.text();
+    return txt2 ? JSON.parse(txt2) : [];
+  }
+
+  // ---------------- seller record ----------------
+  async function loadSeller() {
+    var rows = await api("sellers?select=*&user_id=eq." + encodeURIComponent(S.user.id) + "&limit=1");
+    var row = rows && rows[0] ? rows[0] : null;
+    S.seller = row;
+    if (!row) { view("applyView"); return false; }
+    $("dashShop").textContent = row.shop_name;
+    $("dashMeta").textContent = [row.city, row.state, row.pincode].filter(Boolean).join(" · ");
+    if (row.status !== "active") {
+      var pending = row.status === "pending";
+      $("stIcon").textContent = pending ? "⏳" : "🚫";
+      $("stTitle").textContent = pending ? "অনুমোদনের অপেক্ষায়" : "অ্যাকাউন্ট বন্ধ আছে";
+      $("stText").textContent = pending
+        ? "আপনার আবেদন পেয়েছি। অ্যাডমিন অনুমোদন করলেই গাছ যোগ করা যাবে — সাধারণত ১ দিনের মধ্যে।"
+        : "আপনার অ্যাকাউন্ট বন্ধ আছে। বিস্তারিত জানতে গ্রিন ফ্রেন্ডের সাথে যোগাযোগ করুন।";
+      $("stBox").innerHTML = '<div class="card" style="box-shadow:none">' +
+        "<div><b>" + esc(row.shop_name) + "</b></div>" +
+        '<div class="hint">' + esc([row.owner_name, row.phone, row.address, row.city, row.pincode].filter(Boolean).join(" · ")) + "</div>" +
+        (row.admin_note ? '<div class="badge-note">📩 ' + esc(row.admin_note) + "</div>" : "") +
+        "</div>";
+      view("statusView");
+      return true;
+    }
+    $("dashPill").textContent = "সক্রিয় · কমিশন " + Number(row.commission_percent) + "%";
+    view("dashView");
+    await refreshAll();
+    return true;
+  }
+
+  async function refreshAll() {
+    await Promise.all([loadEarnings(), loadProducts(), loadOrders()]);
+  }
+
+  window.applySeller = async function () {
+    setMsg("apErr", "");
+    var body = {
+      user_id: S.user.id,
+      shop_name: $("apShop").value.trim(),
+      owner_name: $("apOwner").value.trim(),
+      phone: $("apPhone").value.replace(/\D/g, "").slice(-10),
+      address: $("apAddr").value.trim(),
+      city: $("apCity").value.trim(),
+      state: $("apState").value.trim() || "West Bengal",
+      pincode: $("apPin").value.replace(/\D/g, "").slice(0, 6),
+      upi_id: $("apUpi").value.trim(),
+      bank_account: $("apAcc").value.trim(),
+      bank_ifsc: $("apIfsc").value.trim().toUpperCase(),
+      status: "pending"
+    };
+    if (body.shop_name.length < 2) { setMsg("apErr", "দোকানের নাম লিখুন।"); return; }
+    if (body.owner_name.length < 2) { setMsg("apErr", "মালিকের নাম লিখুন।"); return; }
+    if (body.phone.length !== 10) { setMsg("apErr", "১০ সংখ্যার মোবাইল নম্বর দিন।"); return; }
+    if (!/^\d{6}$/.test(body.pincode)) { setMsg("apErr", "৬ সংখ্যার PIN কোড দিন।"); return; }
+    if (body.address.length < 10) { setMsg("apErr", "সম্পূর্ণ ঠিকানা লিখুন (কমপক্ষে ১০ অক্ষর)।"); return; }
+    try {
+      await api("sellers", { method: "POST", body: body, prefer: "return=minimal" });
+      await loadSeller();
+    } catch (e) { setMsg("apErr", e.message); }
+  };
+
+  // ---------------- tabs ----------------
+  window.setTab = function (t) {
+    S.tab = t;
+    Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (b) { b.classList.toggle("on", b.getAttribute("data-tab") === t); });
+    ["orders", "products", "earnings", "profile"].forEach(function (k) { $("tab-" + k).style.display = (k === t) ? "block" : "none"; });
+  };
+
+  // ---------------- earnings ----------------
+  async function loadEarnings() {
+    var rows = await api("seller_earnings?select=*&seller_id=eq." + S.seller.id + "&limit=1");
+    var e = rows && rows[0] ? rows[0] : { order_count: 0, gross_sales: 0, commission: 0, payout: 0, units_sold: 0 };
+    S.earnings = e;
+    $("kOrders").textContent = e.order_count || 0;
+    $("kSales").textContent = money(e.gross_sales);
+    $("kComm").textContent = money(e.commission);
+    $("kPayout").textContent = money(e.payout);
+    $("tab-earnings").innerHTML = '<div class="card">' +
+      "<h3>এই মাসের হিসাব</h3>" +
+      '<div class="item"><div style="flex:1"><div class="t">বিক্রি হয়েছে</div><div class="s">' + (e.units_sold || 0) + " পিস · " + (e.order_count || 0) + " অর্ডার</div></div><div class=\"money\">" + money(e.gross_sales) + "</div></div>" +
+      '<div class="item"><div style="flex:1"><div class="t">গ্রিন ফ্রেন্ড কমিশন (' + Number(e.commission_percent || 1) + '%)</div><div class="s">প্রতি অর্ডারে কেটে নেওয়া হয়</div></div><div class="money" style="color:var(--red)">-' + money(e.commission) + "</div></div>" +
+      '<div class="item"><div style="flex:1"><div class="t">আপনি পাবেন</div><div class="s">ডেলিভারি চার্জ এতে ধরা নেই</div></div><div class="money" style="color:var(--green);font-size:17px">' + money(e.payout) + "</div></div>" +
+      "</div>" +
+      '<div class="card"><h3>টাকা কীভাবে পাবেন?</h3><div class="hint">ডেলিভারি হওয়ার পর সপ্তাহে একবার UPI/ব্যাংকে পাঠানো হয়। ডেলিভারি চার্জ গ্রিন ফ্রেন্ড বহন করে, তাই আপনার আয় = প্রোডাক্টের দাম − ' + Number(e.commission_percent || 1) + "% কমিশন।</div>" +
+      (S.seller.upi_id ? '<div class="hint">💳 UPI: <b>' + esc(S.seller.upi_id) + "</b></div>" : '<div class="hint">⚠️ UPI আইডি যোগ করুন — টাকা পাঠাতে সুবিধা হবে।</div>') +
+      "</div>";
+  }
+
+  // ---------------- products ----------------
+  async function loadProducts() {
+    var rows = await api("products?select=*&seller_id=eq." + S.seller.id + "&order=created_at.desc");
+    S.products = rows || [];
+    if (!S.products.length) {
+      $("tab-products").innerHTML = '<div class="card"><div class="empty">এখনো কোনো গাছ যোগ করেননি।<br><button class="btn gold" style="margin-top:12px" onclick="openProd()">+ নতুন গাছ যোগ করুন</button></div></div>';
+      return;
+    }
+    var html = '<div class="card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><h3 style="margin:0;flex:1">আমার গাছ (' + S.products.length + ')</h3><button class="btn gold sm" onclick="openProd()">+ নতুন</button></div>';
+    S.products.forEach(function (p) {
+      var img = p.image_url || "";
+      var priceTxt = p.sizes && p.sizes.length ? "from " + money(Math.min.apply(null, p.sizes.map(function (s) { return Number(s.price) || 0; }))) : money(p.price);
+      html += '<div class="item">' +
+        (img ? '<img class="thumb" src="' + esc(img) + '" alt="" loading="lazy">' : '<div class="thumb"></div>') +
+        '<div style="flex:1;min-width:0">' +
+        '<div class="t">' + esc(p.name) + " " + (p.is_active ? '<span class="pill green">লাইভ</span>' : '<span class="pill grey">বন্ধ</span>') + "</div>" +
+        '<div class="s">' + esc(p.category) + " · " + priceTxt + (p.stock_quantity != null ? " · স্টক " + p.stock_quantity : "") + "</div>" +
+        '<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">' +
+        '<button class="btn ghost sm" onclick="openProd(\'' + p.id + '\')">এডিট</button>' +
+        '<button class="btn ghost sm" onclick="toggleProduct(\'' + p.id + '\',' + (!p.is_active) + ')">' + (p.is_active ? "লুকান" : "দেখান") + "</button>" +
+        '<button class="btn danger sm" onclick="deleteProduct(\'' + p.id + '\')">মুছুন</button>' +
+        "</div></div></div>";
+    });
+    $("tab-products").innerHTML = html + "</div>";
+  }
+
+  window.toggleProduct = async function (id, active) {
+    try { await api("products?id=eq." + id, { method: "PATCH", body: { is_active: !!active }, prefer: "return=minimal" }); await loadProducts(); }
+    catch (e) { alert(e.message); }
+  };
+
+  window.deleteProduct = async function (id) {
+    if (!confirm("এই গাছটি মুছে ফেলবেন? আগের অর্ডার ঠিক থাকবে।")) return;
+    try { await api("products?id=eq." + id, { method: "DELETE", prefer: "return=minimal" }); await loadProducts(); }
+    catch (e) { alert(e.message); }
+  };
+
+  window.openProd = function (id) {
+    S.editing = null; S.photos = [];
+    var p = id ? S.products.filter(function (x) { return x.id === id; })[0] : null;
+    $("pmTitle").textContent = p ? "গাছ এডিট করুন" : "নতুন গাছ";
+    $("pmName").value = p ? p.name : "";
+    $("pmBn").value = p ? (p.bn || "") : "";
+    $("pmCat").value = p ? p.category : "";
+    $("pmStock").value = p && p.stock_quantity != null ? p.stock_quantity : "";
+    $("pmPrice").value = p ? p.price : "";
+    $("pmOffer").value = p && p.offer_price ? p.offer_price : "";
+    $("pmNote").value = p ? (p.note || "") : "";
+    var sz = (p && Array.isArray(p.sizes)) ? p.sizes : [];
+    for (var i = 1; i <= 3; i++) {
+      $("pmS" + i + "l").value = sz[i - 1] ? sz[i - 1].label : "";
+      $("pmS" + i + "p").value = sz[i - 1] ? sz[i - 1].price : "";
+    }
+    S.photos = p ? (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls.slice() : (p.image_url ? [p.image_url] : [])) : [];
+    if (p) S.editing = p.id;
+    renderThumbs();
+    setMsg("pmErr", "");
+    $("pmPhotoStatus").textContent = "";
+    $("prodModal").classList.add("on");
+  };
+  window.closeProd = function () { $("prodModal").classList.remove("on"); };
+
+  function renderThumbs() {
+    $("pmThumbs").innerHTML = S.photos.map(function (u, i) {
+      return '<div class="ph"><img class="pv" src="' + esc(u) + '" alt=""><button onclick="removePhoto(' + i + ')">✕</button></div>';
+    }).join("");
+  }
+  window.removePhoto = function (i) { S.photos.splice(i, 1); renderThumbs(); };
+
+  window.uploadPhotos = async function (input) {
+    var files = Array.prototype.slice.call(input.files || []);
+    input.value = "";
+    var st = $("pmPhotoStatus");
+    var room = 5 - S.photos.length;
+    if (room <= 0) { st.textContent = "৫টি ছবি হয়ে গেছে — একটা মুছে তারপর যোগ করুন।"; return; }
+    files = files.slice(0, room);
+    for (var i = 0; i < files.length; i++) {
+      st.textContent = "আপলোড হচ্ছে " + (i + 1) + "/" + files.length + "…";
+      try { S.photos.push(await uploadOne(files[i])); renderThumbs(); }
+      catch (e) { st.textContent = "❌ " + e.message; return; }
+    }
+    st.textContent = "✓ " + files.length + "টি ছবি যোগ হয়েছে";
+  };
+
+  async function shrink(file, max, q) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      var url = URL0.createObjectURL(file);
+      img.onload = function () {
+        var scale = Math.min(1, max / Math.max(img.width, img.height));
+        var c = document.createElement("canvas");
+        c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        URL0.revokeObjectURL(url);
+        c.toBlob(function (b) { resolve(b); }, "image/jpeg", q);
+      };
+      img.onerror = function () { URL0.revokeObjectURL(url); reject(new Error("ছবি পড়া যায়নি")); };
+      img.src = url;
+    });
+  }
+  var URL0 = window.URL || window.webkitURL;
+
+  async function uploadOne(file) {
+    if (file.size > 20 * 1024 * 1024) throw new Error("ছবি ২০ MB-এর কম হতে হবে");
+    var blob = await shrink(file, 1000, 0.82);
+    var path = "seller/" + S.seller.id + "/" + Date.now() + "-" + Math.random().toString(16).slice(2, 8) + ".jpg";
+    var r = await fetch(URL + "/storage/v1/object/product-images/" + path, {
+      method: "POST",
+      headers: { apikey: KEY, Authorization: "Bearer " + token(), "Content-Type": "image/jpeg", "x-upsert": "false" },
+      body: blob
+    });
+    if (!r.ok) {
+      var txt = await r.text(), msg = txt;
+      try { msg = JSON.parse(txt).message || txt; } catch (e) {}
+      throw new Error(msg || ("আপলোড হয়নি (" + r.status + ")"));
+    }
+    return URL + "/storage/v1/object/public/product-images/" + path;
+  }
+
+  window.saveProduct = async function () {
+    setMsg("pmErr", "");
+    var name = $("pmName").value.trim();
+    var cat = $("pmCat").value.trim();
+    var price = Number($("pmPrice").value);
+    if (name.length < 2) { setMsg("pmErr", "গাছের নাম লিখুন।"); return; }
+    if (cat.length < 1) { setMsg("pmErr", "ক্যাটাগরি লিখুন।"); return; }
+    if (!(price > 0)) { setMsg("pmErr", "দাম ₹ লিখুন।"); return; }
+    if (!S.photos.length) { setMsg("pmErr", "কমপক্ষে একটা ছবি দিন।"); return; }
+    var sizes = [];
+    for (var i = 1; i <= 3; i++) {
+      var l = $("pmS" + i + "l").value.trim();
+      var pv = Number($("pmS" + i + "p").value);
+      if (l && pv > 0) sizes.push({ label: l, price: pv });
+    }
+    var offer = Number($("pmOffer").value);
+    var body = {
+      name: name,
+      bn: $("pmBn").value.trim(),
+      category: cat,
+      price: price,
+      offer_price: offer > 0 && offer < price ? offer : null,
+      sizes: sizes,
+      note: $("pmNote").value.trim(),
+      stock_quantity: $("pmStock").value === "" ? null : Number($("pmStock").value),
+      image_url: S.photos[0],
+      image_urls: S.photos,
+      seller_id: S.seller.id
+    };
+    var btn = $("pmSave"); btn.disabled = true; btn.textContent = "সেভ হচ্ছে…";
+    try {
+      if (S.editing) await api("products?id=eq." + S.editing, { method: "PATCH", body: body, prefer: "return=minimal" });
+      else await api("products", { method: "POST", body: body, prefer: "return=minimal" });
+      closeProd();
+      await loadProducts();
+    } catch (e) { setMsg("pmErr", e.message); }
+    finally { btn.disabled = false; btn.textContent = "সেভ করুন"; }
+  };
+
+  // ---------------- orders ----------------
+  async function loadOrders() {
+    var rows = await api("order_items?select=id,order_id,product_name,quantity,unit_price,size_label,commission_amount,seller_earning,orders(order_number,customer_name,phone,address,delivery_pincode,payment_method,payment_status,status,total,created_at)&seller_id=eq." + S.seller.id + "&order=id.desc");
+    S.items = rows || [];
+    var ships = await api("order_shipments?select=*&seller_id=eq." + S.seller.id);
+    S.ships = ships || [];
+    var byOrder = {};
+    S.items.forEach(function (it) {
+      var o = it.orders || {};
+      var k = it.order_id;
+      if (!byOrder[k]) byOrder[k] = { id: k, order: o, items: [], earn: 0 };
+      byOrder[k].items.push(it);
+      byOrder[k].earn += Number(it.seller_earning) || 0;
+    });
+    var list = Object.keys(byOrder).map(function (k) { return byOrder[k]; });
+    list.sort(function (a, b) { return String(b.order.created_at || "").localeCompare(String(a.order.created_at || "")); });
+    S.orders = list;
+    if (!list.length) {
+      $("tab-orders").innerHTML = '<div class="card"><div class="empty">এখনো কোনো অর্ডার আসেনি।</div></div>';
+      return;
+    }
+    var html = "";
+    list.forEach(function (o) {
+      var ship = S.ships.filter(function (s) { return s.order_id === o.id; })[0];
+      var st = o.order.status || "";
+      html += '<div class="card">' +
+        '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
+        '<b style="font-size:15px">#' + esc(o.order.order_number || o.id.slice(0, 8)) + "</b>" +
+        '<span class="pill grey">' + esc(o.order.payment_method || "") + "</span>" +
+        (ship ? '<span class="pill green">' + esc(ship.courier_name || "পাঠানো") + (ship.awb_code ? " · " + esc(ship.awb_code) : "") + "</span>" : '<span class="pill red">পাঠানো বাকি</span>') +
+        '<div style="flex:1"></div><span class="pill">' + esc(st || "নতুন") + "</span>" +
+        "</div>" +
+        '<div class="hint" style="margin-top:6px"><b>' + esc(o.order.customer_name || "") + "</b> · " + esc(o.order.phone || "") + "<br>" + esc(o.order.address || "") + " · PIN " + esc(o.order.delivery_pincode || "") + "</div>" +
+        o.items.map(function (it) {
+          return '<div class="item"><div style="flex:1"><div class="t">' + esc(it.product_name) + (it.size_label ? " · " + esc(it.size_label) : "") + '</div><div class="s">' + it.quantity + " × " + money(it.unit_price) + '</div></div><div class="money">' + money(Number(it.unit_price) * Number(it.quantity)) + "</div></div>";
+        }).join("") +
+        '<div style="display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap">' +
+        '<div class="hint" style="flex:1">আপনার আয়: <b class="money">' + money(o.earn) + "</b> (কমিশন বাদে)</div>" +
+        '<button class="btn gold sm" onclick="openShip(\'' + o.id + '\',\'' + esc((o.order.order_number || "")).replace(/'/g, "") + '\')">' + (ship ? "ট্র্যাকিং বদলান" : "পাঠানো হয়েছে") + "</button>" +
+        (o.order.phone ? '<a class="btn ghost sm" href="tel:' + esc(o.order.phone) + '">📞 কল</a>' : "") +
+        "</div></div>";
+    });
+    $("tab-orders").innerHTML = html;
+  }
+
+  window.openShip = function (orderId, num) {
+    S.shipTarget = orderId;
+    var ship = S.ships.filter(function (s) { return s.order_id === orderId; })[0];
+    $("shipWho").textContent = "অর্ডার #" + num;
+    $("shCourier").value = ship ? ship.courier_name : "";
+    $("shAwb").value = ship ? ship.awb_code : "";
+    $("shUrl").value = ship ? ship.tracking_url : "";
+    setMsg("shErr", "");
+    $("shipModal").classList.add("on");
+  };
+  window.closeShip = function () { $("shipModal").classList.remove("on"); };
+
+  window.saveShipment = async function () {
+    setMsg("shErr", "");
+    var awb = $("shAwb").value.trim();
+    if (awb.length < 4) { setMsg("shErr", "AWB / ট্র্যাকিং নম্বর লিখুন।"); return; }
+    var ship = S.ships.filter(function (s) { return s.order_id === S.shipTarget; })[0];
+    var body = {
+      order_id: S.shipTarget,
+      seller_id: S.seller.id,
+      courier_name: $("shCourier").value.trim(),
+      awb_code: awb,
+      tracking_url: $("shUrl").value.trim(),
+      status: "shipped",
+      shipped_at: new Date().toISOString()
+    };
+    try {
+      if (ship) await api("order_shipments?id=eq." + ship.id, { method: "PATCH", body: body, prefer: "return=minimal" });
+      else await api("order_shipments", { method: "POST", body: body, prefer: "return=minimal" });
+      closeShip();
+      await loadOrders();
+    } catch (e) { setMsg("shErr", e.message); }
+  };
+
+  // ---------------- profile ----------------
+  function renderProfile() {
+    var s = S.seller;
+    $("tab-profile").innerHTML = '<div class="card">' +
+      "<h3>দোকানের তথ্য</h3>" +
+      '<label>দোকানের নাম</label><input id="pfShop" value="' + esc(s.shop_name) + '">' +
+      '<label>মালিকের নাম</label><input id="pfOwner" value="' + esc(s.owner_name) + '">' +
+      '<label>মোবাইল</label><input id="pfPhone" value="' + esc(s.phone) + '">' +
+      '<label>ঠিকানা (কুরিয়ার এখান থেকে নেবে)</label><textarea id="pfAddr">' + esc(s.address) + "</textarea>" +
+      '<div class="row"><div><label>শহর</label><input id="pfCity" value="' + esc(s.city) + '"></div><div><label>PIN কোড</label><input id="pfPin" maxlength="6" value="' + esc(s.pincode) + '"></div></div>' +
+      '<h3 style="margin-top:18px">টাকা পাওয়ার তথ্য</h3>' +
+      '<div class="row"><div><label>UPI আইডি</label><input id="pfUpi" value="' + esc(s.upi_id) + '"></div><div><label>ব্যাংক অ্যাকাউন্ট</label><input id="pfAcc" value="' + esc(s.bank_account) + '"></div></div>' +
+      '<label>IFSC</label><input id="pfIfsc" value="' + esc(s.bank_ifsc) + '">' +
+      '<div class="badge-note">কমিশন: <b>' + Number(s.commission_percent) + "%</b> · পিকআপ লোকেশন: <b>" + esc(s.pickup_location || "অ্যাডমিন সেট করবেন") + "</b>" +
+      '<div style="margin-top:6px">নাম/ঠিকানা বদলালে অ্যাডমিনকে জানান, কুরিয়ার সেটিংস আপডেট করতে হবে।</div></div>' +
+      '<div class="err" id="pfErr"></div><div class="ok" id="pfOk"></div>' +
+      '<button class="btn gold" style="margin-top:14px" onclick="saveProfile()">সেভ করুন</button>' +
+      "</div>";
+  }
+
+  window.saveProfile = async function () {
+    setMsg("pfErr", ""); setMsg("pfOk", "");
+    var body = {
+      shop_name: $("pfShop").value.trim(),
+      owner_name: $("pfOwner").value.trim(),
+      phone: $("pfPhone").value.replace(/\D/g, "").slice(-10),
+      address: $("pfAddr").value.trim(),
+      city: $("pfCity").value.trim(),
+      pincode: $("pfPin").value.replace(/\D/g, "").slice(0, 6),
+      upi_id: $("pfUpi").value.trim(),
+      bank_account: $("pfAcc").value.trim(),
+      bank_ifsc: $("pfIfsc").value.trim().toUpperCase()
+    };
+    if (!/^\d{6}$/.test(body.pincode)) { setMsg("pfErr", "৬ সংখ্যার PIN কোড দিন।"); return; }
+    try {
+      await api("sellers?id=eq." + S.seller.id, { method: "PATCH", body: body, prefer: "return=minimal" });
+      await loadSeller();
+      renderProfile();
+      setMsg("pfOk", "✓ সেভ হয়েছে");
+    } catch (e) { setMsg("pfErr", e.message); }
+  };
+
+  // keep the profile tab fresh whenever the seller data reloads
+  var _loadSeller = loadSeller;
+  loadSeller = async function () {
+    var ok = await _loadSeller.apply(null, arguments);
+    if (S.seller && S.seller.status === "active") renderProfile();
+    return ok;
+  };
+
+  // ---------------- boot ----------------
+  (async function boot() {
+    var g = await sb.auth.getSession();
+    S.session = g && g.data ? g.data.session : null;
+    S.user = S.session ? S.session.user : null;
+    sb.auth.onAuthStateChange(function (_e, session) { S.session = session; S.user = session ? session.user : null; });
+    if (!S.user) { view("authView"); return; }
+    await afterLogin();
+  })();
+})();
+</script>
+</body>
+</html>
