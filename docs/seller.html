@@ -463,8 +463,9 @@
     setMsg("evErr", ""); setMsg("evOk", "");
     $("evStep2").style.display = "none";
     $("evCode").value = "";
-    var cur = $("apEmail") && $("apEmail").value ? $("apEmail").value.trim() : "";
-    $("evEmail").value = cur || S.email || (S.seller && S.seller.email) || "";
+    var applyShown = $("applyView").style.display !== "none";
+    var cur = applyShown && $("apEmail") && $("apEmail").value ? $("apEmail").value.trim() : "";
+    $("evEmail").value = cur || (S.seller && S.seller.email) || S.email || "";
     $("evSend").disabled = false;
     $("evSend").textContent = "📧 কোড পাঠান";
     $("emailModal").classList.add("on");
