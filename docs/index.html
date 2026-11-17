@@ -274,6 +274,10 @@
   @media(min-width:720px){.grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 14px rgba(23,64,39,.07);display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow}
   .card[data-href]{cursor:pointer}
+  .shopbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#FDF6E7;border:1px solid #F1DFB6;color:#6B4A10;border-radius:14px;padding:10px 14px;font-size:13.5px;font-weight:800;margin:0 0 14px}
+  .shopbar .s-clear{margin-left:auto;color:#A9741C;text-decoration:underline;font-size:12.5px;background:none;border:0;cursor:pointer;font-family:inherit;font-weight:800}
+  .sellerLink{color:inherit;text-decoration:none;border-bottom:1px dotted currentColor}
+  .sellerLink:hover{color:#A9741C}
   .card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(23,64,39,.14)}
   .card:active{transform:scale(.99)}
   .thumb{position:relative;aspect-ratio:3/3.5;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:56px;overflow:hidden}
@@ -886,7 +890,7 @@
   var TXT = {
     bn: {
       h1: '৮ ফুট <span>আমের গাছ</span>',
-      searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →", viewAll: "সব দেখুন →", explore: "দেখুন →", seller: "বিক্রেতা : গ্রিন ফ্রেন্ড", colTerrace: "টেরেস গার্ডেন", colLow: "কম যত্নের গাছ", colExotic: "এক্সোটিক ফল", colTropical: "ট্রপিক্যাল ফল",
+      searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →", viewAll: "সব দেখুন →", explore: "দেখুন →", seller: "বিক্রেতা : গ্রিন ফ্রেন্ড", shopCount: "{0}টি গাছ", shopAll: "সব দোকান", colTerrace: "টেরেস গার্ডেন", colLow: "কম যত্নের গাছ", colExotic: "এক্সোটিক ফল", colTropical: "ট্রপিক্যাল ফল",
       heroKicker: "🌿 মালদা ও মুর্শিদাবাদের নার্সারি",
       navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন",
       topbar: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি · ✅ ১০০% অরিজিনাল গ্যারান্টি · 💵 ক্যাশ অন ডেলিভারি",
@@ -949,7 +953,7 @@
     },
     en: {
       h1: '8 ft <span>mango plants</span>',
-      searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →", viewAll: "View All →", explore: "Explore Now →", seller: "Sold By : Green Friend", colTerrace: "Terrace Garden", colLow: "Low Maintenance", colExotic: "Exotic Fruits", colTropical: "Tropical Fruits",
+      searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →", viewAll: "View All →", explore: "Explore Now →", seller: "Sold By : Green Friend", shopCount: "{0} plants", shopAll: "All shops", colTerrace: "Terrace Garden", colLow: "Low Maintenance", colExotic: "Exotic Fruits", colTropical: "Tropical Fruits",
       heroKicker: "🌿 Malda & Murshidabad nursery",
       navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ",
       topbar: "🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery",
@@ -1012,7 +1016,7 @@
     },
     hi: {
       h1: '8 फीट <span>आम के पौधे</span>',
-      searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →", viewAll: "सभी देखें →", explore: "अभी देखें →", seller: "विक्रेता : ग्रीन फ्रेंड", colTerrace: "टेरेस गार्डन", colLow: "कम देखभाल वाले पौधे", colExotic: "एक्सोटिक फल", colTropical: "ट्रॉपिकल फल",
+      searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →", viewAll: "सभी देखें →", explore: "अभी देखें →", seller: "विक्रेता : ग्रीन फ्रेंड", shopCount: "{0} पौधे", shopAll: "सभी दुकानें", colTerrace: "टेरेस गार्डन", colLow: "कम देखभाल वाले पौधे", colExotic: "एक्सोटिक फल", colTropical: "ट्रॉपिकल फल",
       heroKicker: "🌿 मालदा और मुर्शिदाबाद की नर्सरी",
       navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल",
       topbar: "🚚 ₹1000+ पर डिलीवरी फ्री · ✅ 100% असली की गारंटी · 💵 कैश ऑन डिलीवरी",
@@ -1551,7 +1555,7 @@
     return map ? (map[LANG] || key) : key;
   }
   function productName(p) { if (LANG === "bn" && p.bn) return p.bn; return p.name || p.bn || "Plant"; }
-  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {}, q: "", favOn: false };
+  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {}, q: "", favOn: false, shopId: "", shopName: "" };
   var fav = {};
   try { fav = JSON.parse(localStorage.getItem("gf_fav") || "{}"); } catch (e) { fav = {}; }
   function saveFav() { try { localStorage.setItem("gf_fav", JSON.stringify(fav)); } catch (e) {} }
@@ -1674,17 +1678,36 @@
     });
   }
   // Marketplace card line: our own products stay "Seller: Green Friend",
-  // a partner's plant shows that shop's name.
+  // a partner's plant shows that shop's name. Clicking opens that shop.
+  function sellerName(p) { return (p && p.seller_name) ? p.seller_name : "Green Friend"; }
   function sellerLine(p) {
-    if (!p || !p.seller_name) return t("seller");
-    var pre = LANG === "bn" ? "বিক্রেতা : " : LANG === "hi" ? "विक्रेता : " : "Seller : ";
-    return pre + p.seller_name;
+    var pre = LANG === "bn" ? "বিক্রেতা : " : LANG === "hi" ? "विक्रेता : " : "Sold By : ";
+    var id = (p && p.seller_id) ? p.seller_id : "greenfriend";
+    return '<a class="sellerLink" href="?shop=' + encodeURIComponent(id) + '#plants">' + esc(pre + sellerName(p)) + "</a>";
+  }
+  // Shop filter: ?shop=<seller id> (or greenfriend for our own plants).
+  function shopFromUrl() {
+    var m = (location.search || "").match(/[?&]shop=([^&]+)/);
+    return m ? decodeURIComponent(m[1].replace(/\+/g, " ")) : "";
+  }
+  function applyShopName() {
+    if (!state.shopId || state.shopId === "greenfriend") { state.shopName = "Green Friend"; return; }
+    var hit = state.products.filter(function (p) { return p.seller_id === state.shopId; })[0];
+    state.shopName = (hit && hit.seller_name) || "Seller";
   }
   function renderProducts() {
     var grid = document.getElementById("grid");
     var note = document.getElementById("plantsNote");
     note.innerHTML = "";
     var list = state.products.filter(function (p) { return !state.cat || p.category === state.cat; });
+    if (state.shopId) {
+      list = list.filter(function (p) {
+        return state.shopId === "greenfriend" ? !p.seller_id : p.seller_id === state.shopId;
+      });
+      note.innerHTML = '<div class="shopbar">🏪 <b>' + esc(state.shopName) + "</b> · " +
+        esc(fmt(t("shopCount"), list.length)) +
+        ' <a href="./" class="s-clear">✕ ' + esc(t("shopAll")) + "</a></div>";
+    }
     if (state.q) {
       var ql = state.q.toLowerCase();
       list = list.filter(function (p) {
@@ -2095,6 +2118,8 @@
       var mapRes = await fetch("product-map.json", { cache: "no-store" });
       state.slugs = mapRes.ok ? await mapRes.json() : {};
     } catch (e) { state.slugs = {}; }
+    state.shopId = shopFromUrl();
+    applyShopName();
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCats(); renderFaq();
     renderFruit(); renderMango(); renderMed(); renderAsk(); renderFooterCats();
     var pop = document.getElementById("coupop");
