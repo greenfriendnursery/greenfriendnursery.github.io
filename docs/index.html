@@ -265,6 +265,30 @@
   .sec-head h2::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:6px;border-radius:4px;background:linear-gradient(180deg,var(--gold-2),var(--gold))}
   .sec-head p{margin:0;color:var(--muted);font-size:13px}
   .sec-head .grow{flex:1}
+
+  /* ---- per-section colour identity on the cream base ---- */
+  #fruitSec{--sec:#E8590C;--sec-deep:#B4530A;--sec-soft:#FFF3E2;--sec-line:#F0DDBB}
+  #flowerSec{--sec:#E64980;--sec-deep:#C2255C;--sec-soft:#FFF0F5;--sec-line:#F3D2DF}
+  #mangoSec{--sec:#E5B22E;--sec-deep:#9C6F04;--sec-soft:#FFF9E0;--sec-line:#EFE2AE}
+  #fruitSec .panel,#flowerSec .panel,#mangoSec .panel{background:linear-gradient(180deg,var(--sec-soft) 0%,#FFFFFF 62%);border-color:var(--sec-line)}
+  #fruitSec .sec-head h2::before,#flowerSec .sec-head h2::before,#mangoSec .sec-head h2::before{background:linear-gradient(180deg,var(--sec),var(--sec-deep))}
+  #fruitSec .viewall,#flowerSec .viewall,#mangoSec .viewall{color:var(--sec-deep)}
+  #fruitSec .fc .fc-thumb,#flowerSec .fc .fc-thumb{background:var(--sec-soft)}
+  #fruitSec .fc .fc-tag,#flowerSec .fc .fc-tag{background:var(--sec-deep);color:#FFF8EE}
+  #fruitSec .fc .fc-cta,#flowerSec .fc .fc-cta{background:var(--sec-deep)}
+  #mangoSec .mcard .mimg{background:var(--sec-soft)}
+  #mangoSec .mcard .mprice{color:var(--sec-deep)}
+  #mangoSec .mcard .mbtn{background:linear-gradient(135deg,var(--sec),var(--sec-deep));color:#FFF8EE}
+  .chip[data-c="ফল"].on{background:#B4530A;border-color:#B4530A}
+  .chip[data-c="ফুল"].on{background:#C2255C;border-color:#C2255C}
+  .chip[data-c="ইনডোর গাছ"].on{background:#0B7285;border-color:#0B7285}
+  .chip[data-c="Medicinal plants"].on{background:#2B8A3E;border-color:#2B8A3E}
+  .chip[data-c="বীজ"].on{background:#8A5A2B;border-color:#8A5A2B}
+  .cat-tile[data-c="ফল"] .c-ring{border-color:#F09A3E}
+  .cat-tile[data-c="ফুল"] .c-ring{border-color:#F783AC}
+  .cat-tile[data-c="ইনডোর গাছ"] .c-ring{border-color:#66D9E8}
+  .cat-tile[data-c="Medicinal plants"] .c-ring{border-color:#8CE99A}
+  .cat-tile[data-c="বীজ"] .c-ring{border-color:#D9B48F}
   .viewall{margin-left:auto;color:var(--green);font-weight:900;font-size:13px;text-decoration:none;white-space:nowrap}
   .viewall:hover{text-decoration:underline}
 
@@ -272,6 +296,10 @@
   .chips::-webkit-scrollbar{display:none}
   .chip{border:1px solid var(--line);background:#fff;color:#3C423A;border-radius:999px;padding:8px 15px;font-size:13px;font-weight:800;white-space:nowrap;cursor:pointer;font-family:inherit}
   .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+  .chip-n{margin-left:6px;font-size:10.5px;font-weight:900;opacity:.65}
+  .gridtools{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:12.5px;font-weight:800;color:var(--muted)}
+  .gridtools select{border:1.5px solid var(--line);border-radius:999px;padding:7px 14px;font-family:inherit;font-size:12.5px;font-weight:800;background:#fff;color:var(--ink);outline:none;cursor:pointer}
+  .gridtools select:focus{border-color:var(--green)}
 
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   .more-wrap{display:flex;justify-content:center;margin:20px 0 4px}
@@ -428,12 +456,12 @@
   .mcard a{text-decoration:none;color:inherit}
   @media(min-width:720px){.mcard{width:230px}}
 
-  .medband{position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(120deg,#123B22,#1E7A3C 55%,#2F9E5B);color:#fff;display:flex;align-items:center;gap:16px;padding:22px;margin-bottom:36px;box-shadow:var(--shadow)}
+  .medband{position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(120deg,#0B3B36,#0F766E 55%,#14B8A6);color:#fff;display:flex;align-items:center;gap:16px;padding:22px;margin-bottom:36px;box-shadow:var(--shadow)}
   .medband .mimg{position:absolute;inset:0;opacity:.22;background-size:cover;background-position:center}
   .medband > *{position:relative}
   .medband .grow{flex:1;min-width:0}
   .medband b{display:block;font-size:clamp(16px,2.6vw,21px);letter-spacing:-.3px;color:#FFF6D9}
-  .medband small{display:block;font-size:12.5px;color:#D9F2D0;margin-top:4px}
+  .medband small{display:block;font-size:12.5px;color:#CCFBF1;margin-top:4px}
   .medband .mbtn{background:linear-gradient(135deg,#FFD35C,#F2B33D);color:#2A2210;border-radius:999px;padding:11px 18px;font-weight:900;font-size:13px;white-space:nowrap;text-decoration:none}
   @media(max-width:719px){.medband{flex-wrap:wrap;padding:18px 14px}.medband .mbtn{width:100%;text-align:center}}
 
@@ -665,6 +693,10 @@
     </div>
     <div class="panel">
       <div class="chips" id="chips"></div>
+      <div class="gridtools">
+        <span data-t="sortLabel">সাজান</span>
+        <select id="sortSel" aria-label="Sort products"></select>
+      </div>
       <div class="grid" id="grid">
         <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
       </div>
@@ -920,7 +952,7 @@
       st3n: "২ জেলা", st3: "মালদা ও মুর্শিদাবাদ", st4: "গাছের রকম",
       faqTitle: "সাধারণ প্রশ্ন", faqSub: "ডেলিভারি, গ্যারান্টি, পেমেন্ট — ছোট ছোট উত্তর",
       shipBadge: "🚚 {0}+ অর্ডারে ডেলিভারি ফ্রি",
-      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", chooseSize: "সাইজ বেছে নিন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন", fromPrice: "{0} থেকে", size: "সাইজ",
+      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", chooseSize: "সাইজ বেছে নিন", all: "সব", sortLabel: "সাজান", sortFeatured: "ফিচার্ড", sortPriceAsc: "দাম: কম → বেশি", sortPriceDesc: "দাম: বেশি → কম", sortName: "নাম (অ → হ)", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন", fromPrice: "{0} থেকে", size: "সাইজ",
       cart: "কার্ট", cartTitle: "আপনার কার্ট", total: "মোট", checkout: "চেকআউট",
       delivery: "ডেলিভারি", free: "ফ্রি", freeAbove: "{0} টাকার উপরে ডেলিভারি ফ্রি", freeAboveHint: "আর {0} যোগ করলেই ডেলিভারি ফ্রি",
       cartEmptyT: "কার্ট খালি", cartEmptyS: "একটা গাছ যোগ করুন।",
@@ -983,7 +1015,7 @@
       st3n: "2 districts", st3: "Malda & Murshidabad", st4: "plant varieties",
       faqTitle: "Frequently asked questions", faqSub: "Delivery, guarantee and payment — short answers",
       shipBadge: "🚚 Free delivery above {0}",
-      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", chooseSize: "Choose size", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more", fromPrice: "from {0}", size: "Size",
+      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", chooseSize: "Choose size", all: "All", sortLabel: "Sort", sortFeatured: "Featured", sortPriceAsc: "Price: low → high", sortPriceDesc: "Price: high → low", sortName: "Name (A → Z)", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more", fromPrice: "from {0}", size: "Size",
       cart: "Cart", cartTitle: "Your cart", total: "Total", checkout: "Checkout",
       delivery: "Delivery", free: "FREE", freeAbove: "Free delivery above {0}", freeAboveHint: "Add {0} more for free delivery",
       cartEmptyT: "Cart is empty", cartEmptyS: "Add a plant to get started.",
@@ -1046,7 +1078,7 @@
       st3n: "2 जिले", st3: "मालदा और मुर्शिदाबाद", st4: "पौधों की किस्में",
       faqTitle: "अक्सर पूछे जाने वाले सवाल", faqSub: "डिलीवरी, गारंटी और पेमेंट — छोटे जवाब",
       shipBadge: "🚚 {0}+ पर डिलीवरी फ्री",
-      order: "WhatsApp पर ऑर्डर", add: "कार्ट में डालें", buyNow: "अभी खरीदें", chooseSize: "साइज़ चुनें", all: "सभी", out: "स्टॉक खत्म", low: "सिर्फ़ {0} बाकी", off: "{0}% छूट", more: "और देखें", fromPrice: "{0} से", size: "साइज़",
+      order: "WhatsApp पर ऑर्डर", add: "कार्ट में डालें", buyNow: "अभी खरीदें", chooseSize: "साइज़ चुनें", all: "सभी", sortLabel: "क्रम", sortFeatured: "फ़ीचर्ड", sortPriceAsc: "कीमत: कम → ज़्यादा", sortPriceDesc: "कीमत: ज़्यादा → कम", sortName: "नाम (A → Z)", out: "स्टॉक खत्म", low: "सिर्फ़ {0} बाकी", off: "{0}% छूट", more: "और देखें", fromPrice: "{0} से", size: "साइज़",
       cart: "कार्ट", cartTitle: "आपका कार्ट", total: "कुल", checkout: "चेकआउट",
       delivery: "डिलीवरी", free: "फ्री", freeAbove: "{0} से ऊपर डिलीवरी फ्री", freeAboveHint: "और {0} जोड़ें तो डिलीवरी फ्री",
       cartEmptyT: "कार्ट खाली है", cartEmptyS: "एक पौधा जोड़ें।",
@@ -1556,6 +1588,8 @@
     "ফুল": { bn: "ফুল", en: "Flowers", hi: "फूल" },
     "ফল": { bn: "ফল", en: "Fruit plants", hi: "फल के पौधे" },
     "ইনডোর গাছ": { bn: "ইনডোর গাছ", en: "Indoor plants", hi: "इनडोर पौधे" },
+    "Medicinal plants": { bn: "ঔষধি গাছ", en: "Medicinal plants", hi: "औषधीय पौधे" },
+    "বীজ": { bn: "বীজ", en: "Seeds", hi: "बीज" },
     "টব": { bn: "টব", en: "Pots", hi: "गमले" },
     "অর্গানিক কেয়ার": { bn: "অর্গানিক কেয়ার", en: "Organic care", hi: "ऑर्गेनिक केयर" },
     "কম্বো প্যাক": { bn: "কম্বো প্যাক", en: "Combo pack", hi: "कॉम्बो पैक" }
@@ -1566,7 +1600,7 @@
     return map ? (map[LANG] || key) : key;
   }
   function productName(p) { if (LANG === "bn" && p.bn) return p.bn; return p.name || p.bn || "Plant"; }
-  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {}, q: "", favOn: false, shopId: "", shopName: "" };
+  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {}, q: "", favOn: false, shopId: "", shopName: "", sort: "" };
   var fav = {};
   try { fav = JSON.parse(localStorage.getItem("gf_fav") || "{}"); } catch (e) { fav = {}; }
   function saveFav() { try { localStorage.setItem("gf_fav", JSON.stringify(fav)); } catch (e) {} }
@@ -1581,6 +1615,12 @@
     document.getElementById("fab").href = wa(t("waMsg"));
     var qbox = document.getElementById("q");
     if (qbox) qbox.placeholder = t("searchPh");
+    var ss = document.getElementById("sortSel");
+    if (ss) {
+      ss.innerHTML = [["", "sortFeatured"], ["price-asc", "sortPriceAsc"], ["price-desc", "sortPriceDesc"], ["name", "sortName"]].map(function (o) {
+        return '<option value="' + o[0] + '"' + (state.sort === o[0] ? " selected" : "") + ">" + esc(t(o[1])) + "</option>";
+      }).join("");
+    }
     document.querySelectorAll("#lang button").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-l") === LANG); });
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCart(); renderCats(); renderFaq();
     renderFruit(); renderMango(); renderMed(); renderAsk(); renderFooterCats();
@@ -1672,12 +1712,17 @@
   }
   function renderChips() {
     var box = document.getElementById("chips");
-    var cats = [];
-    state.products.forEach(function (p) { var c = (p.category || "").trim(); if (c && cats.indexOf(c) < 0) cats.push(c); });
+    var order = ["ফল", "ফুল", "ইনডোর গাছ", "Medicinal plants", "বীজ", "টব", "অর্গানিক কেয়ার", "কম্বো প্যাক"];
+    var counts = {};
+    state.products.forEach(function (p) { var c = (p.category || "").trim(); if (c) counts[c] = (counts[c] || 0) + 1; });
+    var cats = Object.keys(counts).sort(function (a, b) {
+      var ia = order.indexOf(a), ib = order.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+    });
     if (!cats.length) { box.innerHTML = ""; return; }
     var html = '<button class="chip favchip' + (state.favOn ? " on" : "") + '" data-fav="1">' + esc(t("favChip")) + "</button>";
     html += '<button class="chip' + (!state.cat && !state.favOn ? " on" : "") + '" data-c="">' + esc(t("all")) + "</button>";
-    cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c && !state.favOn ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(catLabel(c)) + "</button>"; });
+    cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c && !state.favOn ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(catLabel(c)) + '<span class="chip-n">' + counts[c] + "</span></button>"; });
     box.innerHTML = html;
     box.querySelectorAll(".chip").forEach(function (b) {
       b.onclick = function () {
@@ -1727,6 +1772,17 @@
       });
     }
     if (state.favOn) list = list.filter(function (p) { return !!fav[p.id]; });
+    if (state.sort) {
+      var priceOf = function (p) {
+        var sz = productSizes(p);
+        if (sz.length) return Math.min.apply(null, sz.map(function (s) { return Number(s.price) || 0; }));
+        return Number(p.offer_price || p.price) || 0;
+      };
+      list = list.slice();
+      if (state.sort === "price-asc") list.sort(function (a, b) { return priceOf(a) - priceOf(b); });
+      else if (state.sort === "price-desc") list.sort(function (a, b) { return priceOf(b) - priceOf(a); });
+      else if (state.sort === "name") list.sort(function (a, b) { return productName(a).localeCompare(productName(b), LANG === "bn" ? "bn" : LANG === "hi" ? "hi" : "en"); });
+    }
     if (state.q) {
       note.innerHTML = '<div class="search-note">' + esc(fmt(t("searchRes"), list.length)) +
         ' <button type="button" class="s-clear" onclick="clearSearch()">' + esc(t("searchClear")) + "</button></div>";
@@ -2238,6 +2294,8 @@
       var a = document.getElementById(id);
       if (a) a.onclick = goCat;
     });
+    var sortSel = document.getElementById("sortSel");
+    if (sortSel) sortSel.onchange = function () { state.sort = sortSel.value; state.shown = 40; renderProducts(); };
     var pop = document.getElementById("coupop");
     if (pop) {
       function dismiss() { pop.classList.remove("on"); try { localStorage.setItem("gf_popup", new Date().toDateString()); } catch (e) {} }
