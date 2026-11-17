@@ -782,6 +782,7 @@
         <p>✉️ <a href="mailto:mobasserhoque@gmail.com">mobasserhoque@gmail.com</a></p>
         <p data-t="fHours">🕘 সকাল ৯টা – রাত ৯টা</p>
         <p><a href="admin.html" rel="nofollow">🔐 Admin panel</a></p>
+        <p><a href="seller.html" rel="nofollow">🌱 Become a seller</a></p>
       </div>
     </div>
     <div class="copy">© <span id="yr"></span> Green Friend · Malda, West Bengal</div>
@@ -1346,18 +1347,20 @@
   // Cheapest Shiprocket courier charge for a delivery PIN code (via the
   // `shiprocket` Supabase function). Returns null when the lookup fails, so the
   // shop's own delivery charge stays as the fallback.
-  async function shiprocketRate(pin, weightKg) {
+  async function shiprocketRate(pin, weightKg, sellerId) {
     try {
+      var payload = {
+        action: "rate",
+        public: true,
+        delivery_postcode: pin,
+        cod: selectedMethod === "cod" ? 1 : 0,
+        weight: Math.min(20, Math.max(0.5, weightKg || 1.5))
+      };
+      if (sellerId) payload.seller_id = sellerId;
       var r = await fetch(SUPABASE_URL + "/functions/v1/shiprocket", {
         method: "POST",
         headers: { apikey: FN_KEY, Authorization: "Bearer " + FN_KEY, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "rate",
-          public: true,
-          delivery_postcode: pin,
-          cod: selectedMethod === "cod" ? 1 : 0,
-          weight: Math.min(20, Math.max(0.5, weightKg || 1.5))
-        })
+        body: JSON.stringify(payload)
       });
       var d = await r.json().catch(function () { return {}; });
       if (!r.ok || d.rate == null) return null;
@@ -1368,10 +1371,40 @@
     var n = cart.reduce(function (a, c) { return a + c.qty; }, 0);
     return Math.min(20, Math.max(0.5, n * 1.5));
   }
+  // A marketplace basket can hold plants from more than one seller, and each
+  // seller ships from their own address — so the courier charge is the sum of
+  // one parcel per seller. Our own products have no seller_id.
+  function cartSellerGroups() {
+    var groups = {};
+    cart.forEach(function (c) {
+      var key = (c.product && c.product.seller_id) || "";
+      if (!groups[key]) groups[key] = { seller_id: key || null, qty: 0 };
+      groups[key].qty += c.qty;
+    });
+    return Object.keys(groups).map(function (k) { return groups[k]; });
+  }
+  async function rateForCart(pin) {
+    var groups = cartSellerGroups();
+    // Homepage PIN check may run with an empty basket — quote one parcel.
+    if (!groups.length) groups = [{ seller_id: null, qty: 1 }];
+    var parts = await Promise.all(groups.map(function (g) {
+      var w = Math.min(20, Math.max(0.5, g.qty * 1.5));
+      return shiprocketRate(pin, w, g.seller_id);
+    }));
+    if (parts.some(function (p) { return !p; })) return null;
+    var total = parts.reduce(function (a, p) { return a + p.rate; }, 0);
+    var names = parts.map(function (p) { return p.courier; }).filter(Boolean);
+    return {
+      rate: Math.round(total * 100) / 100,
+      courier: names.filter(function (n, i) { return names.indexOf(n) === i; }).join(" + "),
+      etd: parts[0] ? parts[0].etd : null,
+      parcels: parts.length
+    };
+  }
   function refreshPinRate(pin) {
     pinRate = null; pinRateMeta = null;
     if (!/^\d{6}$/.test(String(pin || ""))) { renderOrderSummary(); return Promise.resolve(null); }
-    return shiprocketRate(pin, cartWeightKg()).then(function (r) {
+    return rateForCart(pin).then(function (r) {
       if (r) { pinRate = r.rate; pinRateMeta = r; }
       renderOrderSummary();
       return r;
@@ -1975,14 +2008,33 @@
   }
   async function fetchProducts() {
     var base = SUPABASE_URL + "/rest/v1/products?select=";
-    var cols = "id,name,bn,category,price,offer_price,sizes,emoji,tint,image_url,image_urls,note,note_bn,stock_quantity,created_at";
+    var cols = "id,name,bn,category,price,offer_price,sizes,emoji,tint,image_url,image_urls,note,note_bn,stock_quantity,created_at,seller_id";
     var tail = "&is_active=eq.true&order=created_at.desc&limit=300";
     var headers = { apikey: KEY, Authorization: "Bearer " + KEY };
     var r = await fetch(base + cols + tail, { headers: headers });
-    if (r.ok) return r.json();
-    // Older database without the sizes column: show the shop anyway.
-    r = await fetch(base + cols.replace(",sizes", "") + tail, { headers: headers });
-    return r.json();
+    var rows;
+    if (r.ok) rows = await r.json();
+    else {
+      // Older database without the sizes column: show the shop anyway.
+      r = await fetch(base + cols.replace(",sizes", "") + tail, { headers: headers });
+      rows = await r.json();
+    }
+    if (!Array.isArray(rows)) return rows;
+    // Seller shops (marketplace). A product without seller_id is our own.
+    try {
+      var sr = await fetch(SUPABASE_URL + "/rest/v1/seller_public?select=id,shop_name,city", { headers: headers });
+      if (sr.ok) {
+        var sellers = await sr.json();
+        var map = {};
+        (sellers || []).forEach(function (s) { map[s.id] = s; });
+        rows.forEach(function (p) {
+          var s = p.seller_id ? map[p.seller_id] : null;
+          p.seller_name = s ? s.shop_name : "";
+          p.seller_city = s ? s.city : "";
+        });
+      }
+    } catch (e) {}
+    return rows;
   }
   // Product pages link here as ?add=<id>&size=<label> — put the plant straight in the cart.
   function deepLinkAdd() {
@@ -2112,7 +2164,7 @@
       }
       out.className = "pinOut show";
       out.innerHTML = '<span class="spin"></span> ' + esc(t("pinChecking"));
-      var r = await shiprocketRate(v, cartWeightKg());
+      var r = await rateForCart(v);
       if (!r) {
         out.className = "pinOut show bad";
         out.innerHTML = "⚠️ " + esc(t("pinFail")) + ' · <a href="' + wa("নমস্কার! আমার এলাকার PIN কোড " + v + " — এখানে ডেলিভারি হয়?") + '" target="_blank" rel="noopener" style="color:#9B463F;text-decoration:underline">WhatsApp</a>';
