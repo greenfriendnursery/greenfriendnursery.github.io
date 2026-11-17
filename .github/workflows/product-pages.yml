@@ -1,0 +1,41 @@
+name: Product pages
+
+# Rebuilds one static SEO page per active product (including plants added by
+# sellers in the seller panel) and keeps product-map.json / sitemap.xml in sync.
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: product-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate pages
+        run: python3 tools/gen_product_pages.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "Green Friend Bot"
+          git config user.email "actions@users.noreply.github.com"
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Nothing changed"
+            exit 0
+          fi
+          git add docs/product docs/product-map.json docs/sitemap.xml docs/robots.txt
+          git commit -m "Auto: product pages"
+          git push
