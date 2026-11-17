@@ -234,7 +234,7 @@
 
     <label style="margin-top:14px">ছবি (সর্বোচ্চ ৫টি)</label>
     <input id="pmPhoto" type="file" accept="image/*" multiple onchange="uploadPhotos(this)">
-    <div class="hint" id="pmPhotoStatus"></div>
+    <div class="hint" id="pmPhotoStatus">ছবি সরাসরি Green Friend-এর GitHub-এ যাবে — লাইভ হতে ১-২ মিনিট লাগে।</div>
     <div class="thumbs" id="pmThumbs"></div>
 
     <div class="err" id="pmErr"></div>
@@ -270,6 +270,8 @@
 
   var URL = "https://thiqwyltfgtluxizsaee.supabase.co";
   var KEY = "sb_publishable_5QySg5h9PeB_uROILAiSww_hfkEk12B";
+  // Edge functions on this project only accept the legacy anon JWT.
+  var FN_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRoaXF3eWx0Zmd0bHV4aXpzYWVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4Mjk3NTQsImV4cCI6MjEwODQwNTc1NH0.jA-8Q1d43Nzd4K__CS7psGv8knIIHYOpA_zp7d3538g";
   var sb = window.supabase.createClient(URL, KEY);
 
   var S = { session: null, user: null, seller: null, products: [], orders: [], items: [], ships: [], earnings: null, tab: "orders", editing: null, photos: [], shipTarget: null };
@@ -547,7 +549,7 @@
       try { S.photos.push(await uploadOne(files[i])); renderThumbs(); }
       catch (e) { st.textContent = "❌ " + e.message; return; }
     }
-    st.textContent = "✓ " + files.length + "টি ছবি যোগ হয়েছে";
+    st.textContent = "✓ " + files.length + "টি ছবি GitHub-এ গেছে · ১-২ মিনিটে লাইভ হবে";
   };
 
   async function shrink(file, max, q) {
@@ -570,19 +572,31 @@
 
   async function uploadOne(file) {
     if (file.size > 20 * 1024 * 1024) throw new Error("ছবি ২০ MB-এর কম হতে হবে");
-    var blob = await shrink(file, 1000, 0.82);
-    var path = "seller/" + S.seller.id + "/" + Date.now() + "-" + Math.random().toString(16).slice(2, 8) + ".jpg";
-    var r = await fetch(URL + "/storage/v1/object/product-images/" + path, {
+    var full = await shrink(file, 1000, 0.82);
+    var small = await shrink(file, 400, 0.76);
+    var fullB64 = await blobToBase64(full);
+    var smallB64 = await blobToBase64(small);
+    var r = await fetch(URL + "/functions/v1/upload-photo", {
       method: "POST",
-      headers: { apikey: KEY, Authorization: "Bearer " + token(), "Content-Type": "image/jpeg", "x-upsert": "false" },
-      body: blob
+      headers: {
+        apikey: FN_KEY,
+        Authorization: "Bearer " + token(),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ image: fullB64, thumb: smallB64 })
     });
-    if (!r.ok) {
-      var txt = await r.text(), msg = txt;
-      try { msg = JSON.parse(txt).message || txt; } catch (e) {}
-      throw new Error(msg || ("আপলোড হয়নি (" + r.status + ")"));
-    }
-    return URL + "/storage/v1/object/public/product-images/" + path;
+    var d = await r.json().catch(function () { return {}; });
+    if (!r.ok || !d.url) throw new Error(d.error || ("আপলোড হয়নি (" + r.status + ")"));
+    return d.url;
+  }
+
+  function blobToBase64(blob) {
+    return new Promise(function (resolve, reject) {
+      var fr = new FileReader();
+      fr.onload = function () { resolve(String(fr.result).split(",")[1]); };
+      fr.onerror = function () { reject(new Error("ছবি পড়া যায়নি")); };
+      fr.readAsDataURL(blob);
+    });
   }
 
   window.saveProduct = async function () {
