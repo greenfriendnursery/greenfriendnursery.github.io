@@ -1673,6 +1673,13 @@
       };
     });
   }
+  // Marketplace card line: our own products stay "Seller: Green Friend",
+  // a partner's plant shows that shop's name.
+  function sellerLine(p) {
+    if (!p || !p.seller_name) return t("seller");
+    var pre = LANG === "bn" ? "বিক্রেতা : " : LANG === "hi" ? "विक्रेता : " : "Seller : ";
+    return pre + p.seller_name;
+  }
   function renderProducts() {
     var grid = document.getElementById("grid");
     var note = document.getElementById("plantsNote");
@@ -1755,7 +1762,7 @@
         '<div class="card-body">' +
           '<div class="p-cat">' + esc(catLabel(p.category)) + "</div>" +
           nameHtml +
-          '<div class="p-seller">' + esc(t("seller")) + "</div>" +
+          '<div class="p-seller">' + esc(sellerLine(p)) + "</div>" +
           '<div class="p-price">' + priceHtml + "</div>" +
           shipHtml +
           sizeHtml +
