@@ -135,6 +135,12 @@
         <div><label>মোবাইল *</label><input id="apPhone" type="tel" inputmode="numeric" placeholder="10 সংখ্যা"></div>
         <div><label>PIN কোড *</label><input id="apPin" type="text" inputmode="numeric" maxlength="6" placeholder="6 সংখ্যা"></div>
       </div>
+      <label>ইমেইল (যাচাই করতে হবে) *</label>
+      <div style="display:flex;gap:8px">
+        <input id="apEmail" type="email" autocomplete="email" placeholder="you@example.com" oninput="onEmailInput()">
+        <button type="button" class="btn ghost" style="flex:none" onclick="openEmailVerify()">যাচাই</button>
+      </div>
+      <div class="hint" id="apEmailStatus">ইমেইলে ৬ সংখ্যার কোড পাঠিয়ে যাচাই করুন।</div>
       <label>সম্পূর্ণ ঠিকানা (কুরিয়ার এখান থেকে নেবে) *</label>
       <textarea id="apAddr" placeholder="বাড়ি/গ্রাম, P.O, P.S, জেলা"></textarea>
       <div class="row">
@@ -245,6 +251,26 @@
   </div>
 </div>
 
+<div class="modal" id="emailModal">
+  <div class="sheet" style="max-width:430px">
+    <div class="sheethead">
+      <h2 style="margin:0">ইমেইল যাচাই</h2>
+      <button class="x" onclick="closeEmailModal()">✕</button>
+    </div>
+    <div class="hint" style="margin-bottom:8px">আপনার ইমেইলে ৬ সংখ্যার কোড পাঠানো হবে। কোডটি ১৫ মিনিট কাজ করবে।</div>
+    <label>ইমেইল</label>
+    <input id="evEmail" type="email" autocomplete="email" placeholder="you@example.com">
+    <button class="btn ghost" style="width:100%;margin-top:10px" id="evSend" onclick="sendEmailCode()">📧 কোড পাঠান</button>
+    <div id="evStep2" style="display:none">
+      <label>ইমেইলে আসা কোড</label>
+      <input id="evCode" type="text" inputmode="numeric" maxlength="6" placeholder="123456" style="letter-spacing:6px;font-weight:800;font-size:18px;text-align:center">
+      <button class="btn gold" style="width:100%;margin-top:12px" id="evCheck" onclick="checkEmailCode()">✓ যাচাই করুন</button>
+    </div>
+    <div class="err" id="evErr"></div>
+    <div class="ok" id="evOk"></div>
+  </div>
+</div>
+
 <div class="modal" id="shipModal">
   <div class="sheet" style="max-width:460px">
     <div class="sheethead">
@@ -274,7 +300,7 @@
   var FN_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRoaXF3eWx0Zmd0bHV4aXpzYWVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4Mjk3NTQsImV4cCI6MjEwODQwNTc1NH0.jA-8Q1d43Nzd4K__CS7psGv8knIIHYOpA_zp7d3538g";
   var sb = window.supabase.createClient(URL, KEY);
 
-  var S = { session: null, user: null, seller: null, products: [], orders: [], items: [], ships: [], earnings: null, tab: "orders", editing: null, photos: [], shipTarget: null };
+  var S = { session: null, user: null, seller: null, products: [], orders: [], items: [], ships: [], earnings: null, tab: "orders", editing: null, photos: [], shipTarget: null, email: "", emailVerified: false, sending: false, cooldown: 0 };
   var authMode = "login";
 
   function $(id) { return document.getElementById(id); }
@@ -350,10 +376,13 @@
   };
 
   async function afterLogin() {
+    await loadEmailStatus();
     var has = await loadSeller();
     if (has) { $("apPhone").value = S.user.phone || ""; }
     else {
       $("apPhone").value = (S.user.phone || "").replace(/^\+?91/, "");
+      $("apEmail").value = S.email || "";
+      paintEmailStatus();
       view("applyView");
     }
   }
@@ -380,6 +409,120 @@
     var txt2 = await r.text();
     return txt2 ? JSON.parse(txt2) : [];
   }
+
+  // ---------------- email verification ----------------
+  async function rpc(name, body) {
+    var t = token();
+    if (!t) throw new Error("আবার লগইন করুন।");
+    var r = await fetch(URL + "/rest/v1/rpc/" + name, {
+      method: "POST",
+      headers: { apikey: KEY, Authorization: "Bearer " + t, "Content-Type": "application/json" },
+      body: JSON.stringify(body || {})
+    });
+    var txt = await r.text();
+    if (!r.ok) {
+      var msg = txt;
+      try { var j = JSON.parse(txt); msg = j.message || j.details || j.hint || txt; } catch (e) {}
+      throw new Error(msg);
+    }
+    return txt ? JSON.parse(txt) : null;
+  }
+
+  function emailOk(v) { return /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/.test(String(v || "").trim()); }
+
+  async function loadEmailStatus() {
+    try {
+      var rows = await rpc("seller_email_status");
+      var row = Array.isArray(rows) ? (rows[0] || null) : rows;
+      if (row && row.email) {
+        S.email = String(row.email).toLowerCase();
+        S.emailVerified = !!row.verified;
+      }
+    } catch (e) {}
+  }
+
+  function paintEmailStatus() {
+    var el = $("apEmailStatus");
+    if (!el) return;
+    if (S.emailVerified && S.email) {
+      el.innerHTML = "✅ যাচাই হয়েছে: <b>" + esc(S.email) + "</b>";
+      el.style.color = "var(--green)";
+    } else {
+      el.textContent = "ইমেইলে ৬ সংখ্যার কোড পাঠিয়ে যাচাই করুন।";
+      el.style.color = "";
+    }
+  }
+
+  window.onEmailInput = function () {
+    var v = ($("apEmail").value || "").trim().toLowerCase();
+    S.emailVerified = !!S.email && v === S.email;
+    paintEmailStatus();
+  };
+
+  window.openEmailVerify = function () {
+    setMsg("evErr", ""); setMsg("evOk", "");
+    $("evStep2").style.display = "none";
+    $("evCode").value = "";
+    var cur = $("apEmail") && $("apEmail").value ? $("apEmail").value.trim() : "";
+    $("evEmail").value = cur || S.email || (S.seller && S.seller.email) || "";
+    $("evSend").disabled = false;
+    $("evSend").textContent = "📧 কোড পাঠান";
+    $("emailModal").classList.add("on");
+  };
+  window.closeEmailModal = function () { $("emailModal").classList.remove("on"); };
+
+  function startCooldown(sec) {
+    var btn = $("evSend");
+    S.cooldown = sec;
+    btn.disabled = true;
+    var tick = function () {
+      if (S.cooldown <= 0) { btn.disabled = false; btn.textContent = "📧 আবার কোড পাঠান"; return; }
+      btn.textContent = "আবার পাঠান (" + S.cooldown + "s)";
+      S.cooldown--;
+      setTimeout(tick, 1000);
+    };
+    tick();
+  }
+
+  window.sendEmailCode = async function () {
+    setMsg("evErr", ""); setMsg("evOk", "");
+    var email = ($("evEmail").value || "").trim().toLowerCase();
+    if (!emailOk(email)) { setMsg("evErr", "সঠিক ইমেইল লিখুন।"); return; }
+    var btn = $("evSend");
+    btn.disabled = true; btn.textContent = "পাঠানো হচ্ছে…";
+    try {
+      await rpc("request_seller_email_code", { p_email: email });
+      $("evStep2").style.display = "block";
+      $("evCode").focus();
+      setMsg("evOk", "✅ কোড পাঠানো হয়েছে — ইনবক্স ও স্প্যাম ফোল্ডার দেখুন।");
+      startCooldown(60);
+    } catch (e) {
+      setMsg("evErr", e.message || "কোড পাঠানো যায়নি।");
+      btn.disabled = false; btn.textContent = "📧 কোড পাঠান";
+    }
+  };
+
+  window.checkEmailCode = async function () {
+    setMsg("evErr", ""); setMsg("evOk", "");
+    var email = ($("evEmail").value || "").trim().toLowerCase();
+    var code = ($("evCode").value || "").replace(/\D/g, "");
+    if (code.length !== 6) { setMsg("evErr", "৬ সংখ্যার কোড লিখুন।"); return; }
+    var btn = $("evCheck");
+    btn.disabled = true; btn.textContent = "যাচাই হচ্ছে…";
+    try {
+      await rpc("verify_seller_email_code", { p_email: email, p_code: code });
+      S.email = email; S.emailVerified = true;
+      if ($("apEmail")) $("apEmail").value = email;
+      paintEmailStatus();
+      setMsg("evOk", "✅ ইমেইল যাচাই হয়েছে।");
+      if (S.seller) { await loadSeller(); renderProfile(); }
+      setTimeout(function () { closeEmailModal(); }, 900);
+    } catch (e) {
+      setMsg("evErr", e.message || "যাচাই হয়নি।");
+    } finally {
+      btn.disabled = false; btn.textContent = "✓ যাচাই করুন";
+    }
+  };
 
   // ---------------- seller record ----------------
   async function loadSeller() {
@@ -421,6 +564,7 @@
       shop_name: $("apShop").value.trim(),
       owner_name: $("apOwner").value.trim(),
       phone: $("apPhone").value.replace(/\D/g, "").slice(-10),
+      email: ($("apEmail").value || "").trim().toLowerCase(),
       address: $("apAddr").value.trim(),
       city: $("apCity").value.trim(),
       state: $("apState").value.trim() || "West Bengal",
@@ -433,6 +577,8 @@
     if (body.shop_name.length < 2) { setMsg("apErr", "দোকানের নাম লিখুন।"); return; }
     if (body.owner_name.length < 2) { setMsg("apErr", "মালিকের নাম লিখুন।"); return; }
     if (body.phone.length !== 10) { setMsg("apErr", "১০ সংখ্যার মোবাইল নম্বর দিন।"); return; }
+    if (!emailOk(body.email)) { setMsg("apErr", "সঠিক ইমেইল লিখুন।"); return; }
+    if (!S.emailVerified || body.email !== S.email) { setMsg("apErr", "আগে ইমেইলটি যাচাই করুন (ইমেইলে আসা কোড দিয়ে)।"); return; }
     if (!/^\d{6}$/.test(body.pincode)) { setMsg("apErr", "৬ সংখ্যার PIN কোড দিন।"); return; }
     if (body.address.length < 10) { setMsg("apErr", "সম্পূর্ণ ঠিকানা লিখুন (কমপক্ষে ১০ অক্ষর)।"); return; }
     try {
@@ -725,6 +871,14 @@
       '<label>দোকানের নাম</label><input id="pfShop" value="' + esc(s.shop_name) + '">' +
       '<label>মালিকের নাম</label><input id="pfOwner" value="' + esc(s.owner_name) + '">' +
       '<label>মোবাইল</label><input id="pfPhone" value="' + esc(s.phone) + '">' +
+      '<label>ইমেইল</label>' +
+      '<div style="display:flex;gap:8px;align-items:center">' +
+        '<input id="pfEmail" value="' + esc(s.email || "") + '" readonly style="background:#F7F7F3">' +
+        '<button type="button" class="btn ghost sm" style="flex:none" onclick="openEmailVerify()">যাচাই / বদলান</button>' +
+      "</div>" +
+      '<div class="hint">' + (s.email_verified_at
+        ? "✅ যাচাই করা হয়েছে — এখানেই অর্ডার ও কমিশনের খবর পাঠানো হবে।"
+        : "⚠️ এখনো যাচাই হয়নি। উপরের বোতামে চাপ দিয়ে ইমেইলে আসা কোড দিন।") + "</div>" +
       '<label>ঠিকানা (কুরিয়ার এখান থেকে নেবে)</label><textarea id="pfAddr">' + esc(s.address) + "</textarea>" +
       '<div class="row"><div><label>শহর</label><input id="pfCity" value="' + esc(s.city) + '"></div><div><label>PIN কোড</label><input id="pfPin" maxlength="6" value="' + esc(s.pincode) + '"></div></div>' +
       '<h3 style="margin-top:18px">টাকা পাওয়ার তথ্য</h3>' +
