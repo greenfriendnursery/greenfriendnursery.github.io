@@ -135,7 +135,7 @@
     </div>
     <div class="linkbar" style="justify-content:center">
       <a href="index.html">← Website</a>
-      <a href="https://github.com/greenfriendnursery/greenfriendnursery.github.io/releases/latest/download/Green-Friend.apk">Download app</a>
+      <a href="https://github.com/Greenfriend9563/green-friend-app/releases/latest/download/Green-Friend.apk">Download app</a>
     </div>
   </form>
 </div>
@@ -154,6 +154,7 @@
     <button data-tab="orders" onclick="setTab('orders')">Orders</button>
     <button data-tab="offers" onclick="setTab('offers')">Offers</button>
     <button data-tab="customers" onclick="setTab('customers')">Customers</button>
+    <button data-tab="sellers" onclick="setTab('sellers')">Sellers</button>
   </nav>
   <main>
     <section id="tab-overview">
@@ -169,7 +170,7 @@
         </div>
         <div class="linkbar">
           <a href="index.html" target="_blank" rel="noopener">Open website ↗</a>
-          <a href="https://github.com/greenfriendnursery/greenfriendnursery.github.io/releases" target="_blank" rel="noopener">GitHub releases ↗</a>
+          <a href="https://github.com/Greenfriend9563/green-friend-app/releases" target="_blank" rel="noopener">GitHub releases ↗</a>
         </div>
       </div>
     </section>
@@ -204,13 +205,20 @@
       <div id="offerList"><div class="empty">Loading…</div></div>
     </section>
 
-    <section id="tab-customers" class="hide">
-      <h1 class="h1">Registered customers</h1>
+    <section id="tab-customers" class="hide">      <h1 class="h1">Registered customers</h1>
       <p class="sub">Everyone who created an account in the app. Newest first.</p>
       <div class="toolbar">
         <input id="customerSearch" placeholder="Search name or phone…" oninput="onCustomerSearch(this.value)">
       </div>
       <div class="panel" id="customerList"><div class="empty">Loading…</div></div>
+    </section>
+    <section id="tab-sellers" class="hide">
+      <h1 class="h1">Sellers</h1>
+      <p class="sub">Approve partner nurseries, set the commission and their Shiprocket pickup location.</p>
+      <div class="toolbar">
+        <button class="btn light" onclick="loadSellers()">↻ Refresh</button>
+      </div>
+      <div class="panel" id="sellerList"><div class="empty">Loading…</div></div>
     </section>
   </main>
 </div>
@@ -510,7 +518,7 @@
   // ---------- tabs ----------
   window.setTab = function (tab) {
     S.tab = tab;
-    ["overview", "products", "orders", "offers", "customers"].forEach(function (name) {
+    ["overview", "products", "orders", "offers", "customers", "sellers"].forEach(function (name) {
       $("tab-" + name).classList.toggle("hide", name !== tab);
     });
     document.querySelectorAll("nav.tabs button").forEach(function (b) {
@@ -519,6 +527,7 @@
     if (tab === "orders") loadOrders();
     if (tab === "offers") loadOffers();
     if (tab === "customers") loadCustomers();
+    if (tab === "sellers") loadSellers();
   };
 
   // ---------- data ----------
@@ -577,6 +586,66 @@
     try { S.visits = await api("/rest/v1/rpc/site_visit_stats", { method: "POST", body: {} }); }
     catch (e) { S.visits = null; }
   }
+
+  // ---------- sellers (marketplace) ----------
+  async function loadSellers() {
+    try {
+      S.sellers = await api("/rest/v1/sellers?select=*&order=created_at.desc&limit=300");
+      if (!Array.isArray(S.sellers)) S.sellers = [];
+      renderSellers();
+    } catch (e) {
+      $("sellerList").innerHTML = '<div class="empty">' + esc(e.message) + "</div>";
+    }
+  }
+  function sellerPill(status) {
+    if (status === "active") return '<span class="pill paid">Active</span>';
+    if (status === "blocked") return '<span class="pill bad">Blocked</span>';
+    return '<span class="pill">Pending</span>';
+  }
+  function renderSellers() {
+    if (!S.sellers || !S.sellers.length) {
+      $("sellerList").innerHTML = '<div class="empty">No sellers yet. They apply from the website (seller.html).</div>';
+      return;
+    }
+    $("sellerList").innerHTML = S.sellers.map(function (s) {
+      var products = (S.products || []).filter(function (p) { return p.seller_id === s.id; }).length;
+      return '<div style="border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px">' +
+        '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
+          '<b style="font-size:15px">' + esc(s.shop_name) + "</b>" + sellerPill(s.status) +
+          '<span class="pill">' + products + " products</span>" +
+        "</div>" +
+        '<div class="sub" style="margin:6px 0 10px">' + esc(s.owner_name) + " · " + esc(s.phone) + "<br>" +
+          esc(s.address) + " · " + esc(s.city) + " · PIN " + esc(s.pincode) +
+          (s.upi_id ? "<br>UPI: " + esc(s.upi_id) : "") +
+          (s.admin_note ? '<br><i>' + esc(s.admin_note) + "</i>" : "") +
+        "</div>" +
+        '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">' +
+          '<label style="font-size:11px;color:var(--muted);font-weight:800">Shiprocket pickup name' +
+            '<input id="sk-' + s.id + '" value="' + esc(s.pickup_location) + '" placeholder="e.g. Home" style="margin-top:4px"></label>' +
+          '<label style="font-size:11px;color:var(--muted);font-weight:800">Commission %' +
+            '<input id="cm-' + s.id + '" type="number" min="0" max="50" step="0.5" value="' + Number(s.commission_percent) + '" style="margin-top:4px;width:110px"></label>' +
+          '<button class="btn sm" onclick="saveSeller(\'' + s.id + '\')">Save</button>' +
+          (s.status !== "active" ? '<button class="btn sm" onclick="setSellerStatus(\'' + s.id + '\',\'active\')">✓ Approve</button>' : "") +
+          (s.status !== "blocked" ? '<button class="btn light sm" onclick="setSellerStatus(\'' + s.id + '\',\'blocked\')">Block</button>' : "") +
+          (s.status !== "pending" ? '<button class="btn light sm" onclick="setSellerStatus(\'' + s.id + '\',\'pending\')">Back to pending</button>' : "") +
+        "</div></div>";
+    }).join("");
+  }
+  window.saveSeller = async function (id) {
+    var pickup = ($("sk-" + id).value || "").trim();
+    var commission = Number($("cm-" + id).value);
+    if (!(commission >= 0 && commission <= 50)) { alert("Commission must be between 0 and 50%."); return; }
+    try {
+      await api("/rest/v1/sellers?id=eq." + id, { method: "PATCH", body: { pickup_location: pickup, commission_percent: commission } });
+      await loadSellers();
+    } catch (e) { alert(e.message); }
+  };
+  window.setSellerStatus = async function (id, status) {
+    try {
+      await api("/rest/v1/sellers?id=eq." + id, { method: "PATCH", body: { status: status } });
+      await loadSellers();
+    } catch (e) { alert(e.message); }
+  };
 
   // ---------- overview ----------
   function renderOverview() {
