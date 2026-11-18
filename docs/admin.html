@@ -235,6 +235,7 @@
       <div class="field"><label>Stock (blank = unlimited)</label><input id="fStock" inputmode="numeric" placeholder="e.g. 20"></div>
       <div class="field"><label>Regular price (₹) *</label><input id="fPrice" inputmode="numeric" placeholder="e.g. 599"></div>
       <div class="field"><label>Offer price (₹, optional)</label><input id="fOffer" inputmode="numeric" placeholder="blank = no offer"></div>
+      <div class="field"><label>Parcel weight (kg, blank = 1.5)</label><input id="fWeight" inputmode="decimal" placeholder="e.g. 2"></div>
     </div>
     <div class="field"><label>Short note</label><input id="fNote" placeholder="Fresh from Green Friend"></div>
     <div class="field"><label>Note in Bengali</label><input id="fNoteBn" placeholder="তাজা গাছ, যত্নের সাথে প্যাক করা"></div>
@@ -717,6 +718,7 @@
     $("fStock").value = p && p.stock_quantity != null ? String(p.stock_quantity) : "";
     $("fPrice").value = p ? String(p.price == null ? "" : p.price) : "";
     $("fOffer").value = p && p.offer_price ? String(p.offer_price) : "";
+    $("fWeight").value = p && p.weight_kg ? String(p.weight_kg) : "";
     $("fNote").value = p ? p.note || "" : "Fresh from Green Friend";
     $("fNoteBn").value = p ? p.note_bn || "" : "";
     $("fImages").value = p ? (Array.isArray(p.image_urls) ? p.image_urls : (p.image_url ? [p.image_url] : [])).join("\n") : "";
@@ -960,6 +962,10 @@
     var urls = $("fImages").value.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean);
     if (urls.length > 5) return showErr("productErr", "A product can have up to 5 photos.");
 
+    var weightTxt = $("fWeight").value.trim();
+    var weight = weightTxt === "" ? null : Number(weightTxt);
+    if (weight != null && (!isFinite(weight) || weight < 0.1 || weight > 20)) return showErr("productErr", "Parcel weight must be between 0.1 and 20 kg.");
+
     var payload = {
       name: name,
       bn: $("fBn").value.trim(),
@@ -968,6 +974,7 @@
       offer_price: offer,
       sizes: sizes,
       stock_quantity: stock == null ? null : Math.max(0, Math.floor(stock)),
+      weight_kg: weight,
       note: $("fNote").value.trim() || "Fresh from Green Friend",
       note_bn: $("fNoteBn").value.trim(),
       image_url: urls[0] || null,
