@@ -153,14 +153,16 @@ def main():
         title = "%s \u2014 %s | Green Friend, Malda" % (name, cat_en)
         if cat in ("ফল",):
             title = "%s \u2014 Mango & fruit plants from Malda | Green Friend" % name
-        desc_bits = [
-            "Buy %s online from Green Friend, Malda (West Bengal)." % name,
-            "Plants up to 8 ft, 100%% original, 3 sizes from %s." % money(low),
-            "Free delivery above \u20b91000. Cash on delivery, UPI or bank transfer.",
-        ]
-        description = " ".join(desc_bits)
-        if len(description) > 300:
-            description = description[:297] + "..."
+        desc_core = "Buy %s online from Green Friend, Malda." % name
+        if len(sizes) > 1:
+            desc_core += " %d sizes from %s, up to 8 ft." % (len(sizes), money(low))
+        else:
+            desc_core += " Up to 8 ft, from %s." % money(low)
+        desc_extra = " Free delivery above \u20b91000. COD/UPI."
+        description = desc_core + desc_extra
+        # Google shows roughly 155-160 characters; keep the important part only.
+        if len(description) > 158:
+            description = desc_core if len(desc_core) <= 158 else (desc_core[:155] + "...")
 
         note = (p.get("note") or "").strip()
         note_bn = (p.get("note_bn") or "").strip()
