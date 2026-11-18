@@ -94,6 +94,8 @@
   .lang{display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;overflow:hidden}
   .lang button{border:0;background:transparent;padding:7px 11px;font-size:12px;font-weight:800;color:var(--muted);cursor:pointer;font-family:inherit}
   .lang button.on{background:var(--green);color:#fff}
+  .sellTop{flex:none;text-decoration:none;white-space:nowrap;border:1px solid #EBD49B;background:#FDF6E7;color:#8A5E12;font-weight:900;font-size:12px;padding:8px 13px;border-radius:999px;transition:.15s background,.15s border-color}
+  .sellTop:hover{background:#FAEBC8;border-color:#DCC084}
 
   /* ---- header search (PaudheWale-style) ---- */
   .search{position:relative;flex:1;max-width:520px;margin-left:auto}
@@ -172,6 +174,7 @@
     .brand{flex:none}
     .brand .brand-logo{height:66px}
     .lang button{padding:6px 9px;font-size:11px}
+    .sellTop{padding:6px 10px;font-size:10.5px}
     .bar .btn-sm{padding:7px 10px;font-size:11.5px}
     .search{order:9;flex-basis:100%;max-width:none;margin:0}
     .search input{height:40px;font-size:13px}
@@ -538,7 +541,7 @@
   </div>
 </div>
 
-<div class="topbar"><div class="wrap"><span class="topbarFull" data-t="topbar">🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery</span><span class="topbarShort" data-t="topbarShort">🚚 Free delivery above ₹1000</span></div></div>
+<div class="topbar"><div class="wrap"><span class="topbarFull" data-t="topbar">Free delivery above ₹1000 · 100% original guarantee · Cash on delivery</span><span class="topbarShort" data-t="topbarShort">Free delivery above ₹1000</span></div></div>
 <header>
   <div class="wrap bar">
     <a class="brand" href="#top"><img class="brand-logo" src="logo.png" alt="Green Friend"></a>
@@ -551,6 +554,7 @@
     <div class="grow"></div>
     <div class="search"><span class="s-ico">🔍</span><input id="q" type="search" autocomplete="off" placeholder="গাছ খুঁজুন…" aria-label="Search"><div class="qres" id="qres"></div></div>
     <div class="lang" id="lang"><button data-l="en" class="on">EN</button><button data-l="bn">বাংলা</button><button data-l="hi">हिन्दी</button></div>
+    <a class="sellTop" href="seller.html" data-t="navSeller">Become a seller</a>
   </div>
 </header>
 
@@ -894,9 +898,9 @@
       h1: '৮ ফুট <span>আমের গাছ</span>',
       searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →", viewAll: "সব দেখুন →", explore: "দেখুন →", seller: "বিক্রেতা : গ্রিন ফ্রেন্ড", shopCount: "{0}টি গাছ", shopAll: "সব দোকান", colTerrace: "টেরেস গার্ডেন", colLow: "কম যত্নের গাছ", colExotic: "এক্সোটিক ফল", colTropical: "ট্রপিক্যাল ফল",
       heroKicker: "🌿 মালদা ও মুর্শিদাবাদের নার্সারি",
-      navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন",
-      topbar: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি · ✅ ১০০% অরিজিনাল গ্যারান্টি · 💵 ক্যাশ অন ডেলিভারি",
-      topbarShort: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি",
+      navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন", navSeller: "সেলার হোন",
+      topbar: "₹১০০০+ অর্ডারে ডেলিভারি ফ্রি · ১০০% অরিজিনাল গ্যারান্টি · ক্যাশ অন ডেলিভারি",
+      topbarShort: "₹১০০০+ অর্ডারে ডেলিভারি ফ্রি",
       hs1t: "🥭 ল্যাংড়া আম", hs1s: "৮ ফুট গাছ · মালদা",
       hs2t: "🥭 হিমসাগর আম", hs2s: "মালদার সবচেয়ে মিষ্টি · ৮ ফুট",
       hs3t: "🌸 বাগানবিলাস", hs3s: "ফুলের গাছ · সব রঙ",
@@ -957,9 +961,9 @@
       h1: '8 ft <span>mango plants</span>',
       searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →", viewAll: "View All →", explore: "Explore Now →", seller: "Sold By : Green Friend", shopCount: "{0} plants", shopAll: "All shops", colTerrace: "Terrace Garden", colLow: "Low Maintenance", colExotic: "Exotic Fruits", colTropical: "Tropical Fruits",
       heroKicker: "🌿 Malda & Murshidabad nursery",
-      navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ",
-      topbar: "🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery",
-      topbarShort: "🚚 Free delivery above ₹1000",
+      navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ", navSeller: "Become a seller",
+      topbar: "Free delivery above ₹1000 · 100% original guarantee · Cash on delivery",
+      topbarShort: "Free delivery above ₹1000",
       hs1t: "🥭 Langra mango", hs1s: "8 ft plants · Malda",
       hs2t: "🥭 Himsagar mango", hs2s: "Sweetest of Malda · 8 ft",
       hs3t: "🌸 Bougainvillea", hs3s: "Flowering plants · all colours",
@@ -1020,9 +1024,9 @@
       h1: '8 फीट <span>आम के पौधे</span>',
       searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →", viewAll: "सभी देखें →", explore: "अभी देखें →", seller: "विक्रेता : ग्रीन फ्रेंड", shopCount: "{0} पौधे", shopAll: "सभी दुकानें", colTerrace: "टेरेस गार्डन", colLow: "कम देखभाल वाले पौधे", colExotic: "एक्सोटिक फल", colTropical: "ट्रॉपिकल फल",
       heroKicker: "🌿 मालदा और मुर्शिदाबाद की नर्सरी",
-      navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल",
-      topbar: "🚚 ₹1000+ पर डिलीवरी फ्री · ✅ 100% असली की गारंटी · 💵 कैश ऑन डिलीवरी",
-      topbarShort: "🚚 ₹1000+ पर डिलीवरी फ्री",
+      navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल", navSeller: "विक्रेता बनें",
+      topbar: "₹1000+ पर डिलीवरी फ्री · 100% असली की गारंटी · कैश ऑन डिलीवरी",
+      topbarShort: "₹1000+ पर डिलीवरी फ्री",
       hs1t: "🥭 लंगड़ा आम", hs1s: "8 फीट पौधे · मालदा",
       hs2t: "🥭 हिमसागर आम", hs2s: "मालदा का सबसे मीठा · 8 फीट",
       hs3t: "🌸 बोगनवेलिया", hs3s: "फूलों के पौधे · सभी रंग",
