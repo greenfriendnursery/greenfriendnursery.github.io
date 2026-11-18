@@ -312,7 +312,7 @@ footer a{{text-decoration:underline}}
 <header><div class="bar">
   <a href="../index.html"><img src="../logo.png" alt="Green Friend"></a>
   <div class="sp"></div>
-  <a class="shop" href="../index.html#plants">All plants</a>
+  <a class="shop" href="../all-plants.html">All plants</a>
 </div></header>
 
 <main class="wrap">
@@ -410,6 +410,93 @@ footer a{{text-decoration:underline}}
         if name.endswith(".html") and name not in keep:
             os.remove(os.path.join(OUT, name))
 
+    # ------------------------------------------------------------------
+    # All plants: one static page that links to every product page.
+    # The homepage builds its grid with JavaScript, so Googlebot sees no
+    # product links in the raw HTML; this page is the crawlable hub.
+    # ------------------------------------------------------------------
+    cat_order = ["\u0986\u09ae", "\u09b2\u09bf\u099a\u09c1", "\u09ab\u09c1\u09b2", "\u09ab\u09b2", "\u0994\u09b7\u09a7\u09bf", "\u09b8\u09ac\u099c\u09bf"]
+    cats = [c for c in cat_order if c in by_cat] + [c for c in by_cat if c not in cat_order]
+    hub_sections = []
+    for cat in cats:
+        cards = []
+        for p in by_cat[cat]:
+            pics = photos_of(p)
+            sz = sizes_of(p)
+            prices = [s["price"] for s in sz] or [float(p.get("price") or 0)]
+            op = p.get("offer_price")
+            price_txt = money(min(prices))
+            if op and not sz and float(op) > 0:
+                price_txt = money(op)
+            cards.append(
+                '<a class="card" href="product/%s.html"><span class="im">%s</span>'
+                '<b>%s</b><small>%s</small><em>%s</em></a>'
+                % (esc(p["_slug"]),
+                   ('<img src="%s" alt="%s" loading="lazy" width="240" height="240">'
+                    % (esc(thumb(pics[0])), esc(p["name"]))) if pics else "",
+                   esc(p["name"]),
+                   esc(p["_shop"] or "Green Friend"),
+                   price_txt)
+            )
+        hub_sections.append(
+            '<section class="cat"><h2>%s <span>%s</span></h2><div class="grid">%s</div></section>'
+            % (esc(CAT_EN.get(cat, cat or "Plants")), esc(cat or ""), "".join(cards))
+        )
+
+    hub = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All plants \u2014 mango, lychee, flowers &amp; more | Green Friend, Malda</title>
+<meta name="description" content="Every plant Green Friend sells in one list: mango and lychee plants up to 8 ft, flowers, fruit and indoor plants. Prices from \u20b9, delivery across India.">
+<link rel="canonical" href="__SITE__all-plants.html">
+<meta name="google-site-verification" content="qR5lAltyvuzxGO6-5d3boY0GSkn2obe0kYzR9FS0jCM">
+<meta name="theme-color" content="#173D25">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,"Noto Sans Bengali",sans-serif;color:#232820;background:#FBFAF6;line-height:1.5}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.95);border-bottom:1px solid #E4E2D8;backdrop-filter:blur(10px)}
+.hd{max-width:1120px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hd img{height:40px;width:auto;display:block}
+.hd .t{font-weight:900;font-size:15px;margin-left:auto;color:#A9741C}
+main{max-width:1120px;margin:0 auto;padding:22px 16px 40px}
+h1{font-size:24px;margin:0 0 6px;letter-spacing:-.3px}
+.lead{color:#6C7A66;font-size:13.5px;margin:0 0 18px}
+.cat h2{font-size:17px;margin:26px 0 10px;display:flex;align-items:baseline;gap:8px}
+.cat h2 span{font-size:12px;font-weight:800;color:#A9741C;background:#FDF6E7;border:1px solid #F1DFB6;border-radius:999px;padding:2px 9px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{background:#fff;border:1px solid #E4E2D8;border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:4px;transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(35,40,32,.08)}
+.card .im{display:block;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#F3F3EF}
+.card .im img{width:100%;height:100%;object-fit:cover;display:block}
+.card b{font-size:13px;line-height:1.3;margin-top:4px}
+.card small{font-size:11px;color:#6C7A66}
+.card em{font-style:normal;font-weight:900;color:#1F5F3E;font-size:13px;margin-top:auto}
+footer{text-align:center;color:#6C7A66;font-size:12px;padding:26px 16px;border-top:1px solid #E4E2D8;margin-top:10px}
+footer a{color:#A9741C;font-weight:800}
+@media(max-width:820px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr)}h1{font-size:20px}}
+</style>
+</head>
+<body>
+<header><div class="hd"><a href="index.html"><img src="logo.png" alt="Green Friend"></a><div class="t">__COUNT__ plants</div></div></header>
+<main>
+<h1>All plants</h1>
+<p class="lead">Mango and lychee plants up to 8 ft, flowers, fruit, medicinal and indoor plants \u2014 from Malda &amp; Murshidabad, West Bengal.</p>
+__SECTIONS__
+</main>
+<footer>Green Friend \u00b7 Malda &amp; Murshidabad, West Bengal \u00b7 <a href="index.html">Shop</a> \u00b7 <a href="photo-credits.html">Photo credits</a></footer>
+</body>
+</html>
+"""
+    hub = (hub.replace("__SITE__", SITE)
+              .replace("__SECTIONS__", "".join(hub_sections))
+              .replace("__COUNT__", str(len(products))))
+    with open(os.path.join(DOCS, "all-plants.html"), "w", encoding="utf-8", newline="\n") as f:
+        f.write(hub)
+
     # sitemap + robots
     json.dump({p["id"]: p["_slug"] for p in products},
               open(os.path.join(DOCS, "product-map.json"), "w", encoding="utf-8"),
@@ -417,6 +504,8 @@ footer a{{text-decoration:underline}}
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
           "  <url><loc>%s</loc><lastmod>%s</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>"
+          % (SITE, TODAY),
+          "  <url><loc>%sall-plants.html</loc><lastmod>%s</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>"
           % (SITE, TODAY)]
     for u, lm in urls:
         sm.append("  <url><loc>%s</loc><lastmod>%s</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>" % (u, lm))
