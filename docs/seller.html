@@ -622,7 +622,7 @@
     var rows = await api("products?select=*&seller_id=eq." + S.seller.id + "&order=created_at.desc");
     S.products = rows || [];
     if (!S.products.length) {
-      $("tab-products").innerHTML = '<div class="card"><div class="empty">You have not added any plants yet.<br><button class="btn gold" style="margin-top:12px" onclick="openProd()">+ Add a new plant</button></div></div>';
+      $("tab-products").innerHTML = '<div class="card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap"><h3 style="margin:0;flex:1">My plants (0)</h3><button class="btn ghost sm" onclick="genPagesNow(this)">⚡ Build pages</button><button class="btn gold sm" onclick="openProd()">+ New</button></div><div class="hint" id="genStatus"></div><div class="empty">You have not added any plants yet.<br><button class="btn gold" style="margin-top:12px" onclick="openProd()">+ Add a new plant</button></div></div>';
       return;
     }
     var html = '<div class="card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap"><h3 style="margin:0;flex:1">My plants (' + S.products.length + ')</h3><button class="btn ghost sm" onclick="genPagesNow(this)">⚡ Build pages</button><button class="btn gold sm" onclick="openProd()">+ New</button></div><div class="hint" id="genStatus"></div>';
