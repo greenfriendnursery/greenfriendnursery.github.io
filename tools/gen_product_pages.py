@@ -335,7 +335,7 @@ footer a{{text-decoration:underline}}
         <li><b>Delivery</b>2\u20133 days in Malda &amp; Murshidabad</li>
         <li><b>Payment</b>COD \u00b7 UPI \u00b7 Bank</li>
       </ul>
-      <div class="trust"><span>Free delivery above \u20b91000</span><span>Replacement within 24 hours</span><span>\U0001f331 Own nursery, Malda</span></div>
+      <div class="trust"><span>\U0001f69a Free delivery above \u20b91000</span><span>\u2705 Replacement within 24 hours</span><span>\U0001f331 Own nursery, Malda</span></div>
     </div>
   </div>
 
