@@ -222,10 +222,12 @@
     <datalist id="catList">
       <option>Mango</option><option>Lychee</option><option>Flower</option><option>Fruit</option><option>Medicinal</option><option>Vegetable</option>
     </datalist>
-    <div class="row">
+    <div class="row3">
       <div><label>Price ₹ *</label><input id="pmPrice" type="number" min="0" step="1" placeholder="399"></div>
       <div><label>Offer price ₹ (optional)</label><input id="pmOffer" type="number" min="0" step="1" placeholder=""></div>
+      <div><label>Parcel weight (kg) *</label><input id="pmWeight" type="number" min="0.1" max="20" step="0.1" placeholder="1.5"></div>
     </div>
+    <div class="hint">We use this weight to calculate the courier charge. One plant with its bag is usually 1.5–3 kg.</div>
 
     <label style="margin-top:14px">Plant sizes and prices (up to 3)</label>
     <div class="row3">
@@ -623,7 +625,7 @@
       $("tab-products").innerHTML = '<div class="card"><div class="empty">You have not added any plants yet.<br><button class="btn gold" style="margin-top:12px" onclick="openProd()">+ Add a new plant</button></div></div>';
       return;
     }
-    var html = '<div class="card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><h3 style="margin:0;flex:1">My plants (' + S.products.length + ')</h3><button class="btn gold sm" onclick="openProd()">+ New</button></div>';
+    var html = '<div class="card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap"><h3 style="margin:0;flex:1">My plants (' + S.products.length + ')</h3><button class="btn ghost sm" onclick="genPagesNow(this)">⚡ Build pages</button><button class="btn gold sm" onclick="openProd()">+ New</button></div><div class="hint" id="genStatus"></div>';
     S.products.forEach(function (p) {
       var img = p.image_url || "";
       var priceTxt = p.sizes && p.sizes.length ? "from " + money(Math.min.apply(null, p.sizes.map(function (s) { return Number(s.price) || 0; }))) : money(p.price);
@@ -631,7 +633,7 @@
         (img ? '<img class="thumb" src="' + esc(img) + '" alt="" loading="lazy">' : '<div class="thumb"></div>') +
         '<div style="flex:1;min-width:0">' +
         '<div class="t">' + esc(p.name) + " " + (p.is_active ? '<span class="pill green">Live</span>' : '<span class="pill grey">Hidden</span>') + "</div>" +
-        '<div class="s">' + esc(p.category) + " · " + priceTxt + (p.stock_quantity != null ? " · Stock " + p.stock_quantity : "") + "</div>" +
+        '<div class="s">' + esc(p.category) + " · " + priceTxt + (p.weight_kg ? " · " + p.weight_kg + " kg" : "") + (p.stock_quantity != null ? " · Stock " + p.stock_quantity : "") + "</div>" +
         '<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">' +
         '<button class="btn ghost sm" onclick="openProd(\'' + p.id + '\')">Edit</button>' +
         '<button class="btn ghost sm" onclick="toggleProduct(\'' + p.id + '\',' + (!p.is_active) + ')">' + (p.is_active ? "Hide" : "Show") + "</button>" +
@@ -640,6 +642,35 @@
     });
     $("tab-products").innerHTML = html + "</div>";
   }
+
+  // ---------------- "build pages now" ----------------
+  // The shop pages are built by a GitHub Action every 20 minutes. This asks
+  // GitHub to run it immediately, so a plant gets its page link right away.
+  window.genPagesNow = async function (btn) {
+    var st = $("genStatus");
+    var old = btn ? btn.textContent : "";
+    function say(text, ok) {
+      if (!st) return;
+      st.textContent = text;
+      st.style.color = ok ? "var(--green)" : "var(--red)";
+    }
+    if (btn) { btn.disabled = true; btn.textContent = "Building…"; }
+    say("Asking GitHub to build the pages…", true);
+    try {
+      var r = await fetch(URL + "/functions/v1/gen-pages", {
+        method: "POST",
+        headers: { apikey: FN_KEY, Authorization: "Bearer " + token(), "Content-Type": "application/json" },
+        body: "{}"
+      });
+      var d = await r.json().catch(function () { return {}; });
+      if (!r.ok) throw new Error(d.error || ("Build failed (" + r.status + ")"));
+      say("✅ Build started — your plant's page appears in about 1–2 minutes.", true);
+    } catch (e) {
+      say("❌ " + (e.message || "Could not start the build."), false);
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = old || "⚡ Build pages"; }
+    }
+  };
 
   window.toggleProduct = async function (id, active) {
     try { await api("products?id=eq." + id, { method: "PATCH", body: { is_active: !!active }, prefer: "return=minimal" }); await loadProducts(); }
@@ -662,6 +693,7 @@
     $("pmStock").value = p && p.stock_quantity != null ? p.stock_quantity : "";
     $("pmPrice").value = p ? p.price : "";
     $("pmOffer").value = p && p.offer_price ? p.offer_price : "";
+    $("pmWeight").value = p && p.weight_kg ? p.weight_kg : "";
     $("pmNote").value = p ? (p.note || "") : "";
     var sz = (p && Array.isArray(p.sizes)) ? p.sizes : [];
     for (var i = 1; i <= 3; i++) {
@@ -762,6 +794,10 @@
       if (l && pv > 0) sizes.push({ label: l, price: pv });
     }
     var offer = Number($("pmOffer").value);
+    var weight = Number($("pmWeight").value);
+    if ($("pmWeight").value !== "" && (!(weight >= 0.1) || weight > 20)) {
+      setMsg("pmErr", "Parcel weight must be between 0.1 and 20 kg."); return;
+    }
     var body = {
       name: name,
       bn: $("pmBn").value.trim(),
@@ -771,16 +807,19 @@
       sizes: sizes,
       note: $("pmNote").value.trim(),
       stock_quantity: $("pmStock").value === "" ? null : Number($("pmStock").value),
+      weight_kg: $("pmWeight").value === "" ? null : weight,
       image_url: S.photos[0],
       image_urls: S.photos,
       seller_id: S.seller.id
     };
+    var wasNew = !S.editing;
     var btn = $("pmSave"); btn.disabled = true; btn.textContent = "Saving…";
     try {
       if (S.editing) await api("products?id=eq." + S.editing, { method: "PATCH", body: body, prefer: "return=minimal" });
       else await api("products", { method: "POST", body: body, prefer: "return=minimal" });
       closeProd();
       await loadProducts();
+      if (wasNew) genPagesNow();
     } catch (e) { setMsg("pmErr", e.message); }
     finally { btn.disabled = false; btn.textContent = "Save"; }
   };
