@@ -36,6 +36,6 @@ jobs:
             echo "Nothing changed"
             exit 0
           fi
-          git add docs/product docs/product-map.json docs/sitemap.xml docs/robots.txt
+          git add docs/product docs/all-plants.html docs/product-map.json docs/sitemap.xml docs/robots.txt
           git commit -m "Auto: product pages"
           git push
