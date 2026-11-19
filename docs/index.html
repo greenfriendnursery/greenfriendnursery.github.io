@@ -305,6 +305,7 @@
   .more-wrap{display:flex;justify-content:center;margin:20px 0 4px}
   @media(min-width:720px){.grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 14px rgba(23,64,39,.07);display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow}
+  #grid .card{background-color:hsl(var(--row-hue, 145) 65% 89%)}
   .card[data-href]{cursor:pointer}
   .shopbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#FDF6E7;border:1px solid #F1DFB6;color:#6B4A10;border-radius:14px;padding:10px 14px;font-size:13.5px;font-weight:800;margin:0 0 14px}
   .shopbar .s-clear{margin-left:auto;color:#A9741C;text-decoration:underline;font-size:12.5px;background:none;border:0;cursor:pointer;font-family:inherit;font-weight:800}
@@ -432,6 +433,7 @@
   .fruitgrid{display:grid;grid-template-columns:1fr;gap:12px}
   @media(min-width:720px){.fruitgrid{grid-template-columns:1fr 1fr;gap:16px}}
   .fc{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;text-decoration:none}
+  .fruitgrid .fc{background-color:hsl(var(--row-hue, 200) 65% 89%)}
   .fc:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(23,64,39,.12)}
   .fc .fc-thumb{flex:0 0 92px;width:92px;height:92px;border-radius:12px;overflow:hidden;background:#EDF2E4;display:flex;align-items:center;justify-content:center}
   .fc .fc-thumb img{width:100%;height:100%;object-fit:cover;display:block}
@@ -446,6 +448,7 @@
   .mstrip{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .mstrip::-webkit-scrollbar{display:none}
   .mcard{flex:none;width:190px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(23,64,39,.07);display:flex;flex-direction:column;transition:transform .15s}
+  .mstrip .mcard{background-color:hsl(35 65% 89%)}
   .mcard:hover{transform:translateY(-3px)}
   .mcard .mimg{aspect-ratio:4/3.4;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden}
   .mcard .mimg img{width:100%;height:100%;object-fit:cover}
@@ -1767,6 +1770,24 @@
     var hit = state.products.filter(function (p) { return p.seller_id === state.shopId; })[0];
     state.shopName = (hit && hit.seller_name) || "Seller";
   }
+  // Keep all products in a visual row the same color as the grid reflows.
+  function colorProductRows(selector, firstHue) {
+    var cards = Array.prototype.slice.call(document.querySelectorAll(selector));
+    var tops = cards.map(function (card) { return card.offsetTop; });
+    var row = -1, previousTop;
+    cards.forEach(function (card, i) {
+      if (i === 0 || tops[i] !== previousTop) row++;
+      previousTop = tops[i];
+      card.style.setProperty("--row-hue", String((firstHue + row * 137.5) % 360));
+    });
+  }
+  function colorAllProductRows() {
+    colorProductRows("#grid .card", 145);
+    colorProductRows("#fruitgrid .fc", 200);
+    colorProductRows("#flowergrid .fc", 300);
+  }
+  window.addEventListener("resize", colorAllProductRows);
+
   function renderProducts() {
     var grid = document.getElementById("grid");
     var note = document.getElementById("plantsNote");
@@ -1875,6 +1896,7 @@
           actionsHtml +
         "</div></article>";
     }).join("");
+    colorProductRows("#grid .card", 145);
     if (list.length > shown) {
       note.innerHTML += '<div class="more-wrap"><button class="btn btn-solid" id="loadMore">' +
         esc(t("more")) + " (" + (list.length - shown) + ")</button></div>";
@@ -2010,6 +2032,7 @@
     box.querySelectorAll(".fc").forEach(function (a) {
       if (a.getAttribute("data-c")) a.addEventListener("click", goCat);
     });
+    colorProductRows("#fruitgrid .fc", 200);
   }
 
   function renderFlower() {
@@ -2040,6 +2063,7 @@
     box.querySelectorAll(".fc").forEach(function (a) {
       if (a.getAttribute("data-c")) a.addEventListener("click", goCat);
     });
+    colorProductRows("#flowergrid .fc", 300);
   }
 
   function renderMango() {
