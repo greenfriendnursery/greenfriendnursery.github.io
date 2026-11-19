@@ -301,6 +301,10 @@ h1{{font-size:23px;line-height:1.2;margin:0 0 4px;letter-spacing:-.4px}}
 .sizes li.on span{{font-weight:800}}
 .sizes b{{color:var(--gold)}}
 .btn{{display:block;text-align:center;font-weight:900;font-size:15px;padding:14px;border-radius:14px;margin-top:10px}}
+.delivery-info{{background:#F0F7F1;border:1px solid #CBE5D4;border-radius:14px;padding:12px 14px;margin-top:10px;font-size:13px;line-height:1.55}}
+.delivery-info p{{margin:0 0 6px}}
+.delivery-info p:last-child{{margin-bottom:0}}
+.delivery-info a{{color:#14532D;text-decoration:underline;font-weight:700}}
 .solid{{background:linear-gradient(135deg,#F5C766,#E3A62E);color:#2A2210;box-shadow:0 8px 20px rgba(200,145,35,.22)}}
 .line{{background:#fff;border:1.5px solid #232820;color:#232820}}
 .dark{{background:#232820;color:#FFF6E2;box-shadow:0 8px 20px rgba(20,24,16,.18)}}
@@ -341,6 +345,11 @@ footer a{{text-decoration:underline}}
       <div class="price"><span id="priceNow">{price}</span> <small>{sizes_note}</small></div>
       <ul class="sizes">{size_rows}</ul>
       <a class="btn solid" id="addBtn" href="../index.html?add={pid}" data-add="{pid}">{add_text}</a>
+      <section class="delivery-info" aria-label="ডেলিভারি ও রিপ্লেসমেন্ট">
+        <p>🚚 <b>ডেলিভারি খরচ:</b> ₹১,০০০ বা বেশি অর্ডারে ফ্রি; কম হলে চেকআউটে দেখাবে।</p>
+        <p>📦 <b>সময়:</b> মালদা ও মুর্শিদাবাদে ২–৩ দিন, পশ্চিমবঙ্গে অন্যত্র ৪–৫ দিন, অন্য রাজ্যে ৫–৭ দিন (আনুমানিক)।</p>
+        <p>🌱 <b>রিপ্লেসমেন্ট:</b> ভুল বা নষ্ট গাছ পেলে ২৪ ঘণ্টার মধ্যে <a href="https://wa.me/{wa}">WhatsApp-এ</a> ছবি বা ভিডিও পাঠান। যাচাইয়ের পর বিনা খরচে বদলে দেওয়া হবে।</p>
+      </section>
       <a class="btn dark" id="buyBtn" href="../index.html?add={pid}&amp;buy=1" data-add="{pid}">Buy now \u00b7 pay on delivery</a>
       <a class="btn line" href="https://wa.me/{wa}?text={wa_text}">{wa_label}</a>
       <ul class="specs">
