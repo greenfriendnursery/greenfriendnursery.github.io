@@ -33,6 +33,10 @@ CAT_EN = {
     "অর্গানিক কেয়ার": "Organic care",
     "কম্বো প্যাক": "Combo pack",
 }
+NON_PLANT = {"টব", "বীজ", "অর্গানিক কেয়ার", "কম্বো প্যাক"}
+TYPE_LABEL = {"টব": "Pot", "বীজ": "Seeds",
+              "অর্গানিক কেয়ার": "Plant care",
+              "কম্বো প্যাক": "Combo pack"}
 CAT_BN = {
     "ফুল": "ফুলের গাছ",
     "ফল": "ফলের গাছ",
@@ -140,6 +144,8 @@ def main():
         cat = (p.get("category") or "").strip()
         cat_en = CAT_EN.get(cat, cat or "Plants")
         cat_bn = CAT_BN.get(cat, cat or "গাছ")
+        is_plant = cat not in NON_PLANT
+        type_label = TYPE_LABEL.get(cat, "Product")
         sizes = sizes_of(p)
         prices = [s["price"] for s in sizes] or [float(p.get("price") or 0)]
         low, high = min(prices), max(prices)
@@ -154,16 +160,24 @@ def main():
         if cat in ("ফল",):
             title = "%s \u2014 Mango & fruit plants from Malda | Green Friend" % name
         desc_core = "Buy %s online from Green Friend, Malda." % name
-        if len(sizes) > 1:
-            desc_core += " %d sizes from %s, up to 8 ft." % (len(sizes), money(low))
+        if is_plant:
+            if len(sizes) > 1:
+                desc_core += " %d sizes from %s, up to 8 ft." % (len(sizes), money(low))
+            else:
+                desc_core += " Up to 8 ft, from %s." % money(low)
         else:
-            desc_core += " Up to 8 ft, from %s." % money(low)
+            if len(sizes) > 1:
+                desc_core += " %d options from %s." % (len(sizes), money(low))
+            else:
+                desc_core += " From %s." % money(low)
         desc_extra = " Free delivery above \u20b91000. COD/UPI."
         description = desc_core + desc_extra
         # Google shows roughly 155-160 characters; keep the important part only.
         if len(description) > 158:
             description = desc_core if len(desc_core) <= 158 else (desc_core[:155] + "...")
 
+        height_row = ('<li><b>Height</b>Up to 8 ft</li>' if is_plant
+                      else '<li><b>Type</b>%s</li>' % esc(type_label))
         note = (p.get("note") or "").strip()
         note_bn = (p.get("note_bn") or "").strip()
 
@@ -330,7 +344,7 @@ footer a{{text-decoration:underline}}
       <a class="btn dark" id="buyBtn" href="../index.html?add={pid}&amp;buy=1" data-add="{pid}">Buy now \u00b7 pay on delivery</a>
       <a class="btn line" href="https://wa.me/{wa}?text={wa_text}">{wa_label}</a>
       <ul class="specs">
-        <li><b>Height</b>Up to 8 ft</li>
+        {height_row}
         <li><b>Guarantee</b>100% original</li>
         <li><b>Delivery</b>2\u20133 days in Malda &amp; Murshidabad</li>
         <li><b>Payment</b>COD \u00b7 UPI \u00b7 Bank</li>
@@ -396,9 +410,12 @@ footer a{{text-decoration:underline}}
             wa=WA,
             wa_text=esc(urllib.parse.quote("Hello! I would like this plant: %s" % name)),
             wa_label="\U0001f4ac Order on WhatsApp",
-            note_html=esc(note or ("%s from our own nursery in Malda. Grown with care, packed safely and delivered to your door." % name)),
+            note_html=esc(note or (("%s from our own nursery in Malda. Grown with care, packed safely and delivered to your door." % name)
+                                   if is_plant else
+                                   ("%s from Green Friend, Malda — packed safely and delivered to your door." % name))),
             bn_desc=esc(note_bn or ("%s \u2014 \u09ae\u09be\u09b2\u09a6\u09be \u0993 \u09ae\u09c1\u09b0\u09cd\u09b6\u09bf\u09a6\u09be\u09ac\u09be\u09a6\u09c7\u09b0 \u09a8\u09bf\u099c\u09c7\u09b0 \u09ac\u09be\u0997\u09be\u09a8 \u09a5\u09c7\u0995\u09c7\u0964 \u09e7\u09e6\u09e6%% \u0985\u09b0\u09bf\u099c\u09bf\u09a8\u09be\u09b2, \u09e8\u09ea \u0998\u09a3\u09cd\u099f\u09be\u09af\u09bc \u09b0\u09bf\u09aa\u09cd\u09b2\u09c7\u09b8\u09ae\u09c7\u09a8\u09cd\u099f, \u20b9\u09e7\u09e6\u09e6\u09e6+ \u0985\u09b0\u09cd\u09a1\u09be\u09b0\u09c7 \u09a1\u09c7\u09b2\u09bf\u09ad\u09be\u09b0\u09bf \u09ab\u09cd\u09b0\u09bf\u0964" % name)),
             rel_html=rel_html,
+            height_row=height_row,
         )
 
         with open(os.path.join(OUT, p["_slug"] + ".html"), "w", encoding="utf-8", newline="\n") as f:
