@@ -10,6 +10,21 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Green Friend — আমের গাছ, মালদা ও মুর্শিদাবাদ">
 <meta property="og:description" content="৮ ফুট হাইটের আমের গাছ — মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ, কম দামে, ১০০% গ্যারান্টি সহ।">
+<meta property="og:url" content="https://greenfriendnursery.github.io/">
+<meta property="og:site_name" content="Green Friend">
+<meta property="og:locale" content="en_IN">
+<meta property="og:locale:alternate" content="bn_IN">
+<meta property="og:locale:alternate" content="hi_IN">
+<meta property="og:image" content="https://greenfriendnursery.github.io/og-cover.jpg">
+<meta property="og:image:secure_url" content="https://greenfriendnursery.github.io/og-cover.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Green Friend — mango plants from Malda &amp; Murshidabad, West Bengal">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Green Friend — আমের গাছ, মালদা ও মুর্শিদাবাদ">
+<meta name="twitter:description" content="৮ ফুট হাইটের আমের গাছ — কম দামে, ১০০% গ্যারান্টি সহ। ঘরে ডেলিভারি, ক্যাশ অন ডেলিভারি।">
+<meta name="twitter:image" content="https://greenfriendnursery.github.io/og-cover.jpg">
 <link rel="canonical" href="https://greenfriendnursery.github.io/">
 <link rel="preload" as="image" href="products/sb-langra-mango-1.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,7 +59,10 @@
   ]
 }
 </script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌿%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
   :root{
@@ -127,7 +145,7 @@
   .langGateBtn span{display:block;font-size:11.5px;color:var(--muted);margin-top:3px}
   .langGateBtn:hover,.langGateBtn.on{border-color:var(--gold);background:#FFFBF2}
   .langGateBtn.on b{color:var(--gold)}
-  .langGateFoot{font-size:10.5px;color:var(--muted);opacity:.8;margin-top:6px}
+  .langGateFoot{font-size:10.5px;color:#55605A;opacity:1;margin-top:6px}
 
   /* ---- homepage blocks: category tiles, stats, FAQ ---- */
   .cats{display:flex;gap:16px;overflow-x:auto;padding:10px 2px 14px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -153,7 +171,7 @@
   .promo .ptxt span{font-size:11.5px;color:#D9F2D0;font-weight:800}
   .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0 4px}
   .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 10px;text-align:center}
-  .stat b{display:block;font-size:18px;font-weight:900;color:var(--gold);letter-spacing:-.3px}
+  .stat b{display:block;font-size:19px;font-weight:900;color:#8A5A0A;letter-spacing:-.3px}
   .stat span{font-size:11px;color:var(--muted);line-height:1.35;display:block;margin-top:2px}
   .faq{display:grid;gap:8px}
   .faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
@@ -234,8 +252,9 @@
   .heroCap b{display:block;font-size:13px;letter-spacing:-.2px}
   .heroCap span{display:block;font-size:11.5px;color:#E4D6B8;margin-top:1px}
   .heroDots{position:absolute;left:50%;transform:translateX(-50%);bottom:16px;z-index:4;display:flex;gap:7px}
-  .heroDots button{width:9px;height:9px;padding:0;border:0;border-radius:999px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(0,0,0,.18);cursor:pointer;transition:width .25s,background .25s}
-  .heroDots button.on{width:28px;background:#fff}
+  .heroDots button{width:24px;height:24px;padding:0;border:0;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+  .heroDots button::before{content:"";width:9px;height:9px;border-radius:999px;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(0,0,0,.18);transition:width .25s,background .25s}
+  .heroDots button.on::before{width:22px;background:#fff}
   .heroNav{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(18,20,16,.4);color:#fff;font-size:17px;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;transition:background .2s}
   .heroNav:hover{background:rgba(18,20,16,.75)}
   .heroPrev{left:14px}
@@ -265,30 +284,6 @@
   .sec-head h2::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:6px;border-radius:4px;background:linear-gradient(180deg,var(--gold-2),var(--gold))}
   .sec-head p{margin:0;color:var(--muted);font-size:13px}
   .sec-head .grow{flex:1}
-
-  /* ---- per-section colour identity on the cream base ---- */
-  #fruitSec{--sec:#E8590C;--sec-deep:#B4530A;--sec-soft:#FFF3E2;--sec-line:#F0DDBB}
-  #flowerSec{--sec:#E64980;--sec-deep:#C2255C;--sec-soft:#FFF0F5;--sec-line:#F3D2DF}
-  #mangoSec{--sec:#E5B22E;--sec-deep:#9C6F04;--sec-soft:#FFF9E0;--sec-line:#EFE2AE}
-  #fruitSec .panel,#flowerSec .panel,#mangoSec .panel{background:linear-gradient(180deg,var(--sec-soft) 0%,#FFFFFF 62%);border-color:var(--sec-line)}
-  #fruitSec .sec-head h2::before,#flowerSec .sec-head h2::before,#mangoSec .sec-head h2::before{background:linear-gradient(180deg,var(--sec),var(--sec-deep))}
-  #fruitSec .viewall,#flowerSec .viewall,#mangoSec .viewall{color:var(--sec-deep)}
-  #fruitSec .fc .fc-thumb,#flowerSec .fc .fc-thumb{background:var(--sec-soft)}
-  #fruitSec .fc .fc-tag,#flowerSec .fc .fc-tag{background:var(--sec-deep);color:#FFF8EE}
-  #fruitSec .fc .fc-cta,#flowerSec .fc .fc-cta{background:var(--sec-deep)}
-  #mangoSec .mcard .mimg{background:var(--sec-soft)}
-  #mangoSec .mcard .mprice{color:var(--sec-deep)}
-  #mangoSec .mcard .mbtn{background:linear-gradient(135deg,var(--sec),var(--sec-deep));color:#FFF8EE}
-  .chip[data-c="ফল"].on{background:#B4530A;border-color:#B4530A}
-  .chip[data-c="ফুল"].on{background:#C2255C;border-color:#C2255C}
-  .chip[data-c="ইনডোর গাছ"].on{background:#0B7285;border-color:#0B7285}
-  .chip[data-c="Medicinal plants"].on{background:#2B8A3E;border-color:#2B8A3E}
-  .chip[data-c="বীজ"].on{background:#8A5A2B;border-color:#8A5A2B}
-  .cat-tile[data-c="ফল"] .c-ring{border-color:#F09A3E}
-  .cat-tile[data-c="ফুল"] .c-ring{border-color:#F783AC}
-  .cat-tile[data-c="ইনডোর গাছ"] .c-ring{border-color:#66D9E8}
-  .cat-tile[data-c="Medicinal plants"] .c-ring{border-color:#8CE99A}
-  .cat-tile[data-c="বীজ"] .c-ring{border-color:#D9B48F}
   .viewall{margin-left:auto;color:var(--green);font-weight:900;font-size:13px;text-decoration:none;white-space:nowrap}
   .viewall:hover{text-decoration:underline}
 
@@ -296,16 +291,11 @@
   .chips::-webkit-scrollbar{display:none}
   .chip{border:1px solid var(--line);background:#fff;color:#3C423A;border-radius:999px;padding:8px 15px;font-size:13px;font-weight:800;white-space:nowrap;cursor:pointer;font-family:inherit}
   .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
-  .chip-n{margin-left:6px;font-size:10.5px;font-weight:900;opacity:.65}
-  .gridtools{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:12.5px;font-weight:800;color:var(--muted)}
-  .gridtools select{border:1.5px solid var(--line);border-radius:999px;padding:7px 14px;font-family:inherit;font-size:12.5px;font-weight:800;background:#fff;color:var(--ink);outline:none;cursor:pointer}
-  .gridtools select:focus{border-color:var(--green)}
 
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   .more-wrap{display:flex;justify-content:center;margin:20px 0 4px}
   @media(min-width:720px){.grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 14px rgba(23,64,39,.07);display:flex;flex-direction:column;transition:.2s transform,.2s box-shadow}
-  #grid .card{background-color:hsl(var(--row-hue, 145) 65% 94%)}
   .card[data-href]{cursor:pointer}
   .shopbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#FDF6E7;border:1px solid #F1DFB6;color:#6B4A10;border-radius:14px;padding:10px 14px;font-size:13.5px;font-weight:800;margin:0 0 14px}
   .shopbar .s-clear{margin-left:auto;color:#A9741C;text-decoration:underline;font-size:12.5px;background:none;border:0;cursor:pointer;font-family:inherit;font-weight:800}
@@ -390,6 +380,10 @@
   .fcol{min-width:0}
   .fcol p{margin:5px 0;font-size:13px}
   .copy{border-top:1px solid #2C3026;margin-top:22px;padding-top:14px;font-size:12px;color:#8F9686}
+.footerLegal{margin-top:10px;font-size:12px;color:#C3CDB9;text-align:center}
+.footerLegal a{color:#E4EBD9;text-decoration:underline}
+.fineprint{margin-top:8px;font-size:11px;line-height:1.5;color:#B4BFA9;text-align:center}
+.fineprint a{color:#DCE4D2;text-decoration:underline}
 
   .fab{position:fixed;right:16px;bottom:16px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(37,211,102,.42);font-size:27px}
   .cartfab{position:fixed;left:16px;bottom:16px;z-index:60;background:linear-gradient(135deg,#F5C766,#E3A62E);color:#2A2210;border:0;border-radius:999px;padding:12px 16px;font-weight:900;font-size:13px;box-shadow:0 10px 26px rgba(200,145,35,.35);display:flex;align-items:center;gap:8px;cursor:pointer;font-family:inherit}
@@ -433,7 +427,6 @@
   .fruitgrid{display:grid;grid-template-columns:1fr;gap:12px}
   @media(min-width:720px){.fruitgrid{grid-template-columns:1fr 1fr;gap:16px}}
   .fc{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s;text-decoration:none}
-  .fruitgrid .fc{background-color:hsl(var(--row-hue, 200) 65% 94%)}
   .fc:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(23,64,39,.12)}
   .fc .fc-thumb{flex:0 0 92px;width:92px;height:92px;border-radius:12px;overflow:hidden;background:#EDF2E4;display:flex;align-items:center;justify-content:center}
   .fc .fc-thumb img{width:100%;height:100%;object-fit:cover;display:block}
@@ -448,7 +441,6 @@
   .mstrip{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .mstrip::-webkit-scrollbar{display:none}
   .mcard{flex:none;width:190px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(23,64,39,.07);display:flex;flex-direction:column;transition:transform .15s}
-  .mstrip .mcard{background-color:hsl(35 65% 94%)}
   .mcard:hover{transform:translateY(-3px)}
   .mcard .mimg{aspect-ratio:4/3.4;background:var(--green-3);display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden}
   .mcard .mimg img{width:100%;height:100%;object-fit:cover}
@@ -459,12 +451,12 @@
   .mcard a{text-decoration:none;color:inherit}
   @media(min-width:720px){.mcard{width:230px}}
 
-  .medband{position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(120deg,#0B3B36,#0F766E 55%,#14B8A6);color:#fff;display:flex;align-items:center;gap:16px;padding:22px;margin-bottom:36px;box-shadow:var(--shadow)}
+  .medband{position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(120deg,#123B22,#1E7A3C 55%,#2F9E5B);color:#fff;display:flex;align-items:center;gap:16px;padding:22px;margin-bottom:36px;box-shadow:var(--shadow)}
   .medband .mimg{position:absolute;inset:0;opacity:.22;background-size:cover;background-position:center}
   .medband > *{position:relative}
   .medband .grow{flex:1;min-width:0}
   .medband b{display:block;font-size:clamp(16px,2.6vw,21px);letter-spacing:-.3px;color:#FFF6D9}
-  .medband small{display:block;font-size:12.5px;color:#CCFBF1;margin-top:4px}
+  .medband small{display:block;font-size:12.5px;color:#D9F2D0;margin-top:4px}
   .medband .mbtn{background:linear-gradient(135deg,#FFD35C,#F2B33D);color:#2A2210;border-radius:999px;padding:11px 18px;font-weight:900;font-size:13px;white-space:nowrap;text-decoration:none}
   @media(max-width:719px){.medband{flex-wrap:wrap;padding:18px 14px}.medband .mbtn{width:100%;text-align:center}}
 
@@ -572,7 +564,7 @@
   </div>
 </div>
 
-<div class="topbar"><div class="wrap"><span class="topbarFull" data-t="topbar">🚚 All over India delivery · Free above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery</span><span class="topbarShort" data-t="topbarShort">🚚 Free delivery above ₹1000</span></div></div>
+<div class="topbar"><div class="wrap"><span class="topbarFull" data-t="topbar">🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery</span><span class="topbarShort" data-t="topbarShort">🚚 Free delivery above ₹1000</span></div></div>
 <header>
   <div class="wrap bar">
     <a class="brand" href="#top"><img class="brand-logo" src="logo.png" alt="Green Friend"></a>
@@ -657,23 +649,10 @@
         <h2 data-t="fruitT">জনপ্রিয় ফল গাছ</h2>
         <p data-t="fruitSub">গ্রাফটেড, ফল-ধরা গাছ</p>
       </div>
-      <a class="viewall" href="#plants" data-c="ফল" id="fruitAll" data-t="viewAll">সব দেখুন →</a>
+      <a class="viewall" href="#plants" data-c="" id="fruitAll" data-t="viewAll">সব দেখুন →</a>
     </div>
     <div class="panel">
       <div class="fruitgrid" id="fruitgrid"></div>
-    </div>
-  </section>
-
-  <section class="wrap" id="flowerSec" hidden>
-    <div class="sec-head">
-      <div>
-        <h2 data-t="flowerT">জনপ্রিয় ফুলের গাছ</h2>
-        <p data-t="flowerSub">রঙিন ফুল — ঘর ও বাগান সাজান</p>
-      </div>
-      <a class="viewall" href="#plants" data-c="ফুল" id="flowerAll" data-t="viewAll">সব দেখুন →</a>
-    </div>
-    <div class="panel">
-      <div class="fruitgrid" id="flowergrid"></div>
     </div>
   </section>
 
@@ -681,7 +660,7 @@
     <div class="stats">
       <div class="stat"><b data-t="st1n">৮ ফুট</b><span data-t="st1">গাছের উচ্চতা</span></div>
       <div class="stat"><b data-t="st2n">১০০%</b><span data-t="st2">অরিজিনাল গ্যারান্টি</span></div>
-      <div class="stat"><b data-t="st3n">২ জেলা</b><span data-t="st3">মালদা ও মুর্শিদাবাদ — সারা ভারতে ডেলিভারি</span></div>
+      <div class="stat"><b data-t="st3n">২ জেলা</b><span data-t="st3">মালদা ও মুর্শিদাবাদ</span></div>
       <div class="stat"><b id="statCount">—</b><span data-t="st4">গাছের রকম</span></div>
     </div>
   </div>
@@ -692,7 +671,7 @@
         <h2 data-t="mangoT">হটসেলিং আম গাছ</h2>
         <p data-t="mangoSub">মালদার বিখ্যাত আম — সেরা দামে</p>
       </div>
-      <a class="viewall" href="#plants" data-c="ফল" id="mangoAll" data-t="viewAll">সব দেখুন →</a>
+      <a class="viewall" href="#plants" data-c="" id="mangoAll" data-t="viewAll">সব দেখুন →</a>
     </div>
     <div class="panel">
       <div class="mstrip" id="mstrip"></div>
@@ -709,10 +688,6 @@
     </div>
     <div class="panel">
       <div class="chips" id="chips"></div>
-      <div class="gridtools">
-        <span data-t="sortLabel">সাজান</span>
-        <select id="sortSel" aria-label="Sort products"></select>
-      </div>
       <div class="grid" id="grid">
         <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
       </div>
@@ -844,7 +819,8 @@
       </div>
     </div>
     <div class="copy">© <span id="yr"></span> Green Friend · Malda, West Bengal</div>
-    <div style="font-size:10px;color:var(--muted);opacity:.75;margin-top:6px;text-align:center">Plant photos: Wikimedia Commons contributors (CC0 / Public domain / CC BY / CC BY-SA) · <a href="photo-credits.html" style="color:inherit;text-decoration:underline">Photo credits</a></div>
+    <div class="footerLegal"><a href="shipping.html">Shipping &amp; delivery</a> · <a href="replacement.html">Replacement policy</a> · <a href="terms.html">Terms of use</a> · <a href="photo-credits.html">Photo credits</a></div>
+    <div class="fineprint">Plant photos: Wikimedia Commons contributors (CC0 / Public domain / CC BY / CC BY-SA) — illustrative only; the plant you receive may vary slightly.</div>
   </div>
 </footer>
 
@@ -947,7 +923,7 @@
       searchPh: "গাছ খুঁজুন… (যেমন আম)", fav: "পছন্দ", favChip: "❤ পছন্দ", searchRes: "{0}টি গাছ পাওয়া গেছে", searchClear: "✕ ফলাফল মুছুন", offerCta: "অফার নিন →", viewAll: "সব দেখুন →", explore: "দেখুন →", seller: "বিক্রেতা : গ্রিন ফ্রেন্ড", shopCount: "{0}টি গাছ", shopAll: "সব দোকান", colTerrace: "টেরেস গার্ডেন", colLow: "কম যত্নের গাছ", colExotic: "এক্সোটিক ফল", colTropical: "ট্রপিক্যাল ফল",
       heroKicker: "🌿 মালদা ও মুর্শিদাবাদের নার্সারি",
       navPlants: "গাছ", navCats: "ক্যাটাগরি", navOffers: "অফার", navFaq: "প্রশ্ন", navSeller: "সেলার হোন",
-      topbar: "🚚 সারা ভারতে ডেলিভারি · ₹১০০০+ অর্ডারে ফ্রি · ✅ ১০০% অরিজিনাল গ্যারান্টি · 💵 ক্যাশ অন ডেলিভারি",
+      topbar: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি · ✅ ১০০% অরিজিনাল গ্যারান্টি · 💵 ক্যাশ অন ডেলিভারি",
       topbarShort: "🚚 ₹১০০০+ অর্ডারে ডেলিভারি ফ্রি",
       hs1t: "🥭 ল্যাংড়া আম", hs1s: "৮ ফুট গাছ · মালদা",
       hs2t: "🥭 হিমসাগর আম", hs2s: "মালদার সবচেয়ে মিষ্টি · ৮ ফুট",
@@ -965,12 +941,12 @@
       fContact: "যোগাযোগ", fHours: "🕘 সকাল ৯টা – রাত ৯টা",
       catTitle: "ক্যাটাগরি", catSub: "যা খুঁজছেন, সেখান থেকেই শুরু করুন", catItems: "পণ্য",
       st1n: "৮ ফুট", st1: "গাছের উচ্চতা", st2n: "১০০%", st2: "অরিজিনাল গ্যারান্টি",
-      st3n: "২ জেলা", st3: "মালদা ও মুর্শিদাবাদ — সারা ভারতে ডেলিভারি", st4: "গাছের রকম",
+      st3n: "২ জেলা", st3: "মালদা ও মুর্শিদাবাদ", st4: "গাছের রকম",
       faqTitle: "সাধারণ প্রশ্ন", faqSub: "ডেলিভারি, গ্যারান্টি, পেমেন্ট — ছোট ছোট উত্তর",
       shipBadge: "🚚 {0}+ অর্ডারে ডেলিভারি ফ্রি",
-      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", chooseSize: "সাইজ বেছে নিন", all: "সব", sortLabel: "সাজান", sortFeatured: "ফিচার্ড", sortPriceAsc: "দাম: কম → বেশি", sortPriceDesc: "দাম: বেশি → কম", sortName: "নাম (অ → হ)", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন", fromPrice: "{0} থেকে", size: "সাইজ",
+      order: "WhatsApp-এ অর্ডার", add: "কার্টে যোগ", buyNow: "এখনই কিনুন", chooseSize: "সাইজ বেছে নিন", all: "সব", out: "স্টক শেষ", low: "মাত্র {0}টি বাকি", off: "{0}% ছাড়", more: "আরও দেখুন", fromPrice: "{0} থেকে", size: "সাইজ",
       cart: "কার্ট", cartTitle: "আপনার কার্ট", total: "মোট", checkout: "চেকআউট",
-      delivery: "ডেলিভারি", free: "ফ্রি", freeAbove: "{0} টাকার উপরে ডেলিভারি ফ্রি", freeAboveHint: "আর {0} যোগ করলেই ডেলিভারি ফ্রি",
+      delivery: "ডেলিভারি", free: "ফ্রি", deliveryFrom: "{0} থেকে", freeAbove: "{0} টাকার উপরে ডেলিভারি ফ্রি", freeAboveHint: "আর {0} যোগ করলেই ডেলিভারি ফ্রি",
       cartEmptyT: "কার্ট খালি", cartEmptyS: "একটা গাছ যোগ করুন।",
       checkoutTitle: "অর্ডার সম্পন্ন করুন", signin: "সাইন ইন", signup: "অ্যাকাউন্ট তৈরি",
       phone: "মোবাইল নম্বর", password: "পাসওয়ার্ড", name: "আপনার নাম", continue: "চালিয়ে যান",
@@ -987,7 +963,6 @@
       waProduct: "নমস্কার! আমি এই গাছটি নিতে চাই: {0} — দাম {1}",
       pinT: "ডেলিভারি চেক করুন", pinS: "আপনার PIN কোডে ডেলিভারি হয় কিনা", pinPh: "PIN কোড (৬ সংখ্যা)", pinBtn: "চেক করুন", pinChecking: "ডেলিভারি চেক হচ্ছে…", pinFail: "এই PIN কোডে এখন ডেলিভারি পাওয়া যাচ্ছে না — WhatsApp-এ জিজ্ঞাসা করুন", pinOk: "{0} — ডেলিভারি হবে", pinCharge: "চার্জ",
       fruitT: "জনপ্রিয় ফল গাছ", fruitSub: "গ্রাফটেড, ফল-ধরা গাছ", fruitCta: "দেখুন →",
-      flowerT: "জনপ্রিয় ফুলের গাছ", flowerSub: "রঙিন ফুল — ঘর ও বাগান সাজান",
       mangoT: "হটসেলিং আম গাছ", mangoSub: "মালদার বিখ্যাত আম — সেরা দামে",
       medT: "ঔষধি গাছ", medS: "তুলসী, নিম, অ্যালোভেরা — প্রতিটি বাড়িতে দরকার। সস্তায়, গ্যারান্টি সহ।", medCta: "দেখুন →",
       askT: "আরও যা চাই", askS: "নিচের জিনিস চাইলে WhatsApp করুন — দাম ও ছবি পাঠিয়ে দেব",
@@ -1011,7 +986,7 @@
       searchPh: "Search plants… (e.g. mango)", fav: "Favourite", favChip: "❤ Favourites", searchRes: "{0} plants found", searchClear: "✕ Clear results", offerCta: "Grab offer →", viewAll: "View All →", explore: "Explore Now →", seller: "Sold By : Green Friend", shopCount: "{0} plants", shopAll: "All shops", colTerrace: "Terrace Garden", colLow: "Low Maintenance", colExotic: "Exotic Fruits", colTropical: "Tropical Fruits",
       heroKicker: "🌿 Malda & Murshidabad nursery",
       navPlants: "Plants", navCats: "Categories", navOffers: "Offers", navFaq: "FAQ", navSeller: "Become a seller",
-      topbar: "🚚 All over India delivery · Free above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery",
+      topbar: "🚚 Free delivery above ₹1000 · ✅ 100% original guarantee · 💵 Cash on delivery",
       topbarShort: "🚚 Free delivery above ₹1000",
       hs1t: "🥭 Langra mango", hs1s: "8 ft plants · Malda",
       hs2t: "🥭 Himsagar mango", hs2s: "Sweetest of Malda · 8 ft",
@@ -1029,12 +1004,12 @@
       fContact: "Contact", fHours: "🕘 9 AM – 9 PM",
       catTitle: "Categories", catSub: "Start from what you are looking for", catItems: "items",
       st1n: "8 ft", st1: "plant height", st2n: "100%", st2: "original guarantee",
-      st3n: "2 districts", st3: "Malda & Murshidabad — delivery all over India", st4: "plant varieties",
+      st3n: "2 districts", st3: "Malda & Murshidabad", st4: "plant varieties",
       faqTitle: "Frequently asked questions", faqSub: "Delivery, guarantee and payment — short answers",
       shipBadge: "🚚 Free delivery above {0}",
-      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", chooseSize: "Choose size", all: "All", sortLabel: "Sort", sortFeatured: "Featured", sortPriceAsc: "Price: low → high", sortPriceDesc: "Price: high → low", sortName: "Name (A → Z)", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more", fromPrice: "from {0}", size: "Size",
+      order: "Order on WhatsApp", add: "Add to cart", buyNow: "Buy now", chooseSize: "Choose size", all: "All", out: "Out of stock", low: "Only {0} left", off: "{0}% off", more: "Load more", fromPrice: "from {0}", size: "Size",
       cart: "Cart", cartTitle: "Your cart", total: "Total", checkout: "Checkout",
-      delivery: "Delivery", free: "FREE", freeAbove: "Free delivery above {0}", freeAboveHint: "Add {0} more for free delivery",
+      delivery: "Delivery", free: "FREE", deliveryFrom: "from {0}", freeAbove: "Free delivery above {0}", freeAboveHint: "Add {0} more for free delivery",
       cartEmptyT: "Cart is empty", cartEmptyS: "Add a plant to get started.",
       checkoutTitle: "Complete your order", signin: "Sign in", signup: "Create account",
       phone: "Mobile number", password: "Password", name: "Your name", continue: "Continue",
@@ -1051,7 +1026,6 @@
       waProduct: "Hello! I would like this plant: {0} — {1}",
       pinT: "Check delivery", pinS: "Is delivery available at your PIN?", pinPh: "PIN code (6 digits)", pinBtn: "Check", pinChecking: "Checking delivery…", pinFail: "Delivery is not available at this PIN right now — please ask on WhatsApp", pinOk: "Delivered by {0}", pinCharge: "Charge",
       fruitT: "Popular fruit plants", fruitSub: "Grafted, fruit-bearing plants", fruitCta: "See more →",
-      flowerT: "Popular flowering plants", flowerSub: "Colourful blooms for home & garden",
       mangoT: "Hotselling mango plants", mangoSub: "Malda's famous mangoes — best price",
       medT: "Medicinal plants", medS: "Tulsi, neem, aloe vera — every home needs them. Cheap, with guarantee.", medCta: "See more →",
       askT: "Want more?", askS: "If you need these, message us on WhatsApp — we will send price and photos",
@@ -1075,7 +1049,7 @@
       searchPh: "पौधे खोजें… (जैसे आम)", fav: "पसंदीदा", favChip: "❤ पसंदीदा", searchRes: "{0} पौधे मिले", searchClear: "✕ परिणाम हटाएँ", offerCta: "ऑफ़र लें →", viewAll: "सभी देखें →", explore: "अभी देखें →", seller: "विक्रेता : ग्रीन फ्रेंड", shopCount: "{0} पौधे", shopAll: "सभी दुकानें", colTerrace: "टेरेस गार्डन", colLow: "कम देखभाल वाले पौधे", colExotic: "एक्सोटिक फल", colTropical: "ट्रॉपिकल फल",
       heroKicker: "🌿 मालदा और मुर्शिदाबाद की नर्सरी",
       navPlants: "पौधे", navCats: "श्रेणियाँ", navOffers: "ऑफ़र", navFaq: "सवाल", navSeller: "विक्रेता बनें",
-      topbar: "🚚 पूरे भारत में डिलीवरी · ₹1000+ पर फ्री · ✅ 100% असली की गारंटी · 💵 कैश ऑन डिलीवरी",
+      topbar: "🚚 ₹1000+ पर डिलीवरी फ्री · ✅ 100% असली की गारंटी · 💵 कैश ऑन डिलीवरी",
       topbarShort: "🚚 ₹1000+ पर डिलीवरी फ्री",
       hs1t: "🥭 लंगड़ा आम", hs1s: "8 फीट पौधे · मालदा",
       hs2t: "🥭 हिमसागर आम", hs2s: "मालदा का सबसे मीठा · 8 फीट",
@@ -1093,12 +1067,12 @@
       fContact: "संपर्क", fHours: "🕘 सुबह 9 – रात 9",
       catTitle: "श्रेणियाँ", catSub: "जो चाहिए वहीं से शुरू करें", catItems: "आइटम",
       st1n: "8 फीट", st1: "पौधे की ऊँचाई", st2n: "100%", st2: "असली की गारंटी",
-      st3n: "2 जिले", st3: "मालदा और मुर्शिदाबाद — पूरे भारत में डिलीवरी", st4: "पौधों की किस्में",
+      st3n: "2 जिले", st3: "मालदा और मुर्शिदाबाद", st4: "पौधों की किस्में",
       faqTitle: "अक्सर पूछे जाने वाले सवाल", faqSub: "डिलीवरी, गारंटी और पेमेंट — छोटे जवाब",
       shipBadge: "🚚 {0}+ पर डिलीवरी फ्री",
-      order: "WhatsApp पर ऑर्डर", add: "कार्ट में डालें", buyNow: "अभी खरीदें", chooseSize: "साइज़ चुनें", all: "सभी", sortLabel: "क्रम", sortFeatured: "फ़ीचर्ड", sortPriceAsc: "कीमत: कम → ज़्यादा", sortPriceDesc: "कीमत: ज़्यादा → कम", sortName: "नाम (A → Z)", out: "स्टॉक खत्म", low: "सिर्फ़ {0} बाकी", off: "{0}% छूट", more: "और देखें", fromPrice: "{0} से", size: "साइज़",
+      order: "WhatsApp पर ऑर्डर", add: "कार्ट में डालें", buyNow: "अभी खरीदें", chooseSize: "साइज़ चुनें", all: "सभी", out: "स्टॉक खत्म", low: "सिर्फ़ {0} बाकी", off: "{0}% छूट", more: "और देखें", fromPrice: "{0} से", size: "साइज़",
       cart: "कार्ट", cartTitle: "आपका कार्ट", total: "कुल", checkout: "चेकआउट",
-      delivery: "डिलीवरी", free: "फ्री", freeAbove: "{0} से ऊपर डिलीवरी फ्री", freeAboveHint: "और {0} जोड़ें तो डिलीवरी फ्री",
+      delivery: "डिलीवरी", free: "फ्री", deliveryFrom: "{0} से", freeAbove: "{0} से ऊपर डिलीवरी फ्री", freeAboveHint: "और {0} जोड़ें तो डिलीवरी फ्री",
       cartEmptyT: "कार्ट खाली है", cartEmptyS: "एक पौधा जोड़ें।",
       checkoutTitle: "ऑर्डर पूरा करें", signin: "साइन इन", signup: "अकाउंट बनाएँ",
       phone: "मोबाइल नंबर", password: "पासवर्ड", name: "आपका नाम", continue: "आगे बढ़ें",
@@ -1115,7 +1089,6 @@
       waProduct: "नमस्ते! मुझे यह पौधा चाहिए: {0} — {1}",
       pinT: "डिलीवरी चेक करें", pinS: "आपके PIN कोड पर डिलीवरी होगी?", pinPh: "PIN कोड (6 अंक)", pinBtn: "चेक करें", pinChecking: "डिलीवरी जाँची जा रही है…", pinFail: "इस PIN कोड पर अभी डिलीवरी नहीं हो सकती — WhatsApp पर पूछें", pinOk: "{0} से डिलीवरी", pinCharge: "चार्ज",
       fruitT: "लोकप्रिय फल के पौधे", fruitSub: "ग्राफ्टेड, फल देने वाले पौधे", fruitCta: "और देखें →",
-      flowerT: "लोकप्रिय फूलों के पौधे", flowerSub: "रंग-बिरंगे फूल — घर और बग़ीचा सजाएँ",
       mangoT: "हॉटसेलिंग आम के पौधे", mangoSub: "मालदा के मशहूर आम — सबसे अच्छे दाम",
       medT: "औषधीय पौधे", medS: "तुलसी, नीम, एलोवेरा — हर घर की ज़रूरत। सस्ते में, गारंटी के साथ।", medCta: "और देखें →",
       askT: "और क्या चाहिए?", askS: "ये चाहिए तो WhatsApp करें — दाम और फोटो भेज देंगे",
@@ -1317,7 +1290,7 @@
     var cd = document.getElementById("cartDelivery");
     if (cd) {
       cd.innerHTML = '<div class="tot" style="border-top:0;padding-top:0;font-size:12.5px;font-weight:800;color:#6C7A66">' +
-        "<span>" + esc(t("delivery")) + "</span><span>" + (dRow.free ? esc(t("free")) : money(dRow.fee)) + "</span></div>" +
+        "<span>" + esc(t("delivery")) + "</span><span>" + (dRow.free ? esc(t("free")) : esc(fmt(t("deliveryFrom"), money(dRow.fee)))) + "</span></div>" +
         (dRow.remaining > 0 ? '<div style="font-size:11px;color:#8A9683;margin:-4px 0 8px">' + esc(fmt(t("freeAboveHint"), money(dRow.remaining))) + "</div>" : "") +
         (dRow.off ? '<div style="font-size:11px;color:#2E7D4F;margin:-4px 0 8px;font-weight:800">✓ ' + esc(fmt(t("freeAbove"), money(dRow.freeAbove))) + "</div>" : "");
     }
@@ -1607,8 +1580,6 @@
     "ফুল": { bn: "ফুল", en: "Flowers", hi: "फूल" },
     "ফল": { bn: "ফল", en: "Fruit plants", hi: "फल के पौधे" },
     "ইনডোর গাছ": { bn: "ইনডোর গাছ", en: "Indoor plants", hi: "इनडोर पौधे" },
-    "Medicinal plants": { bn: "ঔষধি গাছ", en: "Medicinal plants", hi: "औषधीय पौधे" },
-    "বীজ": { bn: "বীজ", en: "Seeds", hi: "बीज" },
     "টব": { bn: "টব", en: "Pots", hi: "गमले" },
     "অর্গানিক কেয়ার": { bn: "অর্গানিক কেয়ার", en: "Organic care", hi: "ऑर्गेनिक केयर" },
     "কম্বো প্যাক": { bn: "কম্বো প্যাক", en: "Combo pack", hi: "कॉम्बो पैक" }
@@ -1619,7 +1590,7 @@
     return map ? (map[LANG] || key) : key;
   }
   function productName(p) { if (LANG === "bn" && p.bn) return p.bn; return p.name || p.bn || "Plant"; }
-  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {}, q: "", favOn: false, shopId: "", shopName: "", sort: "" };
+  var state = { products: [], offers: [], reviews: [], cat: null, shown: 40, slugs: {}, q: "", favOn: false, shopId: "", shopName: "" };
   var fav = {};
   try { fav = JSON.parse(localStorage.getItem("gf_fav") || "{}"); } catch (e) { fav = {}; }
   function saveFav() { try { localStorage.setItem("gf_fav", JSON.stringify(fav)); } catch (e) {} }
@@ -1634,15 +1605,9 @@
     document.getElementById("fab").href = wa(t("waMsg"));
     var qbox = document.getElementById("q");
     if (qbox) qbox.placeholder = t("searchPh");
-    var ss = document.getElementById("sortSel");
-    if (ss) {
-      ss.innerHTML = [["", "sortFeatured"], ["price-asc", "sortPriceAsc"], ["price-desc", "sortPriceDesc"], ["name", "sortName"]].map(function (o) {
-        return '<option value="' + o[0] + '"' + (state.sort === o[0] ? " selected" : "") + ">" + esc(t(o[1])) + "</option>";
-      }).join("");
-    }
     document.querySelectorAll("#lang button").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-l") === LANG); });
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCart(); renderCats(); renderFaq();
-    renderFruit(); renderFlower(); renderMango(); renderMed(); renderAsk(); renderFooterCats();
+    renderFruit(); renderMango(); renderMed(); renderAsk(); renderFooterCats();
     var sw = document.getElementById("spotWa");
     if (sw) sw.href = wa(t("waMsg"));
     var pi = document.getElementById("pinIn");
@@ -1731,17 +1696,12 @@
   }
   function renderChips() {
     var box = document.getElementById("chips");
-    var order = ["ফল", "ফুল", "ইনডোর গাছ", "Medicinal plants", "বীজ", "টব", "অর্গানিক কেয়ার", "কম্বো প্যাক"];
-    var counts = {};
-    state.products.forEach(function (p) { var c = (p.category || "").trim(); if (c) counts[c] = (counts[c] || 0) + 1; });
-    var cats = Object.keys(counts).sort(function (a, b) {
-      var ia = order.indexOf(a), ib = order.indexOf(b);
-      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
-    });
+    var cats = [];
+    state.products.forEach(function (p) { var c = (p.category || "").trim(); if (c && cats.indexOf(c) < 0) cats.push(c); });
     if (!cats.length) { box.innerHTML = ""; return; }
     var html = '<button class="chip favchip' + (state.favOn ? " on" : "") + '" data-fav="1">' + esc(t("favChip")) + "</button>";
     html += '<button class="chip' + (!state.cat && !state.favOn ? " on" : "") + '" data-c="">' + esc(t("all")) + "</button>";
-    cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c && !state.favOn ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(catLabel(c)) + '<span class="chip-n">' + counts[c] + "</span></button>"; });
+    cats.forEach(function (c) { html += '<button class="chip' + (state.cat === c && !state.favOn ? " on" : "") + '" data-c="' + esc(c) + '">' + esc(catLabel(c)) + "</button>"; });
     box.innerHTML = html;
     box.querySelectorAll(".chip").forEach(function (b) {
       b.onclick = function () {
@@ -1770,24 +1730,6 @@
     var hit = state.products.filter(function (p) { return p.seller_id === state.shopId; })[0];
     state.shopName = (hit && hit.seller_name) || "Seller";
   }
-  // Keep all products in a visual row the same color as the grid reflows.
-  function colorProductRows(selector, firstHue) {
-    var cards = Array.prototype.slice.call(document.querySelectorAll(selector));
-    var tops = cards.map(function (card) { return card.offsetTop; });
-    var row = -1, previousTop;
-    cards.forEach(function (card, i) {
-      if (i === 0 || tops[i] !== previousTop) row++;
-      previousTop = tops[i];
-      card.style.setProperty("--row-hue", String((firstHue + row * 137.5) % 360));
-    });
-  }
-  function colorAllProductRows() {
-    colorProductRows("#grid .card", 145);
-    colorProductRows("#fruitgrid .fc", 200);
-    colorProductRows("#flowergrid .fc", 300);
-  }
-  window.addEventListener("resize", colorAllProductRows);
-
   function renderProducts() {
     var grid = document.getElementById("grid");
     var note = document.getElementById("plantsNote");
@@ -1809,17 +1751,6 @@
       });
     }
     if (state.favOn) list = list.filter(function (p) { return !!fav[p.id]; });
-    if (state.sort) {
-      var priceOf = function (p) {
-        var sz = productSizes(p);
-        if (sz.length) return Math.min.apply(null, sz.map(function (s) { return Number(s.price) || 0; }));
-        return Number(p.offer_price || p.price) || 0;
-      };
-      list = list.slice();
-      if (state.sort === "price-asc") list.sort(function (a, b) { return priceOf(a) - priceOf(b); });
-      else if (state.sort === "price-desc") list.sort(function (a, b) { return priceOf(b) - priceOf(a); });
-      else if (state.sort === "name") list.sort(function (a, b) { return productName(a).localeCompare(productName(b), LANG === "bn" ? "bn" : LANG === "hi" ? "hi" : "en"); });
-    }
     if (state.q) {
       note.innerHTML = '<div class="search-note">' + esc(fmt(t("searchRes"), list.length)) +
         ' <button type="button" class="s-clear" onclick="clearSearch()">' + esc(t("searchClear")) + "</button></div>";
@@ -1896,7 +1827,6 @@
           actionsHtml +
         "</div></article>";
     }).join("");
-    colorProductRows("#grid .card", 145);
     if (list.length > shown) {
       note.innerHTML += '<div class="more-wrap"><button class="btn btn-solid" id="loadMore">' +
         esc(t("more")) + " (" + (list.length - shown) + ")</button></div>";
@@ -2032,38 +1962,6 @@
     box.querySelectorAll(".fc").forEach(function (a) {
       if (a.getAttribute("data-c")) a.addEventListener("click", goCat);
     });
-    colorProductRows("#fruitgrid .fc", 200);
-  }
-
-  function renderFlower() {
-    var sec = document.getElementById("flowerSec");
-    var box = document.getElementById("flowergrid");
-    if (!sec || !box) return;
-    var list = state.products.filter(function (p) {
-      var c = (p.category || "").trim();
-      return c === "Flowers" || c === "ফুল";
-    }).slice(0, 4);
-    if (!list.length) { sec.hidden = true; return; }
-    sec.hidden = false;
-    box.innerHTML = list.map(function (p) {
-      var photos = (Array.isArray(p.image_urls) && p.image_urls.length ? p.image_urls : (p.image_url ? [p.image_url] : [])).filter(Boolean);
-      var slug = state.slugs && state.slugs[p.id];
-      var href = slug ? "product/" + slug + ".html" : "#plants";
-      var price = Number(p.offer_price || p.price) || 0;
-      var img = photos.length ? '<img loading="lazy" decoding="async" src="' + esc(thumbUrl(photos[0])) + '" alt="' + esc(productName(p)) + '">' : "";
-      return '<a class="fc" href="' + esc(href) + '" data-c="' + esc(slug ? "" : (p.category || "")) + '">' +
-        '<span class="fc-thumb">' + (img || '<span class="fcemoji">' + esc(p.emoji || "🌸") + "</span>") + "</span>" +
-        '<span class="fc-body">' +
-        '<span class="fc-tag">' + esc(catLabel(p.category).toUpperCase()) + "</span>" +
-        '<span class="fc-t">' + esc(productName(p)) + "</span>" +
-        '<span class="fc-s">' + money(price) + " · " + esc(t("b1")) + "</span>" +
-        '<span class="fc-cta">' + esc(t("fruitCta")) + "</span>" +
-        "</span></a>";
-    }).join("");
-    box.querySelectorAll(".fc").forEach(function (a) {
-      if (a.getAttribute("data-c")) a.addEventListener("click", goCat);
-    });
-    colorProductRows("#flowergrid .fc", 300);
   }
 
   function renderMango() {
@@ -2258,7 +2156,7 @@
     state.shopId = shopFromUrl();
     applyShopName();
     renderChips(); renderProducts(); renderOffers(); renderReviews(); renderCats(); renderFaq();
-    renderFruit(); renderFlower(); renderMango(); renderMed(); renderAsk(); renderFooterCats();
+    renderFruit(); renderMango(); renderMed(); renderAsk(); renderFooterCats();
     var pop = document.getElementById("coupop");
     if (pop) {
       if (state.offers.length) {
@@ -2360,12 +2258,10 @@
       var nm = (document.getElementById("nlName").value || "").trim() || "—";
       window.open(wa(t("nlMsg") + nm), "_blank");
     });
-    ["fruitAll", "flowerAll", "mangoAll"].forEach(function (id) {
+    ["fruitAll", "mangoAll"].forEach(function (id) {
       var a = document.getElementById(id);
       if (a) a.onclick = goCat;
     });
-    var sortSel = document.getElementById("sortSel");
-    if (sortSel) sortSel.onchange = function () { state.sort = sortSel.value; state.shown = 40; renderProducts(); };
     var pop = document.getElementById("coupop");
     if (pop) {
       function dismiss() { pop.classList.remove("on"); try { localStorage.setItem("gf_popup", new Date().toDateString()); } catch (e) {} }
