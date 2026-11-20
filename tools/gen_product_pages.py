@@ -28,6 +28,7 @@ HEADERS = {"apikey": KEY, "Authorization": "Bearer " + KEY}
 CAT_EN = {
     "ফুল": "Flower plants",
     "ফল": "Fruit plants",
+    "বীজ": "Seeds",
     "ইনডোর গাছ": "Indoor plants",
     "টব": "Pots",
     "অর্গানিক কেয়ার": "Organic care",
@@ -159,6 +160,8 @@ def main():
         title = "%s \u2014 %s | Green Friend, Malda" % (name, cat_en)
         if cat in ("ফল",):
             title = "%s \u2014 Mango & fruit plants from Malda | Green Friend" % name
+        if cat_en and cat_en.lower() in name.lower():
+            title = "%s | Green Friend, Malda" % name
         desc_core = "Buy %s online from Green Friend, Malda." % name
         if is_plant:
             if len(sizes) > 1:
@@ -284,7 +287,7 @@ header{{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:
 .top{{display:grid;gap:16px;margin:12px 0 22px}}
 @media(min-width:760px){{.top{{grid-template-columns:1fr 1fr;align-items:start}}}}
 .gal{{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}}
-.gal .hero{{width:100%;aspect-ratio:1/1;object-fit:contain;background:#fff;display:block}}
+.gal .hero{{width:100%;height:auto;aspect-ratio:1/1;object-fit:contain;background:#fff;display:block}}
 .gal .ph{{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:80px;background:var(--green3)}}
 .thumbs{{display:flex;gap:6px;padding:8px;overflow-x:auto}}
 .thumbs img{{width:56px;height:56px;object-fit:cover;border-radius:8px;border:1px solid var(--line);flex:0 0 auto}}
@@ -301,10 +304,6 @@ h1{{font-size:23px;line-height:1.2;margin:0 0 4px;letter-spacing:-.4px}}
 .sizes li.on span{{font-weight:800}}
 .sizes b{{color:var(--gold)}}
 .btn{{display:block;text-align:center;font-weight:900;font-size:15px;padding:14px;border-radius:14px;margin-top:10px}}
-.delivery-info{{background:#F0F7F1;border:1px solid #CBE5D4;border-radius:14px;padding:12px 14px;margin-top:10px;font-size:13px;line-height:1.55}}
-.delivery-info p{{margin:0 0 6px}}
-.delivery-info p:last-child{{margin-bottom:0}}
-.delivery-info a{{color:#14532D;text-decoration:underline;font-weight:700}}
 .solid{{background:linear-gradient(135deg,#F5C766,#E3A62E);color:#2A2210;box-shadow:0 8px 20px rgba(200,145,35,.22)}}
 .line{{background:#fff;border:1.5px solid #232820;color:#232820}}
 .dark{{background:#232820;color:#FFF6E2;box-shadow:0 8px 20px rgba(20,24,16,.18)}}
@@ -345,11 +344,6 @@ footer a{{text-decoration:underline}}
       <div class="price"><span id="priceNow">{price}</span> <small>{sizes_note}</small></div>
       <ul class="sizes">{size_rows}</ul>
       <a class="btn solid" id="addBtn" href="../index.html?add={pid}" data-add="{pid}">{add_text}</a>
-      <section class="delivery-info" aria-label="Delivery and replacement">
-        <p>🚚 <b>Delivery charge:</b> Free on orders of ₹1,000 or more. For smaller orders, the charge is shown at checkout.</p>
-        <p>📦 <b>Delivery time:</b> Approximately 2–3 days in Malda and Murshidabad, 4–5 days elsewhere in West Bengal, and 5–7 days in other states.</p>
-        <p>🌱 <b>Replacement:</b> If you receive a damaged or incorrect plant, send a photo or video on <a href="https://wa.me/{wa}">WhatsApp</a> within 24 hours of delivery. After verification, we will replace it free of charge.</p>
-      </section>
       <a class="btn dark" id="buyBtn" href="../index.html?add={pid}&amp;buy=1" data-add="{pid}">Buy now \u00b7 pay on delivery</a>
       <a class="btn line" href="https://wa.me/{wa}?text={wa_text}">{wa_label}</a>
       <ul class="specs">
@@ -494,7 +488,6 @@ h1{font-size:24px;margin:0 0 6px;letter-spacing:-.3px}
 .cat h2 span{font-size:12px;font-weight:800;color:#A9741C;background:#FDF6E7;border:1px solid #F1DFB6;border-radius:999px;padding:2px 9px}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .card{background:#fff;border:1px solid #E4E2D8;border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:4px;transition:transform .12s,box-shadow .12s}
-.card{background-color:hsl(var(--row-hue, 145) 65% 94%)}
 .card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(35,40,32,.08)}
 .card .im{display:block;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#F3F3EF}
 .card .im img{width:100%;height:100%;object-fit:cover;display:block}
@@ -513,31 +506,20 @@ footer a{color:#A9741C;font-weight:800}
 <h1>All plants</h1>
 <p class="lead">Mango and lychee plants up to 8 ft, flowers, fruit, medicinal and indoor plants \u2014 from Malda &amp; Murshidabad, West Bengal.</p>
 __SECTIONS__
+__JSONLD__
 </main>
 <footer>Green Friend \u00b7 Malda &amp; Murshidabad, West Bengal \u00b7 <a href="index.html">Shop</a> \u00b7 <a href="photo-credits.html">Photo credits</a></footer>
-<script>
-(function () {
-  function colorRows() {
-    var row = -1;
-    document.querySelectorAll('.grid').forEach(function (grid) {
-      var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
-      var tops = cards.map(function (card) { return card.offsetTop; });
-      var previousTop;
-      cards.forEach(function (card, i) {
-        if (i === 0 || tops[i] !== previousTop) row++;
-        previousTop = tops[i];
-        card.style.setProperty('--row-hue', String((145 + row * 137.5) % 360));
-      });
-    });
-  }
-  window.addEventListener('resize', colorRows);
-  colorRows();
-})();
-</script>
 </body>
 </html>
 """
+    items = [{"@type": "ListItem", "position": i, "url": SITE + "product/" + pr["_slug"] + ".html",
+              "name": pr["name"]} for i, pr in enumerate(products, 1)]
+    hub_jsonld = '<script type="application/ld+json">%s</script>' % json.dumps(
+        {"@context": "https://schema.org", "@type": "ItemList",
+         "name": "All plants \u2014 Green Friend, Malda", "numberOfItems": len(products),
+         "itemListElement": items}, ensure_ascii=False)
     hub = (hub.replace("__SITE__", SITE)
+              .replace("__JSONLD__", hub_jsonld)
               .replace("__SECTIONS__", "".join(hub_sections))
               .replace("__COUNT__", str(len(products))))
     with open(os.path.join(DOCS, "all-plants.html"), "w", encoding="utf-8", newline="\n") as f:
