@@ -1,0 +1,24 @@
+{
+  "name": "Green Friend — Plants Online",
+  "short_name": "Green Friend",
+  "description": "Mango, lychee, flower, fruit and indoor plants from Malda & Murshidabad, West Bengal. Delivered across India.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF6EC",
+  "theme_color": "#232820",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["shopping", "lifestyle", "home"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "All plants", "url": "/all-plants.html" },
+    { "name": "Become a seller", "url": "/seller.html" }
+  ]
+}
