@@ -262,6 +262,10 @@ def main():
 <title>{title}</title>
 <meta name="description" content="{description}">
 <link rel="canonical" href="{url}">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../manifest.json">
 <meta property="og:type" content="product">
 <meta property="og:title" content="{name} \u2014 Green Friend">
 <meta property="og:description" content="{description}">
@@ -366,7 +370,7 @@ footer a{{text-decoration:underline}}
 {rel_html}
 
 <footer>
-  Green Friend \u00b7 Malda &amp; Murshidabad, West Bengal \u00b7 <a href="../index.html">Shop all plants</a> \u00b7 <a href="../photo-credits.html">Photo credits</a><br>
+  Green Friend \u00b7 Malda &amp; Murshidabad, West Bengal \u00b7 <a href="../index.html">Shop all plants</a> \u00b7 <a href="../shipping.html">Shipping</a> \u00b7 <a href="../replacement.html">Replacement</a> \u00b7 <a href="../terms.html">Terms</a> \u00b7 <a href="../photo-credits.html">Photo credits</a><br>
   Prices include all taxes. Delivery is free on orders above \u20b91000.
 </footer>
 <script>
@@ -471,6 +475,10 @@ footer a{{text-decoration:underline}}
 <title>All plants \u2014 mango, lychee, flowers &amp; more | Green Friend, Malda</title>
 <meta name="description" content="Every plant Green Friend sells in one list: mango and lychee plants up to 8 ft, flowers, fruit and indoor plants. Prices from \u20b9, delivery across India.">
 <link rel="canonical" href="__SITE__all-plants.html">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
 <meta name="google-site-verification" content="qR5lAltyvuzxGO6-5d3boY0GSkn2obe0kYzR9FS0jCM">
 <meta name="theme-color" content="#173D25">
 <style>
@@ -508,7 +516,7 @@ footer a{color:#A9741C;font-weight:800}
 __SECTIONS__
 __JSONLD__
 </main>
-<footer>Green Friend \u00b7 Malda &amp; Murshidabad, West Bengal \u00b7 <a href="index.html">Shop</a> \u00b7 <a href="photo-credits.html">Photo credits</a></footer>
+<footer>Green Friend \u00b7 Malda &amp; Murshidabad, West Bengal \u00b7 <a href="index.html">Shop</a> \u00b7 <a href="shipping.html">Shipping</a> \u00b7 <a href="replacement.html">Replacement</a> \u00b7 <a href="terms.html">Terms</a> \u00b7 <a href="photo-credits.html">Photo credits</a></footer>
 </body>
 </html>
 """
