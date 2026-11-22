@@ -108,6 +108,24 @@
   .photo-chip img{width:100%;height:100%;object-fit:cover;display:block}
   .photo-chip button{position:absolute;top:3px;right:3px;width:20px;height:20px;border:0;border-radius:999px;background:rgba(20,32,24,.72);color:#fff;font-size:12px;line-height:20px;padding:0;cursor:pointer}
   .photo-chip .n{position:absolute;left:3px;bottom:3px;background:rgba(20,32,24,.72);color:#fff;font-size:9.5px;font-weight:900;border-radius:6px;padding:1px 5px}
+  /* ---------- settings / reviews ---------- */
+  h2.sh{font-size:15px;font-weight:900;margin:0 0 10px;color:var(--green)}
+  .checkline{display:flex!important;align-items:center;gap:8px;font-size:13px!important;color:var(--ink)!important;font-weight:700!important}
+  .checkline input{width:auto!important;margin:0;flex:none}
+  .catrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:9px 0;border-bottom:1px solid #EEF3E9}
+  .dimrow{display:flex;gap:6px}
+  .dimrow input{min-width:0;flex:1}
+  .catrow:last-child{border-bottom:0}
+  .catrow input{flex:1;min-width:140px;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:#FBFDF8}
+  .savebar{position:sticky;bottom:0;background:linear-gradient(rgba(245,250,240,0),#F5FAF0 38%);padding:16px 0 6px;display:flex;gap:10px;align-items:center;justify-content:flex-end}
+  .savednote{font-size:12px;color:var(--green);font-weight:800}
+  .stars{color:#C98A12;letter-spacing:1px;font-size:13px;white-space:nowrap}
+  .review{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;background:#fff}
+  .review .rvhead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:5px}
+  .review .rvtext{font-size:13px;line-height:1.55;color:var(--ink)}
+  .review .rvimg{width:64px;height:64px;border-radius:10px;object-fit:cover;border:1px solid var(--line);margin-top:7px;display:block}
+  .review .rvactions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  @media(max-width:520px){.grid2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -153,8 +171,10 @@
     <button data-tab="products" onclick="setTab('products')">Products</button>
     <button data-tab="orders" onclick="setTab('orders')">Orders</button>
     <button data-tab="offers" onclick="setTab('offers')">Offers</button>
+    <button data-tab="reviews" onclick="setTab('reviews')">Reviews</button>
     <button data-tab="customers" onclick="setTab('customers')">Customers</button>
     <button data-tab="sellers" onclick="setTab('sellers')">Sellers</button>
+    <button data-tab="settings" onclick="setTab('settings')">Settings</button>
   </nav>
   <main>
     <section id="tab-overview">
@@ -205,6 +225,100 @@
       <div id="offerList"><div class="empty">Loading…</div></div>
     </section>
 
+    <section id="tab-reviews" class="hide">
+      <h1 class="h1">Reviews</h1>
+      <p class="sub">সত্যিকারের রিভিউ দেখুন, লুকান বা মুছুন। লুকানো রিভিউ মুছে যায় না — শুধু ওয়েবসাইটে দেখায় না।</p>
+      <div class="toolbar">
+        <input id="reviewSearch" placeholder="Search name, product or review…" oninput="onReviewSearch(this.value)">
+        <button class="btn light" onclick="loadReviews()">↻ Refresh</button>
+      </div>
+      <div id="reviewList"><div class="empty">Loading…</div></div>
+    </section>
+
+    <section id="tab-settings" class="hide">
+      <h1 class="h1">Settings</h1>
+      <p class="sub">ডেলিভারি, পেমেন্ট, অ্যাপের হোম লেখা, কুরিয়ার ও ক্যাটাগরি — সব এক জায়গায়।</p>
+
+      <div class="panel">
+        <h2 class="sh">Delivery &amp; payment</h2>
+        <div class="grid2">
+          <div class="field"><label>Delivery charge (₹)</label><input id="setDelivery" inputmode="decimal" placeholder="150"></div>
+          <div class="field"><label>Free delivery above (₹)</label><input id="setFreeAbove" inputmode="decimal" placeholder="1000"></div>
+        </div>
+        <div class="field"><label class="checkline"><input type="checkbox" id="setCod"> Cash on delivery চালু</label></div>
+        <div class="field"><label class="checkline"><input type="checkbox" id="setOnline"> Online payment চালু (UPI / ব্যাংক)</label></div>
+        <div class="help">ডেলিভারি চার্জ কার্টে দেখায়। <b>১০০০ টাকার উপরে</b> ফ্রি — এই সীমাটা নিচের ঘরে বদলাতে পারবেন।</div>
+      </div>
+
+      <div class="panel">
+        <h2 class="sh">Payment details</h2>
+        <div class="grid2">
+          <div class="field"><label>UPI ID</label><input id="setUpiId" placeholder="name@ybl"></div>
+          <div class="field"><label>UPI account name</label><input id="setUpiName" placeholder="Full name"></div>
+          <div class="field"><label>Bank name</label><input id="setBankName" placeholder="Punjab National Bank"></div>
+          <div class="field"><label>Account holder</label><input id="setBankAccName" placeholder="Account name"></div>
+          <div class="field"><label>Account number</label><input id="setBankAccNo" placeholder="Account number"></div>
+          <div class="field"><label>IFSC</label><input id="setBankIfsc" placeholder="PUNB0…"></div>
+        </div>
+        <div class="field"><label>Payment note (checkout-এ দেখাবে)</label><input id="setPayNote" placeholder="যেমন: পেমেন্টের পর UTR পাঠান"></div>
+      </div>
+
+      <div class="panel">
+        <h2 class="sh">App home text</h2>
+        <div class="help">এই লেখা <b>অ্যাপের হোম স্ক্রিনে</b> যায়। ওয়েবসাইটের হিরো আলাদা ডিজাইন, সেখানে বদলায় না।</div>
+        <div class="grid2">
+          <div class="field"><label>Emoji</label><input id="setHeroEmoji" placeholder="🌱"></div>
+          <div class="field"><label>Small line (kicker)</label><input id="setHeroKicker" placeholder="A FRESH START, EVERY DAY"></div>
+        </div>
+        <div class="field"><label>Title</label><input id="setHeroTitle" placeholder="Make room for a little green."></div>
+        <div class="field"><label>Subtitle</label><input id="setHeroSub" placeholder="Plants and happy things for your home."></div>
+        <div class="grid2">
+          <div class="field"><label>Button text</label><input id="setHeroBtn" placeholder="Explore plants"></div>
+          <div class="field"><label>Trust message</label><input id="setTrust" placeholder="১০০০+ খুশি গ্রাহক"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="sh">Courier defaults (Shiprocket)</h2>
+        <div class="grid2">
+          <div class="field"><label>Pickup location</label><input id="setPickup" placeholder="Primary"></div>
+          <div class="field"><label>Default weight (kg)</label><input id="setWeight" inputmode="decimal" placeholder="0.5"></div>
+          <div class="field"><label>Default city</label><input id="setCity" placeholder="Malda"></div>
+          <div class="field"><label>Default state</label><input id="setState" placeholder="West Bengal"></div>
+          <div class="field"><label>Default pincode</label><input id="setPin" inputmode="numeric" placeholder="732101"></div>
+          <div class="field"><label>Box L × W × H (cm)</label>
+            <div class="dimrow">
+              <input id="setLength" inputmode="decimal" placeholder="15">
+              <input id="setBreadth" inputmode="decimal" placeholder="15">
+              <input id="setHeight" inputmode="decimal" placeholder="15">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="sh">Coupons &amp; alerts</h2>
+        <div class="grid2">
+          <div class="field"><label>Share coupon (%)</label><input id="setShareCoupon" inputmode="numeric" placeholder="5"></div>
+          <div class="field"><label>Review coupon (%)</label><input id="setReviewCoupon" inputmode="numeric" placeholder="10"></div>
+        </div>
+        <div class="field"><label>New order alert email</label><input id="setAlertEmail" type="email" placeholder="you@example.com"></div>
+      </div>
+
+      <div class="panel">
+        <h2 class="sh">Categories</h2>
+        <div class="help">অ্যাপে দেখানো ক্যাটাগরির তালিকা — এক লাইনে একটা। কমা দিলেও হবে।</div>
+        <div class="field"><textarea id="setCategories" rows="7" placeholder="ইনডোর গাছ&#10;ফুল&#10;ফল"></textarea></div>
+        <div style="margin-top:6px;font-size:12px;font-weight:800;color:var(--muted)">Rename a category (all products move together)</div>
+        <div id="catRenameList" style="margin-top:8px"><div class="empty">Loading…</div></div>
+      </div>
+
+      <div class="savebar">
+        <span id="settingsSaved" class="savednote"></span>
+        <button class="btn" id="settingsSaveBtn" onclick="saveSettings()">Save settings</button>
+      </div>
+    </section>
+
     <section id="tab-customers" class="hide">      <h1 class="h1">Registered customers</h1>
       <p class="sub">Everyone who created an account in the app. Newest first.</p>
       <div class="toolbar">
@@ -237,6 +351,7 @@
       <div class="field"><label>Offer price (₹, optional)</label><input id="fOffer" inputmode="numeric" placeholder="blank = no offer"></div>
       <div class="field"><label>Parcel weight (kg, blank = 1.5)</label><input id="fWeight" inputmode="decimal" placeholder="e.g. 2"></div>
     </div>
+    <div class="field"><label>Seller (blank = Green Friend)</label><select id="fSeller"><option value="">Green Friend (own product)</option></select></div>
     <div class="field"><label>Short note</label><input id="fNote" placeholder="Fresh from Green Friend"></div>
     <div class="field"><label>Note in Bengali</label><input id="fNoteBn" placeholder="তাজা গাছ, যত্নের সাথে প্যাক করা"></div>
 
@@ -303,6 +418,35 @@
   </div>
 </div>
 
+<!-- tracking modal -->
+<div id="trackOverlay" class="overlay hide" onclick="if(event.target===this)closeTracking()">
+  <div class="modal">
+    <h2>Shipment tracking</h2>
+    <p class="msub">কুরিয়ারের AWB ও ট্র্যাকিং লিংক দিন। গ্রাহক অ্যাপে অর্ডার স্ট্যাটাসের সঙ্গে দেখতে পাবে।</p>
+    <div class="grid2">
+      <div class="field"><label>Courier name</label><input id="tCourier" placeholder="e.g. Delhivery"></div>
+      <div class="field"><label>AWB / tracking number</label><input id="tAwb" placeholder="e.g. 1234567890"></div>
+    </div>
+    <div class="field"><label>Tracking URL</label><input id="tUrl" placeholder="https://…"></div>
+    <div class="grid2">
+      <div class="field"><label>Shipping status</label>
+        <select id="tStatus">
+          <option value="none">Not shipped</option>
+          <option value="packing">Packing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+        </select>
+      </div>
+      <div class="field"><label>Expected delivery</label><input id="tEta" type="date"></div>
+    </div>
+    <div id="trackErr" class="err hide"></div>
+    <div class="modal-actions">
+      <button class="btn outline" onclick="closeTracking()">Cancel</button>
+      <button class="btn" id="trackSaveBtn" onclick="saveTracking()">Save tracking</button>
+    </div>
+  </div>
+</div>
+
 <script>
 (function () {
   "use strict";
@@ -312,8 +456,9 @@
 
   var S = {
     products: [], orders: [], orderItems: [], offers: [], customers: [], visits: null,
-    tab: "overview", productQuery: "", orderQuery: "", customerQuery: "",
-    editingProduct: null, editingOffer: null, session: null
+    reviews: [], profiles: [], sellers: [], settings: null, categories: [],
+    tab: "overview", productQuery: "", orderQuery: "", customerQuery: "", reviewQuery: "",
+    editingProduct: null, editingOffer: null, editingOrder: null, session: null
   };
 
   // ---------- helpers ----------
@@ -519,7 +664,7 @@
   // ---------- tabs ----------
   window.setTab = function (tab) {
     S.tab = tab;
-    ["overview", "products", "orders", "offers", "customers", "sellers"].forEach(function (name) {
+    ["overview", "products", "orders", "offers", "reviews", "customers", "sellers", "settings"].forEach(function (name) {
       $("tab-" + name).classList.toggle("hide", name !== tab);
     });
     document.querySelectorAll("nav.tabs button").forEach(function (b) {
@@ -527,13 +672,15 @@
     });
     if (tab === "orders") loadOrders();
     if (tab === "offers") loadOffers();
+    if (tab === "reviews") loadReviews();
     if (tab === "customers") loadCustomers();
     if (tab === "sellers") loadSellers();
+    if (tab === "settings") loadSettings();
   };
 
   // ---------- data ----------
   async function loadAll() {
-    await Promise.all([loadProducts(), loadOrders(), loadOffers(), loadCustomers(), loadVisits()]);
+    await Promise.all([loadProducts(), loadOrders(), loadOffers(), loadReviews(), loadCustomers(), loadSellers(), loadVisits()]);
     renderOverview();
   }
   async function loadProducts() {
@@ -542,6 +689,8 @@
       renderProducts();
       renderOverview();
       fillCategories();
+      if (S.reviews.length) renderReviews();
+      if (S.settings) renderCategoriesRename();
     } catch (e) {
       $("productList").innerHTML = '<div class="empty">' + esc(e.message) + "</div>";
     }
@@ -574,11 +723,12 @@
   }
   async function loadCustomers() {
     try {
-      S.customers = await api("/rest/v1/profiles?select=id,full_name,phone,role,created_at&order=created_at.desc&limit=500");
-      if (!Array.isArray(S.customers)) S.customers = [];
-      S.customers = S.customers.filter(function (c) { return c.role !== "admin"; });
+      var rows = await api("/rest/v1/profiles?select=id,full_name,phone,role,created_at&order=created_at.desc&limit=500");
+      S.profiles = Array.isArray(rows) ? rows : [];
+      S.customers = S.profiles.filter(function (c) { return c.role !== "admin"; });
       renderCustomers();
       renderOverview();
+      if (S.reviews.length) renderReviews();
     } catch (e) {
       $("customerList").innerHTML = '<div class="empty">' + esc(e.message) + "</div>";
     }
@@ -593,6 +743,7 @@
     try {
       S.sellers = await api("/rest/v1/sellers?select=*&order=created_at.desc&limit=300");
       if (!Array.isArray(S.sellers)) S.sellers = [];
+      fillSellerOptions();
       renderSellers();
     } catch (e) {
       $("sellerList").innerHTML = '<div class="empty">' + esc(e.message) + "</div>";
@@ -660,11 +811,15 @@
     var live = S.products.filter(function (p) { return p.is_active !== false; }).length;
     var revenue = S.orders.reduce(function (a, o) { return a + (Number(o.total) || 0); }, 0);
     var visits = S.visits || {};
+    var hiddenReviews = (S.reviews || []).filter(function (r) { return r.is_hidden; }).length;
+    var pendingSellers = (S.sellers || []).filter(function (s) { return s.status === "pending"; }).length;
     $("statGrid").innerHTML = [
       ["Products", S.products.length + " (" + live + " live)"],
       ["Orders", S.orders.length],
       ["Sales", money(revenue)],
       ["Customers", S.customers.length],
+      ["Reviews", (S.reviews || []).length + (hiddenReviews ? " (" + hiddenReviews + " hidden)" : "")],
+      ["Sellers waiting", String(pendingSellers)],
       ["Website visits today", visits.today == null ? "—" : visits.today],
       ["Website visits total", visits.total == null ? "—" : visits.total]
     ].map(function (row) {
@@ -678,6 +833,17 @@
     var cats = {};
     S.products.forEach(function (p) { if (p.category) cats[p.category] = 1; });
     $("catList").innerHTML = Object.keys(cats).map(function (c) { return "<option value=\"" + esc(c) + "\">"; }).join("");
+    fillSellerOptions();
+  }
+  function fillSellerOptions() {
+    var sel = $("fSeller");
+    if (!sel) return;
+    var keep = sel.value;
+    var list = (S.sellers || []).slice().sort(function (a, b) { return String(a.shop_name).localeCompare(String(b.shop_name)); });
+    sel.innerHTML = '<option value="">Green Friend (own product)</option>' + list.map(function (s) {
+      return '<option value="' + esc(s.id) + '">' + esc(s.shop_name) + (s.status !== "active" ? " (not active)" : "") + "</option>";
+    }).join("");
+    if (keep && list.some(function (s) { return s.id === keep; })) sel.value = keep;
   }
   function renderProducts() {
     var list = S.products.filter(function (p) {
@@ -709,6 +875,7 @@
   window.openProduct = function (id) {
     S.editingProduct = id || null;
     showErr("productErr", "");
+    fillSellerOptions();
     var p = id ? S.products.find(function (x) { return x.id === id; }) : null;
     $("productModalTitle").textContent = p ? "Edit product" : "Add a product";
     $("productSaveBtn").textContent = p ? "Save changes" : "Save product";
@@ -725,6 +892,14 @@
     $("fPhotoStatus").textContent = "";
     renderPhotoPreview();
     $("fActive").checked = p ? p.is_active !== false : true;
+    $("fSeller").value = p && p.seller_id ? p.seller_id : "";
+    if (p && p.seller_id && $("fSeller").value !== p.seller_id) {
+      var opt = document.createElement("option");
+      opt.value = p.seller_id;
+      opt.textContent = "Seller " + p.seller_id.slice(0, 8);
+      $("fSeller").appendChild(opt);
+      $("fSeller").value = p.seller_id;
+    }
     var sizes = p ? productSizes(p) : [];
     for (var i = 0; i < 3; i++) {
       $("s" + i + "label").value = sizes[i] ? sizes[i].label : "";
@@ -979,6 +1154,7 @@
       note_bn: $("fNoteBn").value.trim(),
       image_url: urls[0] || null,
       image_urls: urls,
+      seller_id: $("fSeller").value || null,
       is_active: $("fActive").checked
     };
 
@@ -1040,9 +1216,13 @@
           return esc(i.quantity) + " × " + esc(i.product_name) + (i.size_label ? ' <span class="sz">(' + esc(i.size_label) + ")</span>" : "") + " — " + money(i.unit_price);
         }).join("<br>") : '<span style="color:var(--muted)">Items unavailable</span>') + "</div>" +
         '<div class="meta">Payment: ' + esc(o.payment_method || "COD") + (o.payment_reference ? " · Ref " + esc(o.payment_reference) : "") + "</div>" +
-        '<div class="tot">Total ' + money(o.total) + "</div>" +
+        (o.awb_code ? '<div class="meta">📦 ' + esc(o.courier_name || "Courier") + " · AWB " + esc(o.awb_code) + (o.tracking_url ? ' · <a href="' + esc(o.tracking_url) + '" target="_blank" rel="noopener">Track ↗</a>' : "") + "</div>" : "") +
+        '<div class="tot">Total ' + money(o.total) +
+          (Number(o.delivery_charge) ? " · delivery " + money(o.delivery_charge) : "") +
+          (Number(o.discount_amount) ? " · discount " + money(o.discount_amount) : "") + "</div>" +
         '<div class="actions">' +
           '<select onchange="setOrderStatus(\'' + o.id + '\', this.value)">' + statusOptions + "</select>" +
+          '<button class="btn light sm" onclick="openTracking(\'' + o.id + '\')">Tracking</button>' +
           '<button class="btn light sm" onclick="setPayment(\'' + o.id + '\',\'paid\')">Mark paid</button>' +
           '<button class="btn danger sm" onclick="setPayment(\'' + o.id + '\',\'failed\')">Reject payment</button>' +
           '<button class="btn danger sm" onclick="deleteOrder(\'' + o.id + '\')">Delete</button>' +
@@ -1079,6 +1259,52 @@
       renderOrders();
       renderOverview();
     } catch (e) { toast(e.message || "Could not delete the order", true); }
+  };
+
+  // ---------- shipment tracking ----------
+  window.openTracking = function (id) {
+    var o = S.orders.find(function (x) { return x.id === id; });
+    if (!o) return;
+    S.editingOrder = id;
+    showErr("trackErr", "");
+    $("tCourier").value = o.courier_name || o.shipment_courier || "";
+    $("tAwb").value = o.awb_code || o.shipment_awb || "";
+    $("tUrl").value = o.tracking_url || "";
+    $("tStatus").value = o.shipping_status || "none";
+    $("tEta").value = o.estimated_delivery_date ? String(o.estimated_delivery_date).slice(0, 10) : "";
+    $("trackOverlay").classList.remove("hide");
+  };
+  window.closeTracking = function () {
+    S.editingOrder = null;
+    $("trackOverlay").classList.add("hide");
+  };
+  window.saveTracking = async function () {
+    showErr("trackErr", "");
+    var id = S.editingOrder;
+    if (!id) return;
+    var o = S.orders.find(function (x) { return x.id === id; });
+    var status = $("tStatus").value;
+    var payload = {
+      courier_name: $("tCourier").value.trim() || null,
+      awb_code: $("tAwb").value.trim() || null,
+      tracking_url: $("tUrl").value.trim() || null,
+      shipping_status: status,
+      estimated_delivery_date: $("tEta").value || null
+    };
+    if ((status === "shipped" || status === "delivered") && o && !o.shipped_at) payload.shipped_at = new Date().toISOString();
+    var btn = $("trackSaveBtn");
+    btn.disabled = true; btn.textContent = "Saving…";
+    try {
+      await api("/rest/v1/orders?id=eq." + encodeURIComponent(id), { method: "PATCH", body: payload });
+      if (o) Object.assign(o, payload);
+      closeTracking();
+      toast("Tracking saved ✓");
+      renderOrders();
+    } catch (e) {
+      showErr("trackErr", e.message || "Could not save tracking.");
+    } finally {
+      btn.disabled = false; btn.textContent = "Save tracking";
+    }
   };
 
   // ---------- offers ----------
@@ -1155,6 +1381,226 @@
     } catch (e) { toast(e.message || "Could not delete offer", true); }
   };
 
+  // ---------- reviews ----------
+  window.onReviewSearch = function (v) { S.reviewQuery = String(v || "").toLowerCase(); renderReviews(); };
+  async function loadReviews() {
+    try {
+      S.reviews = await api("/rest/v1/product_reviews?select=*&order=created_at.desc&limit=300");
+      if (!Array.isArray(S.reviews)) S.reviews = [];
+      renderReviews();
+    } catch (e) {
+      $("reviewList").innerHTML = '<div class="empty">' + esc(e.message) + "</div>";
+    }
+  }
+  function reviewProductName(id) {
+    var p = (S.products || []).find(function (x) { return x.id === id; });
+    return p ? (p.bn || p.name || "") : "";
+  }
+  function reviewPersonName(id) {
+    var p = (S.profiles || []).find(function (x) { return x.id === id; });
+    return p && p.full_name ? p.full_name : "Customer";
+  }
+  function stars(n) {
+    n = Math.max(0, Math.min(5, Number(n) || 0));
+    return "★".repeat(n) + "☆".repeat(5 - n);
+  }
+  function renderReviews() {
+    var list = (S.reviews || []).filter(function (r) {
+      if (!S.reviewQuery) return true;
+      var hay = reviewProductName(r.product_id) + " " + reviewPersonName(r.user_id) + " " + (r.comment || "");
+      return hay.toLowerCase().indexOf(S.reviewQuery) >= 0;
+    });
+    if (!list.length) {
+      $("reviewList").innerHTML = '<div class="empty">' + (S.reviews && S.reviews.length ? "No reviews match that search." : "No reviews yet. Customers can review after a delivered order.") + "</div>";
+      return;
+    }
+    $("reviewList").innerHTML = list.map(function (r) {
+      var product = reviewProductName(r.product_id);
+      return '<div class="review">' +
+        '<div class="rvhead">' +
+          '<span class="stars">' + stars(r.rating) + "</span>" +
+          (r.is_hidden ? '<span class="pill off">HIDDEN</span>' : '<span class="pill">LIVE</span>') +
+          '<span class="pill">' + esc(reviewPersonName(r.user_id)) + "</span>" +
+          '<span style="color:var(--muted);font-size:11.5px">' + esc(dateText(r.created_at)) + "</span>" +
+        "</div>" +
+        (product ? '<div class="meta">Product: ' + esc(product) + "</div>" : "") +
+        (r.comment ? '<div class="rvtext" style="margin-top:6px">' + esc(r.comment) + "</div>" : '<div class="rvtext" style="margin-top:6px;color:var(--muted)">No written review.</div>') +
+        (r.image_url ? '<a href="' + esc(r.image_url) + '" target="_blank" rel="noopener"><img class="rvimg" loading="lazy" src="' + esc(r.image_url) + '" alt="Review photo"></a>' : "") +
+        '<div class="rvactions">' +
+          '<button class="btn light sm" onclick="setReviewHidden(\'' + r.id + '\',' + (r.is_hidden ? "false" : "true") + ')">' + (r.is_hidden ? "Show on website" : "Hide from website") + "</button>" +
+          '<button class="btn danger sm" onclick="deleteReview(\'' + r.id + '\')">Delete</button>' +
+        "</div></div>";
+    }).join("");
+  }
+  window.setReviewHidden = async function (id, hidden) {
+    try {
+      await api("/rest/v1/product_reviews?id=eq." + encodeURIComponent(id), { method: "PATCH", body: { is_hidden: hidden } });
+      var r = S.reviews.find(function (x) { return x.id === id; });
+      if (r) r.is_hidden = hidden;
+      renderReviews();
+      toast(hidden ? "Review hidden ✓" : "Review shown again ✓");
+    } catch (e) { toast(e.message || "Could not update the review", true); }
+  };
+  window.deleteReview = async function (id) {
+    if (!confirm("Delete this review permanently? Delete removes it from the database.")) return;
+    try {
+      await api("/rest/v1/product_reviews?id=eq." + encodeURIComponent(id), { method: "DELETE" });
+      S.reviews = S.reviews.filter(function (r) { return r.id !== id; });
+      renderReviews();
+      toast("Review deleted");
+    } catch (e) { toast(e.message || "Could not delete the review", true); }
+  };
+
+  // ---------- settings ----------
+  function setVal(id, v) { var el = $(id); if (el) el.value = v == null ? "" : String(v); }
+  function setCheck(id, v) { var el = $(id); if (el) el.checked = v !== false && v != null; }
+  function fillSettings() {
+    var s = S.settings || {};
+    setVal("setDelivery", s.delivery_charge);
+    setVal("setFreeAbove", s.free_delivery_above);
+    setCheck("setCod", s.cod_enabled);
+    setCheck("setOnline", s.online_payment_enabled);
+    setVal("setUpiId", s.upi_id);
+    setVal("setUpiName", s.upi_name);
+    setVal("setBankName", s.bank_name);
+    setVal("setBankAccName", s.bank_account_name);
+    setVal("setBankAccNo", s.bank_account_number);
+    setVal("setBankIfsc", s.bank_ifsc);
+    setVal("setPayNote", s.payment_note);
+    setVal("setHeroEmoji", s.hero_emoji);
+    setVal("setHeroKicker", s.hero_kicker);
+    setVal("setHeroTitle", s.hero_title);
+    setVal("setHeroSub", s.hero_subtitle);
+    setVal("setHeroBtn", s.hero_button_text);
+    setVal("setTrust", s.trust_message);
+    setVal("setPickup", s.shiprocket_pickup_location);
+    setVal("setCity", s.shiprocket_default_city);
+    setVal("setState", s.shiprocket_default_state);
+    setVal("setPin", s.shiprocket_default_pincode);
+    setVal("setWeight", s.shiprocket_default_weight);
+    setVal("setLength", s.shiprocket_default_length);
+    setVal("setBreadth", s.shiprocket_default_breadth);
+    setVal("setHeight", s.shiprocket_default_height);
+    setVal("setShareCoupon", s.share_coupon_percent);
+    setVal("setReviewCoupon", s.review_coupon_percent);
+    setVal("setAlertEmail", s.order_alert_email);
+    setVal("setCategories", Array.isArray(s.app_categories) ? s.app_categories.join("\n") : "");
+  }
+  async function loadSettings() {
+    try {
+      var rows = await api("/rest/v1/shop_settings?select=*&limit=1");
+      S.settings = Array.isArray(rows) ? rows[0] : rows;
+      fillSettings();
+      renderCategoriesRename();
+      $("settingsSaved").textContent = "";
+    } catch (e) {
+      $("settingsSaved").textContent = e.message || "Could not load settings.";
+    }
+  }
+  function renderCategoriesRename() {
+    var counts = {};
+    (S.products || []).forEach(function (p) { if (p.category) counts[p.category] = (counts[p.category] || 0) + 1; });
+    S.categories = Object.keys(counts).sort(function (a, b) { return a.localeCompare(b); });
+    var box = $("catRenameList");
+    if (!box) return;
+    if (!S.categories.length) { box.innerHTML = '<div class="empty">No categories yet.</div>'; return; }
+    box.innerHTML = S.categories.map(function (c, i) {
+      return '<div class="catrow"><div class="grow"><b>' + esc(c) + "</b>" +
+        '<div class="meta">' + counts[c] + " product" + (counts[c] === 1 ? "" : "s") + "</div></div>" +
+        '<input id="catNew' + i + '" placeholder="New name…">' +
+        '<button class="btn light sm" onclick="renameCategory(' + i + ')">Rename</button></div>';
+    }).join("");
+  }
+  window.renameCategory = async function (i) {
+    var oldName = S.categories[i];
+    var input = $("catNew" + i);
+    if (!oldName || !input) return;
+    var name = input.value.trim();
+    if (!name || name === oldName) return;
+    if (!confirm('Rename "' + oldName + '" to "' + name + '"? All products in this category move together.')) return;
+    try {
+      await api("/rest/v1/products?category=eq." + encodeURIComponent(oldName), { method: "PATCH", body: { category: name } });
+      var ta = $("setCategories");
+      if (ta) {
+        var lines = ta.value.split(/\r?\n|,/).map(function (s) { return s.trim(); }).filter(Boolean);
+        var at = lines.indexOf(oldName);
+        if (at >= 0) { lines[at] = name; ta.value = lines.join("\n"); }
+      }
+      toast("Category renamed ✓");
+      await loadProducts();
+      renderCategoriesRename();
+    } catch (e) { toast(e.message || "Could not rename the category", true); }
+  };
+  window.saveSettings = async function () {
+    function num(id, fallback) {
+      var v = $(id).value.trim();
+      if (v === "") return fallback;
+      var n = Number(v);
+      return isFinite(n) ? n : fallback;
+    }
+    var delivery = num("setDelivery", 0);
+    var freeAbove = num("setFreeAbove", 1000);
+    if (delivery < 0 || freeAbove < 0) return toast("Delivery charges cannot be negative.", true);
+    var share = num("setShareCoupon", 5);
+    var review = num("setReviewCoupon", 10);
+    if (share < 0 || share > 90 || review < 0 || review > 90) return toast("Coupon percent must be between 0 and 90.", true);
+    var weight = num("setWeight", 0.5);
+    var length = num("setLength", 15), breadth = num("setBreadth", 15), height = num("setHeight", 15);
+    if (weight <= 0 || length <= 0 || breadth <= 0 || height <= 0) return toast("Weight and box size must be above 0.", true);
+    var email = $("setAlertEmail").value.trim();
+    if (email && email.indexOf("@") < 1) return toast("Enter a valid alert email or leave it blank.", true);
+    var cats = $("setCategories").value.split(/\r?\n|,/).map(function (s) { return s.trim(); }).filter(Boolean);
+    cats = cats.filter(function (c, i) { return cats.indexOf(c) === i; });
+
+    var payload = {
+      delivery_charge: delivery,
+      free_delivery_above: freeAbove,
+      cod_enabled: $("setCod").checked,
+      online_payment_enabled: $("setOnline").checked,
+      upi_id: $("setUpiId").value.trim(),
+      upi_name: $("setUpiName").value.trim(),
+      bank_name: $("setBankName").value.trim(),
+      bank_account_name: $("setBankAccName").value.trim(),
+      bank_account_number: $("setBankAccNo").value.trim(),
+      bank_ifsc: $("setBankIfsc").value.trim(),
+      payment_note: $("setPayNote").value.trim(),
+      hero_emoji: $("setHeroEmoji").value.trim(),
+      hero_kicker: $("setHeroKicker").value.trim(),
+      hero_title: $("setHeroTitle").value.trim(),
+      hero_subtitle: $("setHeroSub").value.trim(),
+      hero_button_text: $("setHeroBtn").value.trim(),
+      trust_message: $("setTrust").value.trim(),
+      shiprocket_pickup_location: $("setPickup").value.trim() || "Primary",
+      shiprocket_default_city: $("setCity").value.trim(),
+      shiprocket_default_state: $("setState").value.trim(),
+      shiprocket_default_pincode: $("setPin").value.trim(),
+      shiprocket_default_weight: weight,
+      shiprocket_default_length: length,
+      shiprocket_default_breadth: breadth,
+      shiprocket_default_height: height,
+      share_coupon_percent: Math.round(share),
+      review_coupon_percent: Math.round(review),
+      order_alert_email: email,
+      app_categories: cats
+    };
+    var btn = $("settingsSaveBtn");
+    btn.disabled = true; btn.textContent = "Saving…";
+    $("settingsSaved").textContent = "";
+    try {
+      await api("/rest/v1/shop_settings?id=eq.true", { method: "PATCH", body: payload });
+      S.settings = Object.assign({}, S.settings, payload);
+      $("settingsSaved").style.color = "var(--green)";
+      $("settingsSaved").textContent = "✓ Saved — ওয়েবসাইট ও অ্যাপে লাইভ";
+      toast("Settings saved ✓");
+    } catch (e) {
+      $("settingsSaved").style.color = "var(--danger)";
+      $("settingsSaved").textContent = e.message || "Could not save settings.";
+      $("settingsSaved").style.color = "var(--danger)";
+    } finally {
+      btn.disabled = false; btn.textContent = "Save settings";
+    }
+  };
+
   // ---------- customers ----------
   window.onCustomerSearch = function (v) { S.customerQuery = String(v || "").toLowerCase(); renderCustomers(); };
   function renderCustomers() {
@@ -1174,6 +1620,11 @@
   }
 
   // ---------- go ----------
+  // Inline onclick handlers run in the global scope, so expose the loaders they call.
+  window.loadOrders = loadOrders;
+  window.loadSellers = loadSellers;
+  window.loadReviews = loadReviews;
+  window.loadSettings = loadSettings;
   boot();
 })();
 </script>
