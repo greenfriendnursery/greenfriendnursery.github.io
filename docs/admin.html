@@ -137,6 +137,16 @@
   .vrow .vname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
   .vrow .vcount{flex:none;font-weight:900;color:var(--green);background:var(--green-3);border-radius:999px;padding:2px 9px;font-size:11px}
   .vrow .vtime{flex:none;color:var(--muted);font-size:11px;font-weight:700}
+  /* ---------- homepage hero editor ---------- */
+  .heroEdRow{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid #EEF3E9}
+  .heroEdRow:last-child{border-bottom:0}
+  .heroEdThumb{flex:none;width:150px;height:64px;border-radius:10px;overflow:hidden;background:#EDF2E4;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);font-weight:800}
+  .heroEdThumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .heroEdBody{flex:1;min-width:0}
+  .heroEdUp{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+  .heroLang{border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px;background:#FBFDF8}
+  .heroLangHead{font-size:13px;font-weight:900;color:var(--green);margin-bottom:9px}
+  @media(max-width:520px){.heroEdRow{flex-direction:column}.heroEdThumb{width:100%;height:96px}}
   @media(max-width:520px){.grid2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -181,6 +191,7 @@
   <nav class="tabs">
     <button data-tab="overview" class="on" onclick="setTab('overview')">Overview</button>
     <button data-tab="visits" onclick="setTab('visits')">Visits</button>
+    <button data-tab="home" onclick="setTab('home')">Homepage</button>
     <button data-tab="products" onclick="setTab('products')">Products</button>
     <button data-tab="orders" onclick="setTab('orders')">Orders</button>
     <button data-tab="offers" onclick="setTab('offers')">Offers</button>
@@ -230,6 +241,29 @@
           <h2 class="sh">Recent visits</h2>
           <div id="recentVisits"><div class="empty">Loading…</div></div>
         </div>
+      </div>
+    </section>
+
+    <section id="tab-home" class="hide">
+      <h1 class="h1">Homepage</h1>
+      <p class="sub">হোমপেজের ৪টা বড় ব্যানার ছবি আর উপরের বড় লেখা — এখান থেকেই বদলান। সেভ করলে সাইটে সাথে সাথে লাইভ হবে।</p>
+
+      <div class="panel">
+        <h2 class="sh">Banner images (4)</h2>
+        <div class="help">চওড়া ছবি দিন (কমপক্ষে 1600 × 680)। যেকোনো ছবি খালি রাখলে সেই স্লাইড বাদ যাবে; চারটাই খালি হলে পুরনো ছবিগুলোই থেকে যাবে।</div>
+        <div id="heroSlideEditor"><div class="empty">Loading…</div></div>
+      </div>
+
+      <div class="panel">
+        <h2 class="sh">Hero text (per language)</h2>
+        <div class="help">ভাষা অনুযায়ী আলাদা লেখা। “Gold line” লেখাটা টাইটেলের পাশে সোনালি রঙে দেখায়। প্যারাগ্রাফে মোটা করার জন্য &lt;b&gt;…&lt;/b&gt; দিতে পারবেন।</div>
+        <div id="heroTextEditor"><div class="empty">Loading…</div></div>
+      </div>
+
+      <div class="savebar">
+        <span id="heroSaved" class="savednote"></span>
+        <button class="btn outline" onclick="resetHero()">Reset to current site text</button>
+        <button class="btn" id="heroSaveBtn" onclick="saveHero()">Save homepage</button>
       </div>
     </section>
 
@@ -495,6 +529,7 @@
   var S = {
     products: [], orders: [], orderItems: [], offers: [], customers: [], visits: null,
     reviews: [], profiles: [], sellers: [], settings: null, categories: [], visitRows: [],
+    hero: null, heroRowId: null,
     tab: "overview", productQuery: "", orderQuery: "", customerQuery: "", reviewQuery: "",
     editingProduct: null, editingOffer: null, editingOrder: null, session: null
   };
@@ -702,13 +737,14 @@
   // ---------- tabs ----------
   window.setTab = function (tab) {
     S.tab = tab;
-    ["overview", "visits", "products", "orders", "offers", "reviews", "customers", "sellers", "settings"].forEach(function (name) {
+    ["overview", "visits", "home", "products", "orders", "offers", "reviews", "customers", "sellers", "settings"].forEach(function (name) {
       $("tab-" + name).classList.toggle("hide", name !== tab);
     });
     document.querySelectorAll("nav.tabs button").forEach(function (b) {
       b.classList.toggle("on", b.getAttribute("data-tab") === tab);
     });
     if (tab === "visits") loadVisitRows();
+    if (tab === "home") loadHero();
     if (tab === "orders") loadOrders();
     if (tab === "offers") loadOffers();
     if (tab === "reviews") loadReviews();
@@ -754,7 +790,9 @@
   }
   async function loadOffers() {
     try {
-      S.offers = await api("/rest/v1/shop_offers?select=*&order=sort_order.asc&limit=100");
+      var rows = await api("/rest/v1/shop_offers?select=*&order=sort_order.asc&limit=100");
+      // The hidden "__gf_hero__" row stores the homepage hero config, not a real offer.
+      S.offers = (Array.isArray(rows) ? rows : []).filter(function (o) { return o.title !== HERO_ROW; });
       renderOffers();
     } catch (e) {
       $("offerList").innerHTML = '<div class="empty">' + esc(e.message) + "</div>";
@@ -969,6 +1007,180 @@
     }).join("");
   }
 
+  // ---------- homepage hero ----------
+  var HERO_ROW = "__gf_hero__";
+  var HERO_LANGS = [["bn", "বাংলা"], ["en", "English"], ["hi", "हिन्दी"]];
+  var HERO_DEFAULT = {
+    slides: [
+      { url: "hero-1.jpg", alt: "Green Friend flowering plants — bring colour to your home", link: "" },
+      { url: "hero-2.jpg", alt: "Welcome to the Green Friend plant family", link: "" },
+      { url: "hero-3.jpg", alt: "Premium grafted mango and fruit plants from Malda", link: "" },
+      { url: "hero-4.jpg", alt: "Indoor plants delivered all over India by Green Friend", link: "" }
+    ],
+    text: {
+      bn: {
+        kicker: "🌿 মালদা ও মুর্শিদাবাদের নার্সারি",
+        title: "৮ ফুট",
+        gold: "আমের গাছ",
+        sub: "আমের গাছ — <b>মালদা ও মুর্শিদাবাদের বিখ্যাত আম গাছ</b> পাওয়া যাবে। গাছের হাইট <b>৮ ফুট</b>, <b>কম দামে</b>, <b>১০০% গ্যারান্টি</b> সহ। ইনডোর গাছ, ফুল, ফল ও টবও আছে — ঘরে ডেলিভারি, ক্যাশ অন ডেলিভারি / UPI।"
+      },
+      en: {
+        kicker: "🌿 Malda & Murshidabad nursery",
+        title: "8 ft",
+        gold: "mango plants",
+        sub: "Famous mango plants — available in <b>Malda and Murshidabad</b>. Trees are <b>8 feet tall</b>, at a <b>lower price</b>, with a <b>100% guarantee</b>. Indoor plants, flowers, fruit plants and pots too — home delivery, cash on delivery or UPI."
+      },
+      hi: {
+        kicker: "🌿 मालदा और मुर्शिदाबाद की नर्सरी",
+        title: "8 फीट",
+        gold: "आम के पौधे",
+        sub: "आम के पौधे — <b>मालदा और मुर्शिदाबाद के मशहूर आम के पौधे</b> मिलते हैं। पौधे की ऊँचाई <b>8 फीट</b>, <b>कम दाम</b> में, <b>100% गारंटी</b> के साथ। इनडोर पौधे, फूल, फल और गमले भी हैं — घर डिलीवरी, कैश ऑन डिलीवरी / UPI।"
+      }
+    }
+  };
+  function heroUrlOk(u) {
+    var s = String(u || "").trim();
+    if (!s) return true;
+    if (/^(javascript|data|vbscript|file):/i.test(s)) return false;
+    if (/^[a-z][a-z0-9+.-]*:/i.test(s)) return /^https?:/i.test(s);
+    return true;
+  }
+  function heroPreview(i, url) {
+    var box = $("hThumb" + i);
+    if (!box) return;
+    box.innerHTML = url ? '<img src="' + esc(url) + '" alt="">' : "No image";
+  }
+  window.heroPreviewInput = function (i, v) { heroPreview(i, String(v || "").trim()); };
+  function heroEditor(slides, text) {
+    var all = (slides || []).slice(0, 4);
+    while (all.length < 4) all.push({});
+    $("heroSlideEditor").innerHTML = all.map(function (s, i) {
+      return '<div class="heroEdRow">' +
+        '<div class="heroEdThumb" id="hThumb' + i + '">' + (s.url ? '<img src="' + esc(s.url) + '" alt="">' : "No image") + "</div>" +
+        '<div class="heroEdBody">' +
+          '<div class="field"><label>Banner ' + (i + 1) + " — image URL</label>" +
+            '<input id="hUrl' + i + '" placeholder="hero-1.jpg or https://…" value="' + esc(s.url || "") + '" oninput="heroPreviewInput(' + i + ', this.value)"></div>' +
+          '<div class="grid2">' +
+            '<div class="field"><label>Alt text (Google &amp; screen readers)</label><input id="hAlt' + i + '" value="' + esc(s.alt || "") + '" placeholder="What the photo shows"></div>' +
+            '<div class="field"><label>Link when clicked (blank = none)</label><input id="hLink' + i + '" value="' + esc(s.link || "") + '" placeholder="#plants or https://…"></div>' +
+          "</div>" +
+          '<div class="heroEdUp">' +
+            '<input id="hFile' + i + '" type="file" accept="image/jpeg,image/png,image/webp" hidden onchange="uploadHeroImage(' + i + ', this)">' +
+            '<button class="btn light sm" type="button" onclick="document.getElementById(\'hFile' + i + '\').click()">⬆ Upload photo</button>' +
+            '<span class="savednote" id="hStatus' + i + '"></span>' +
+          "</div>" +
+        "</div></div>";
+    }).join("");
+
+    $("heroTextEditor").innerHTML = HERO_LANGS.map(function (lg) {
+      var k = lg[0], v = (text && text[k]) || {};
+      return '<div class="heroLang"><div class="heroLangHead">' + lg[1] + "</div>" +
+        '<div class="grid2">' +
+          '<div class="field"><label>Small line (kicker)</label><input id="hKick_' + k + '" value="' + esc(v.kicker || "") + '"></div>' +
+          '<div class="field"><label>Title — normal part</label><input id="hTitle_' + k + '" value="' + esc(v.title || "") + '"></div>' +
+        "</div>" +
+        '<div class="field"><label>Title — gold highlight</label><input id="hGold_' + k + '" value="' + esc(v.gold || "") + '"></div>' +
+        '<div class="field"><label>Paragraph (&lt;b&gt;…&lt;/b&gt; allowed)</label><textarea id="hSub_' + k + '" rows="3">' + esc(v.sub || "") + "</textarea></div>" +
+      "</div>";
+    }).join("");
+  }
+  async function loadHero() {
+    var note = $("heroSaved");
+    if (note) note.textContent = "";
+    var cfg = null;
+    S.heroRowId = null;
+    try {
+      var rows = await api("/rest/v1/shop_offers?select=id,message&title=eq." + encodeURIComponent(HERO_ROW) + "&limit=1");
+      var row = Array.isArray(rows) ? rows[0] : rows;
+      if (row) {
+        S.heroRowId = row.id;
+        try { cfg = JSON.parse(row.message); } catch (e) { cfg = null; }
+      }
+    } catch (e) { cfg = null; }
+    if (!cfg || typeof cfg !== "object") cfg = HERO_DEFAULT;
+    S.hero = cfg;
+    heroEditor(cfg.slides, cfg.text);
+  }
+  window.resetHero = function () {
+    heroEditor(HERO_DEFAULT.slides, HERO_DEFAULT.text);
+    $("heroSaved").textContent = "Current site text loaded — press Save to publish it.";
+  };
+  window.uploadHeroImage = async function (i, input) {
+    var file = (input.files || [])[0];
+    input.value = "";
+    var status = $("hStatus" + i);
+    if (!file) return;
+    status.textContent = "Uploading…";
+    try {
+      if (!S.session || !S.session.access_token) throw new Error("Please sign in again.");
+      if (file.size > 20 * 1024 * 1024) throw new Error("Photo must be under 20 MB.");
+      var blob = null;
+      try { blob = await shrinkPhoto(file, 2400, 0.86); } catch (e) { blob = null; }
+      var named = blob ? new File([blob], "hero-" + Date.now() + ".jpg", { type: "image/jpeg" }) : file;
+      var url = await uploadOnePhoto(named, "offer-images", "hero", true);
+      $("hUrl" + i).value = url;
+      heroPreview(i, url);
+      status.textContent = "✓ Uploaded";
+    } catch (e) {
+      status.textContent = "❌ " + (e.message || "Upload failed");
+    }
+  };
+  window.saveHero = async function () {
+    var slides = [];
+    for (var i = 0; i < 4; i++) {
+      var url = $("hUrl" + i).value.trim();
+      var alt = $("hAlt" + i).value.trim();
+      var link = $("hLink" + i).value.trim();
+      if (!url) {
+        if (alt || link) return toast("Banner " + (i + 1) + " has no image — add one or clear its text.", true);
+        continue;
+      }
+      if (!heroUrlOk(url)) return toast("Banner " + (i + 1) + ": use an http(s) or relative image link.", true);
+      if (!heroUrlOk(link)) return toast("Banner " + (i + 1) + ": the link must start with #, / or http(s).", true);
+      slides.push({ url: url, alt: alt, link: link });
+    }
+    if (!slides.length) return toast("Add at least one banner image.", true);
+
+    var text = {};
+    HERO_LANGS.forEach(function (lg) {
+      var k = lg[0];
+      text[k] = {
+        kicker: $("hKick_" + k).value.trim(),
+        title: $("hTitle_" + k).value.trim(),
+        gold: $("hGold_" + k).value.trim(),
+        sub: $("hSub_" + k).value.trim()
+      };
+    });
+
+    var cfg = { v: 1, slides: slides, text: text, updated: new Date().toISOString() };
+    var message = JSON.stringify(cfg);
+    var btn = $("heroSaveBtn");
+    btn.disabled = true; btn.textContent = "Saving…";
+    var note = $("heroSaved");
+    note.style.color = "var(--green)";
+    note.textContent = "";
+    try {
+      if (S.heroRowId) {
+        await api("/rest/v1/shop_offers?id=eq." + encodeURIComponent(S.heroRowId), { method: "PATCH", body: { message: message, is_active: true } });
+      } else {
+        var created = await api("/rest/v1/shop_offers", {
+          method: "POST",
+          body: { title: HERO_ROW, message: message, button_text: "", image_url: null, image_path: null, is_active: true, sort_order: 0 }
+        });
+        var row = Array.isArray(created) ? created[0] : created;
+        if (row && row.id) S.heroRowId = row.id;
+      }
+      S.hero = cfg;
+      note.textContent = "✓ Saved — সাইটে লাইভ (১ মিনিটে দেখা যাবে)";
+      toast("Homepage saved ✓");
+    } catch (e) {
+      note.style.color = "var(--danger)";
+      note.textContent = e.message || "Could not save the homepage.";
+    } finally {
+      btn.disabled = false; btn.textContent = "Save homepage";
+    }
+  };
+
   // ---------- products ----------
   window.onProductSearch = function (v) { S.productQuery = String(v || "").toLowerCase(); renderProducts(); };
   function fillCategories() {
@@ -1168,10 +1380,10 @@
     return GH.pages + name + ".jpg";
   }
 
-  async function uploadOnePhoto(file, bucket, folder) {
+  async function uploadOnePhoto(file, bucket, folder, forceStorage) {
     if (!S.session || !S.session.access_token) throw new Error("Please sign in again.");
     if (file.size > 20 * 1024 * 1024) throw new Error("Each photo must be under 20 MB.");
-    if (ghToken()) return uploadPhotoToGithub(file, folder);
+    if (!forceStorage && ghToken()) return uploadPhotoToGithub(file, folder);
     var ext = (file.name.split(".").pop() || "").toLowerCase();
     if (["jpeg", "jpg", "png", "webp"].indexOf(ext) < 0) {
       ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
