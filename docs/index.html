@@ -230,6 +230,7 @@
   .heroSlide.on{opacity:1;z-index:1}
   .heroSlide img{width:100%;height:100%;object-fit:cover;object-position:center}
   .heroSlide.on img{transform:none}
+  .heroSlide a{position:absolute;inset:0;display:block}
   .heroShade{position:absolute;inset:0;z-index:2;pointer-events:none;background:none}
   .heroTextSec{padding-top:40px;padding-bottom:14px;display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
   .heroMain{min-width:0}
@@ -1615,6 +1616,7 @@
     var ni = document.getElementById("nlName");
     if (ni) ni.placeholder = t("nlPh");
     try { localStorage.setItem("gf_lang", LANG); } catch (e) {}
+    applyHeroText();
   }
   function renderFaq() {
     var box = document.getElementById("faq");
@@ -2141,13 +2143,25 @@
     try {
       var res = await Promise.all([
         fetchProducts(),
-        fetch(SUPABASE_URL + "/rest/v1/shop_offers?select=id,title,message,image_url&is_active=eq.true&order=sort_order.asc&limit=4", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
+        fetch(SUPABASE_URL + "/rest/v1/shop_offers?select=id,title,message,image_url,sort_order&is_active=eq.true&order=sort_order.asc&limit=9", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); }),
         fetch(SUPABASE_URL + "/rest/v1/review_wall?select=id,rating,comment,image_url,customer_name,created_at&order=created_at.desc&limit=6", { headers: { apikey: KEY, Authorization: "Bearer " + KEY } }).then(function (r) { return r.json(); })
       ]);
       state.products = Array.isArray(res[0]) && res[0].length ? res[0] : useCache();
       if (state.products.length) { try { localStorage.setItem("gf_products", JSON.stringify({ t: Date.now(), d: state.products })); } catch (e) {} }
       state.offers = Array.isArray(res[1]) ? res[1] : [];
       state.reviews = Array.isArray(res[2]) ? res[2] : [];
+      // The hidden "__gf_hero__" row holds the homepage banner + text config.
+      var heroRow = null;
+      state.offers = state.offers.filter(function (o) {
+        if (o && o.title === "__gf_hero__") { heroRow = o; return false; }
+        return true;
+      });
+      if (heroRow && heroRow.message) {
+        try {
+          var hc = JSON.parse(heroRow.message);
+          if (hc && typeof hc === "object") heroConfig = hc;
+        } catch (e) { heroConfig = null; }
+      }
     } catch (e) { state.products = useCache(); state.offers = []; state.reviews = []; console.warn("Green Friend website:", e.message); }
     try {
       var mapRes = await fetch("product-map.json", { cache: "no-store" });
@@ -2174,6 +2188,10 @@
     }
     var sc = document.getElementById("statCount");
     if (sc) sc.textContent = (state.products.length ? state.products.length + "+" : "—");
+    if (heroConfig) {
+      if (renderHeroSlides(heroConfig)) setupHeroSlider();
+      applyHeroText();
+    }
     deepLinkAdd();
   }
 
@@ -2332,14 +2350,74 @@
     } catch (e) {}
   }
 
-  // ---------- hero banner: auto-sliding images, pause on hover ----------
-  (function () {
+  // ---------- hero banner: admin-managed images + text, auto-slide, pause on hover ----------
+  var heroConfig = null;
+  var heroTimer = null;
+  var heroIndex = 0;
+  var heroPaused = false;
+
+  function heroUrl(u, isLink) {
+    var s = String(u == null ? "" : u).trim();
+    if (!s) return "";
+    if (/^(javascript|data|vbscript|file):/i.test(s)) return "";
+    if (/^[a-z][a-z0-9+.-]*:/i.test(s) && !/^https?:/i.test(s)) return "";
+    if (isLink && s.charAt(0) === "#") return s;
+    return s;
+  }
+
+  // Only these tags may survive in admin-written hero HTML.
+  function heroSafe(s) {
+    return String(s == null ? "" : s)
+      .replace(/<\s*(script|style|iframe)[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, "")
+      .replace(/<(?!\/?(?:b|strong|i|em|br|span)(?=[\s>\/]))[^>]*>/gi, "")
+      .replace(/<(b|strong|i|em|br|span)(\s[^>]*)?>/gi, function (m, tag) { return "<" + tag.toLowerCase() + ">"; });
+  }
+
+  function applyHeroText() {
+    if (!heroConfig || !heroConfig.text) return;
+    var tx = heroConfig.text[LANG] || heroConfig.text.en;
+    if (!tx) return;
+    var k = document.querySelector(".heroKicker");
+    var h = document.querySelector("h1[data-t=h1]");
+    var p = document.querySelector("p[data-t=sub]");
+    if (k && tx.kicker) k.innerHTML = heroSafe(tx.kicker);
+    if (h) {
+      var title = heroSafe(tx.title || "");
+      var gold = heroSafe(tx.gold || "");
+      if (title || gold) h.innerHTML = title + (gold ? "<span>" + gold + "</span>" : "");
+    }
+    if (p && tx.sub) p.innerHTML = heroSafe(tx.sub);
+  }
+
+  function renderHeroSlides(cfg) {
+    var box = document.getElementById("heroSlides");
+    if (!box || !cfg || !Array.isArray(cfg.slides)) return false;
+    var out = [];
+    cfg.slides.forEach(function (s) {
+      if (!s) return;
+      var url = heroUrl(s.url);
+      if (!url) return;
+      var im = '<img src="' + esc(url) + '" alt="' + esc(s.alt || "") + '" width="2400" height="1018"' +
+        (out.length === 0 ? ' fetchpriority="high"' : ' decoding="async"') + ">";
+      var link = heroUrl(s.link, true);
+      out.push('<div class="heroSlide' + (out.length === 0 ? " on" : "") + '">' +
+        (link ? '<a href="' + esc(link) + '">' + im + "</a>" : im) + "</div>");
+    });
+    if (!out.length) return false;
+    box.innerHTML = out.join("") + '<div class="heroShade"></div>';
+    return true;
+  }
+
+  function setupHeroSlider() {
     var hero = document.getElementById("hero");
     if (!hero) return;
+    if (heroTimer) { clearInterval(heroTimer); heroTimer = null; }
     var slides = Array.prototype.slice.call(hero.querySelectorAll(".heroSlide"));
     var dotsBox = document.getElementById("heroDots");
-    if (slides.length < 2) return;
-    var index = 0, timer = null, paused = false;
+    if (dotsBox) dotsBox.innerHTML = "";
+    if (!slides.length) return;
+    if (slides.length === 1) { slides[0].classList.add("on"); return; }
+    heroIndex = 0;
     if (dotsBox) {
       dotsBox.innerHTML = slides.map(function (_, n) {
         return '<button type="button" aria-label="Slide ' + (n + 1) + '"' + (n === 0 ? ' class="on"' : "") + "></button>";
@@ -2347,27 +2425,29 @@
     }
     var dots = dotsBox ? Array.prototype.slice.call(dotsBox.querySelectorAll("button")) : [];
     function go(n) {
-      index = (n + slides.length) % slides.length;
-      slides.forEach(function (s, k) { s.classList.toggle("on", k === index); });
-      dots.forEach(function (d, k) { d.classList.toggle("on", k === index); });
+      heroIndex = (n + slides.length) % slides.length;
+      slides.forEach(function (s, k) { s.classList.toggle("on", k === heroIndex); });
+      dots.forEach(function (d, k) { d.classList.toggle("on", k === heroIndex); });
     }
     function play() {
-      if (timer) clearInterval(timer);
-      timer = setInterval(function () {
-        if (!paused && !document.hidden) go(index + 1);
+      if (heroTimer) clearInterval(heroTimer);
+      heroTimer = setInterval(function () {
+        if (!heroPaused && !document.hidden) go(heroIndex + 1);
       }, 4800);
     }
     dots.forEach(function (d, n) { d.onclick = function () { go(n); play(); }; });
     var prev = hero.querySelector(".heroPrev"), next = hero.querySelector(".heroNext");
-    if (prev) prev.onclick = function () { go(index - 1); play(); };
-    if (next) next.onclick = function () { go(index + 1); play(); };
-    hero.addEventListener("mouseenter", function () { paused = true; });
-    hero.addEventListener("mouseleave", function () { paused = false; });
-    hero.addEventListener("focusin", function () { paused = true; });
-    hero.addEventListener("focusout", function () { paused = false; });
+    if (prev) prev.onclick = function () { go(heroIndex - 1); play(); };
+    if (next) next.onclick = function () { go(heroIndex + 1); play(); };
+    // Assign (not addEventListener) so re-running this never stacks listeners.
+    hero.onmouseenter = function () { heroPaused = true; };
+    hero.onmouseleave = function () { heroPaused = false; };
+    hero.onfocusin = function () { heroPaused = true; };
+    hero.onfocusout = function () { heroPaused = false; };
     go(0);
     play();
-  })();
+  }
+  setupHeroSlider();
 
   applyLang();
   trackVisit();
