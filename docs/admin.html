@@ -125,6 +125,18 @@
   .review .rvtext{font-size:13px;line-height:1.55;color:var(--ink)}
   .review .rvimg{width:64px;height:64px;border-radius:10px;object-fit:cover;border:1px solid var(--line);margin-top:7px;display:block}
   .review .rvactions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  /* ---------- visit chart ---------- */
+  .vchartWrap{overflow-x:auto;padding-bottom:2px}
+  .vchart{display:flex;align-items:flex-end;gap:7px;height:168px;min-width:460px;padding:22px 4px 0}
+  .vcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px;min-width:20px}
+  .vbar{width:100%;max-width:34px;background:linear-gradient(180deg,#3E9B62,#1F5F3E);border-radius:8px 8px 3px 3px;min-height:3px;position:relative}
+  .vbar b{position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--green);font-weight:900}
+  .vcol i{font-style:normal;font-size:9.5px;color:var(--muted);font-weight:800;white-space:nowrap}
+  .vrow{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid #EEF3E9;font-size:12.5px}
+  .vrow:last-child{border-bottom:0}
+  .vrow .vname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+  .vrow .vcount{flex:none;font-weight:900;color:var(--green);background:var(--green-3);border-radius:999px;padding:2px 9px;font-size:11px}
+  .vrow .vtime{flex:none;color:var(--muted);font-size:11px;font-weight:700}
   @media(max-width:520px){.grid2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -168,6 +180,7 @@
   </header>
   <nav class="tabs">
     <button data-tab="overview" class="on" onclick="setTab('overview')">Overview</button>
+    <button data-tab="visits" onclick="setTab('visits')">Visits</button>
     <button data-tab="products" onclick="setTab('products')">Products</button>
     <button data-tab="orders" onclick="setTab('orders')">Orders</button>
     <button data-tab="offers" onclick="setTab('offers')">Offers</button>
@@ -191,6 +204,31 @@
         <div class="linkbar">
           <a href="index.html" target="_blank" rel="noopener">Open website ↗</a>
           <a href="https://github.com/Greenfriend9563/green-friend-app/releases" target="_blank" rel="noopener">GitHub releases ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-visits" class="hide">
+      <h1 class="h1">Website visits</h1>
+      <p class="sub">সাইটে কতজন আসছে — আজ, গতকাল, সপ্তাহ, মাস ও মোট। একই ব্রাউজার বারবার এলে মানুষ একবারই গোনা হয়।</p>
+      <div class="toolbar">
+        <span class="savednote" id="visitUpdated"></span>
+        <div class="grow"></div>
+        <button class="btn light" onclick="loadVisitRows()">↻ Refresh</button>
+      </div>
+      <div class="stats" id="visitStats"><div class="empty">Loading…</div></div>
+      <div class="panel">
+        <h2 class="sh">শেষ ১৪ দিনের ভিজিট</h2>
+        <div class="vchartWrap"><div class="vchart" id="visitChart"></div></div>
+      </div>
+      <div class="grid2" style="align-items:start">
+        <div class="panel">
+          <h2 class="sh">Popular pages (30 days)</h2>
+          <div id="topPages"><div class="empty">Loading…</div></div>
+        </div>
+        <div class="panel">
+          <h2 class="sh">Recent visits</h2>
+          <div id="recentVisits"><div class="empty">Loading…</div></div>
         </div>
       </div>
     </section>
@@ -456,7 +494,7 @@
 
   var S = {
     products: [], orders: [], orderItems: [], offers: [], customers: [], visits: null,
-    reviews: [], profiles: [], sellers: [], settings: null, categories: [],
+    reviews: [], profiles: [], sellers: [], settings: null, categories: [], visitRows: [],
     tab: "overview", productQuery: "", orderQuery: "", customerQuery: "", reviewQuery: "",
     editingProduct: null, editingOffer: null, editingOrder: null, session: null
   };
@@ -664,12 +702,13 @@
   // ---------- tabs ----------
   window.setTab = function (tab) {
     S.tab = tab;
-    ["overview", "products", "orders", "offers", "reviews", "customers", "sellers", "settings"].forEach(function (name) {
+    ["overview", "visits", "products", "orders", "offers", "reviews", "customers", "sellers", "settings"].forEach(function (name) {
       $("tab-" + name).classList.toggle("hide", name !== tab);
     });
     document.querySelectorAll("nav.tabs button").forEach(function (b) {
       b.classList.toggle("on", b.getAttribute("data-tab") === tab);
     });
+    if (tab === "visits") loadVisitRows();
     if (tab === "orders") loadOrders();
     if (tab === "offers") loadOffers();
     if (tab === "reviews") loadReviews();
@@ -736,6 +775,107 @@
   async function loadVisits() {
     try { S.visits = await api("/rest/v1/rpc/site_visit_stats", { method: "POST", body: {} }); }
     catch (e) { S.visits = null; }
+  }
+
+  // ---------- website visits ----------
+  function visitDayStart(offset) {
+    var d = new Date();
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() + (offset || 0));
+    return d.getTime();
+  }
+  function visitRowsIn(rows, from, to) {
+    return rows.filter(function (r) { return r.t >= from && (to == null || r.t < to); });
+  }
+  function visitPeople(rows) {
+    var seen = {}, n = 0;
+    rows.forEach(function (r) {
+      var v = r.visitor || "";
+      if (v && !seen[v]) { seen[v] = 1; n++; }
+    });
+    return n;
+  }
+  function visitPageLabel(p) {
+    p = String(p || "/");
+    if (p === "/" || p === "/index.html") return "Home";
+    if (p.indexOf("/?") === 0) {
+      return p.indexOf("shop=") > 0 ? "Home (seller shop link)" : "Home (with link)";
+    }
+    if (p === "/seller.html") return "Become a seller";
+    if (p === "/admin.html") return "Admin";
+    if (p.indexOf("/product/") === 0) {
+      var s = p.slice(9).replace(/\.html$/i, "").replace(/-/g, " ");
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+    return p.length > 42 ? p.slice(0, 39) + "…" : p;
+  }
+  async function loadVisitRows() {
+    var note = $("visitUpdated");
+    if (note) note.textContent = "Loading…";
+    try {
+      var since = new Date(Date.now() - 31 * 864e5).toISOString();
+      var rows = await api("/rest/v1/site_visits?select=created_at,visitor,page&created_at=gte." + encodeURIComponent(since) + "&order=created_at.desc&limit=10000");
+      S.visitRows = (Array.isArray(rows) ? rows : []).map(function (r) {
+        r.t = Date.parse(r.created_at) || 0;
+        return r;
+      });
+      renderVisits();
+      if (note) note.textContent = "Updated " + new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
+    } catch (e) {
+      if (note) note.textContent = "";
+      $("visitStats").innerHTML = '<div class="empty" style="grid-column:1/-1">' + esc(e.message || "Could not load visits.") + "</div>";
+    }
+  }
+  function renderVisits() {
+    var rows = S.visitRows || [];
+    var t0 = visitDayStart(0);
+    var today = visitRowsIn(rows, t0, null);
+    var yesterday = visitRowsIn(rows, t0 - 864e5, t0);
+    var week = visitRowsIn(rows, visitDayStart(-6), null);
+    var month = visitRowsIn(rows, visitDayStart(-29), null);
+    var all = S.visits || {};
+
+    $("visitStats").innerHTML = [
+      [today.length, "Today · " + visitPeople(today) + " people"],
+      [yesterday.length, "Yesterday · " + visitPeople(yesterday) + " people"],
+      [week.length, "Last 7 days · " + visitPeople(week) + " people"],
+      [month.length, "Last 30 days · " + visitPeople(month) + " people"],
+      [all.total == null ? month.length : all.total, "All-time visits"],
+      [all.visitors == null ? visitPeople(month) : all.visitors, "Different people (all time)"]
+    ].map(function (row) {
+      return '<div class="stat"><b>' + esc(row[0]) + "</b><span>" + esc(row[1]) + "</span></div>";
+    }).join("");
+
+    var days = [], max = 1;
+    for (var i = 13; i >= 0; i--) {
+      var start = visitDayStart(-i);
+      var end = visitDayStart(-i + 1);
+      var dr = visitRowsIn(rows, start, end);
+      days.push({ d: new Date(start), views: dr.length, people: visitPeople(dr) });
+      if (dr.length > max) max = dr.length;
+    }
+    $("visitChart").innerHTML = days.map(function (x) {
+      var h = x.views ? Math.max(5, Math.round(x.views / max * 120)) : 3;
+      var tip = x.d.toLocaleDateString("en-IN", { day: "numeric", month: "short" }) + " · " + x.views + " visits · " + x.people + " people";
+      return '<div class="vcol" title="' + esc(tip) + '"><div class="vbar" style="height:' + h + 'px">' +
+        (x.views ? "<b>" + x.views + "</b>" : "") + "</div><i>" + x.d.getDate() + "</i></div>";
+    }).join("");
+
+    var counts = {};
+    month.forEach(function (r) {
+      var p = r.page || "/";
+      counts[p] = (counts[p] || 0) + 1;
+    });
+    var top = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).slice(0, 8);
+    $("topPages").innerHTML = top.length ? top.map(function (p) {
+      return '<div class="vrow"><span class="vname">' + esc(visitPageLabel(p)) + '</span><span class="vcount">' + counts[p] + "</span></div>";
+    }).join("") : '<div class="empty">No visits in the last 30 days.</div>';
+
+    var recent = rows.slice(0, 8);
+    $("recentVisits").innerHTML = recent.length ? recent.map(function (r) {
+      var when = new Date(r.t).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+      return '<div class="vrow"><span class="vname">' + esc(visitPageLabel(r.page)) + '</span><span class="vtime">' + esc(when) + "</span></div>";
+    }).join("") : '<div class="empty">No visits recorded yet.</div>';
   }
 
   // ---------- sellers (marketplace) ----------
@@ -821,6 +961,8 @@
       ["Reviews", (S.reviews || []).length + (hiddenReviews ? " (" + hiddenReviews + " hidden)" : "")],
       ["Sellers waiting", String(pendingSellers)],
       ["Website visits today", visits.today == null ? "—" : visits.today],
+      ["Visits (7 days)", visits.week == null ? "—" : visits.week],
+      ["Unique visitors", visits.visitors == null ? "—" : visits.visitors],
       ["Website visits total", visits.total == null ? "—" : visits.total]
     ].map(function (row) {
       return '<div class="stat"><b>' + esc(row[1]) + "</b><span>" + esc(row[0]) + "</span></div>";
@@ -1625,6 +1767,7 @@
   window.loadSellers = loadSellers;
   window.loadReviews = loadReviews;
   window.loadSettings = loadSettings;
+  window.loadVisitRows = loadVisitRows;
   boot();
 })();
 </script>
